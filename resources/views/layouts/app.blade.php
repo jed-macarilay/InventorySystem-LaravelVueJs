@@ -22,7 +22,9 @@
 </head>
 <body>
     <div id="app">
-        <v-app app>
+        <v-app id="inspire" :style="{background: $vuetify.theme.themes.dark.background,}">
+            <sidebar></sidebar>
+
             <v-container>
                 @yield('content')
             </v-container>
