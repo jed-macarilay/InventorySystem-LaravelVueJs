@@ -9,7 +9,8 @@ import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 Vue.use(Vuetify)
 
-Vue.component('sidebar', require('./components/templates/Sidebar.vue').default);
+Vue.component('sidebar', require('./components/templates/Sidebar').default);
+Vue.component('dashboard', require('./components/pages/Dashboard').default);
 
 const app = new Vue({
     el: '#app',
