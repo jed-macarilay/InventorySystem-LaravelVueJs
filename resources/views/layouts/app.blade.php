@@ -26,10 +26,19 @@
             <sidebar></sidebar>
 
             <v-container>
+                <v-toolbar color="rgba(0,0,0,0)" flat class="mt-n4">
+                    <v-btn-toggle tile group color="#49D9A0" >
+                        <v-btn text>
+                            <v-icon>fa fa-arrow-left</v-icon>
+                        </v-btn>
+                        <v-btn text>
+                            <v-icon>fa fa-arrow-right</v-icon>
+                        </v-btn>
+                    </v-btn-toggle>
+                </v-toolbar>
                 @yield('content')
             </v-container>
         </v-app>
     </div>
-    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>

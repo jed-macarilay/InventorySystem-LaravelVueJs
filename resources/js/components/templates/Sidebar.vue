@@ -18,20 +18,31 @@
             </v-icon>
         </v-avatar>
         <v-divider></v-divider>
-        <v-list dense class="mt-5">
-            <v-list-item-group
-                v-model="selectedItem"
-            >
+        <v-list flat class="mt-5">
+            <v-list-item-group v-model="selectedItem">
                 <v-list-item
-                    v-for="(item, i) in items"
-                    :key="i"
                     active-class="border"
                     class="mb-5"
+                    href="/"
                 >
-                    <v-icon v-text="item.icon"></v-icon>
+                    <v-icon>fa fa-dashboard</v-icon>
+                </v-list-item>
+                <v-list-item
+                    active-class="border"
+                    class="mb-5"
+                    href="/inventory"
+                >
+                    <v-icon>fa fa-archive</v-icon>
+                </v-list-item>
+                <v-list-item
+                    active-class="border"
+                    class="mb-5"
+                    href="/vehicle"
+                >
+                    <v-icon>fa fa-truck</v-icon>
                 </v-list-item>
             </v-list-item-group>
-            </v-list>
+        </v-list>
          <div style="position: absolute; bottom: 20px; margin-left: auto; margin-right: auto; left: 0; right: 0; text-align: center;">
             <v-btn
                 icon
@@ -56,17 +67,30 @@
 
 <script>
     export default {
+        name: "Sidebar",
         data() {
             return {
                 selectedItem: 0,
                 drawer: null,
                 items: [
-                    { icon: 'fa fa-dashboard', },
-                    { icon: 'fa fa-archive', },
-                    { icon: 'fa fa-truck', },
+                    { 
+                        icon: 'fa fa-dashboard',
+                        link: '/',
+                        text: 'Dashboard',
+                    },
+                    { 
+                        icon: 'fa fa-archive',
+                        link: '/inventory',
+                        text: 'Inventory',
+                    },
+                    { 
+                        icon: 'fa fa-truck', 
+                        link: '/truck-tracking',
+                        text: 'Truck Tracking',
+                    },
                 ],
             }
-        }
+        },
     }
 </script>
 
