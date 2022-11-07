@@ -24,11 +24,22 @@ Route::prefix('inventory')->group(function () {
 Route::prefix('vehicle')->group(function () {
     Route::get('/', 'VehicleController@index');
     Route::get('create', 'VehicleController@create');
+    Route::get('edit/{vehicle}', 'VehicleController@edit');
+
+    Route::prefix('shippings')->group(function() {
+        Route::get('{vehicle}', 'ShippingController@index');
+    });
 });
 
 Route::prefix('api')->group(function () {
     Route::prefix('vehicle')->group(function () {
         Route::get('/', 'Api\VehicleController@index');
         Route::post('store', 'Api\VehicleController@store');
+        Route::put('edit/{vehicle}', 'Api\VehicleController@edit');
+        Route::delete('delete/{vehicle}', 'Api\VehicleController@destroy');
+
+        Route::prefix('shippings')->group(function() {
+            Route::get('{vehicle}', 'Api\VehicleShippingController@index');
+        });
     });    
 });

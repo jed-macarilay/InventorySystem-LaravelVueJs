@@ -24,6 +24,9 @@ Vue.component('inventory-create', require('./components/pages/Inventory/Create')
 
 Vue.component('vehicle-index', require('./components/pages/Vehicles/Index').default);
 Vue.component('vehicle-create', require('./components/pages/Vehicles/Create').default);
+Vue.component('vehicle-edit', require('./components/pages/Vehicles/Edit').default);
+
+Vue.component('shipping-index', require('./components/pages/Shippings/Index').default);
 
 const app = new Vue({
     el: '#app',

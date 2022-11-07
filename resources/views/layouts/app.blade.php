@@ -23,19 +23,25 @@
 <body>
     <div id="app">
         <v-app id="inspire" :style="{background: $vuetify.theme.themes.dark.background,}">
-            <sidebar></sidebar>
+            @auth
+            <sidebar
+                current-link="{{ Request::path() }}"
+            ></sidebar>
+            @endauth
 
             <v-container>
-                <v-toolbar color="rgba(0,0,0,0)" flat class="mt-n4">
-                    <v-btn-toggle tile group color="#49D9A0" >
-                        <v-btn text>
-                            <v-icon>fa fa-arrow-left</v-icon>
-                        </v-btn>
-                        <v-btn text>
-                            <v-icon>fa fa-arrow-right</v-icon>
-                        </v-btn>
-                    </v-btn-toggle>
-                </v-toolbar>
+                @auth
+                    <v-toolbar color="rgba(0,0,0,0)" flat class="mt-n4">
+                        <v-btn-toggle tile group color="#49D9A0" >
+                            <v-btn 
+                                onclick="history.back()" 
+                                text
+                            >
+                                <v-icon>fa fa-arrow-left</v-icon>
+                            </v-btn>
+                        </v-btn-toggle>
+                    </v-toolbar>
+                @endauth
                 @yield('content')
             </v-container>
         </v-app>

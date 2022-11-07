@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Vehicle;
 
 class VehicleController extends Controller
 {
@@ -17,5 +18,13 @@ class VehicleController extends Controller
 
     public function create() {
         return view('pages.vehicles.create');
+    }
+
+    public function edit(Vehicle $vehicle) {
+        $edit_vehicle = Vehicle::find($vehicle);
+
+        $data['vehicle'] = $edit_vehicle;
+
+        return view('pages.vehicles.edit', $data);
     }
 }

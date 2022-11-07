@@ -68,6 +68,13 @@
 <script>
     export default {
         name: "Sidebar",
+        props: {
+            currentLink: {
+              type: String,
+              default: '/',
+              required: false,
+            }
+        },
         data() {
             return {
                 selectedItem: 0,
@@ -90,6 +97,20 @@
                     },
                 ],
             }
+        },
+        mounted() {
+          this.getCurrentLink(this.currentLink)
+        },
+        methods: {
+          getCurrentLink(link) {
+            if (link === 'inventory' || link === 'inventory/create' || link === 'inventory/edit') {
+              this.selectedItem = 1
+            } else if (link === 'vehicle' || link === 'vehicle/create' || link === 'vehicle/edit') {
+              this.selectedItem = 2
+            } else {
+              this.selectedItem = 0
+            }
+          },
         },
     }
 </script>

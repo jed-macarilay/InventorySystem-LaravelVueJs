@@ -30,4 +30,25 @@ class VehicleController extends Controller
             'message' => 'Added new vehicle successful.',
         ];
     }
+
+    public function edit(
+        Request $request, 
+        Vehicle $vehicle
+    ) {
+        if ($vehicle->update($request->all())) {
+            return [
+                'status' => 'success',
+                'message' => 'Update existed vehicle successful.',
+            ];
+        }
+    }
+
+    public function destroy(Vehicle $vehicle) {
+        if ($vehicle->delete()) {
+            return [
+                'status' => 'success',
+                'message' => 'Deleted successful.',
+            ];
+        }
+    }
 }

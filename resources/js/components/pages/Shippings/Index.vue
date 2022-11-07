@@ -1,7 +1,7 @@
 <template>
     <div>
       <v-toolbar flat class="mt-n5">
-        <v-toolbar-title>Vehicle</v-toolbar-title>
+        <v-toolbar-title>List of Shippings</v-toolbar-title>
      </v-toolbar>
       <v-item-group mandatory class="mt-n4">
         <v-container>
@@ -30,9 +30,9 @@
                           <div class="mb-4">
                               <v-icon  x-large :color="active ? 'white' : '#49D9A0'">fa fa-plus-square</v-icon>
                           </div>
-                          <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">Add new item</v-list-item-subtitle>
+                          <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">Add new shipping</v-list-item-subtitle>
                           <v-list-item-title class="headline mb-1" :class="active ? 'white--text' : 'black--text'">
-                            <strong>{{ vehicles.length }}</strong>
+                            <strong>{{ shippings.length }}</strong>
                           </v-list-item-title>
                           
                         </v-list-item-content>
@@ -52,9 +52,6 @@
         :items-per-page="5"
         class="elevation-1 mt-10 ml-5"
       >
-        <template v-slot:item.plate_no="{ item }">
-            <a :href="`/vehicle/shippings/${item.id}`">{{ item.plate_no }}</a>
-          </template>
         <template v-slot:item.actions="{ item }">
           <v-icon
             small
@@ -79,6 +76,12 @@
 
     export default {
       name: "Vehicles",
+      props: {
+        vehicle: {
+          type: [Array, Object],
+          required: true,
+        }
+      },
       components: {
         Snackbar,
       },
@@ -87,29 +90,32 @@
           toggle_exclusive: 1,
           headers: [
             {
-              text: 'Plate #',
+              text: 'Receiver',
               align: 'start',
               sortable: false,
-              value: 'plate_no',
+              value: 'receiver',
             },
-            { text: 'Driver', value: 'driver' },
+            { text: 'Contact #', value: 'contact_number' },
+            { text: 'Address', value: 'address' },
+            { text: 'Status', value: 'status' },
             { text: 'Actions', value: 'actions' },
           ],
           vehicles: [],
+          shippings: [],
           snackbarShow: false,
           message: '',
         }
       },
       mounted() {
-        this.fetchVehicles()
+        this.fetchShippings()
       },
       methods: {
-        fetchVehicles() {
-          axios.get('/api/vehicle')
+        fetchShippings() {
+          axios.get(`/api/vehicle/shippings/${this.vehicle.id}`)
             .then(response => {
-              this.vehicles = response.data.data
+              this.shippings = response.data.data
             })
-            .catch(error => console.log(error))
+            .catch(error => console.log(error.response.data.message))
         },
         editVehicle(vehicle) {
           window.location.href = `/vehicle/edit/${vehicle.id}`
@@ -120,7 +126,7 @@
               .then(response => {
                 this.snackbarShow = true
                 this.message = response.data.message
-                this.fetchVehicles()
+                this.fetchShippings()
               })
               .catch(error => {
                 this.snackbarShow = true

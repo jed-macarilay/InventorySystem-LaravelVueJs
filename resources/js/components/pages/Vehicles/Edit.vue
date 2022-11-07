@@ -2,7 +2,7 @@
     <div>
         <v-card class="pa-5 mt-4">
             <v-toolbar flat class="mt-n5">
-                <v-toolbar-title>Add Vehicle</v-toolbar-title>
+                <v-toolbar-title>Edit Vehicle</v-toolbar-title>
             </v-toolbar>
             <v-divider class="mr-6"></v-divider>
             <v-card-text>
@@ -16,7 +16,7 @@
                                 <strong>Plate No. *</strong>
                             </label>
                             <v-text-field
-                                v-model="vehicle.plate_no"
+                                v-model="vehicle[0].plate_no"
                                 placeholder="Enter Vehicle Plate No."
                                 outlined
                                 dense
@@ -30,7 +30,7 @@
                                 <strong>Driver</strong>
                             </label>
                             <v-text-field
-                                v-model="vehicle.driver"
+                                v-model="vehicle[0].driver"
                                 placeholder="Enter Vehicle Driver"
                                 outlined
                                 dense
@@ -46,9 +46,9 @@
                             :loading="isLoading"
                             color="#49D9A0"
                             text
-                            @click="addVehicle"
+                            @click="updateVehicle(vehicle)"
                         >
-                            Submit
+                            Update
                         </v-btn>
                     </v-card-actions>
                 </v-form>
@@ -67,12 +67,17 @@ import Snackbar from '../../templates/Snackbar.vue';
 
     export default {
         name: "VehicleCreate",
+        props: {
+            vehicle: {
+                type: [Object, Array],
+                required: true,
+            }
+        },
         components: {
           Snackbar,
         },
         data() {
             return {
-                vehicle: {},
                 plateNoFieldRules: [
                     v => !!v || 'Plate No. is required',
                 ],
@@ -96,9 +101,24 @@ import Snackbar from '../../templates/Snackbar.vue';
                         })
                         .catch(error => {
                             this.snackbarShow = true
-                            this.message = error.response.data.message
+                            this.message = error
                             this.isLoading = false
                         })
+                }
+            },
+            updateVehicle(vehicle) {
+                if (this.$refs.form.validate()) {
+                    axios.put(`/api/vehicle/edit/${vehicle[0].id}`, vehicle[0])
+                      .then(response => {
+                          this.snackbarShow = true
+                          this.message = response.data.message
+                          this.isLoading = false
+                      })
+                      .catch(error => {
+                          this.snackbarShow = true
+                          this.message = error.response.data.message
+                          this.isLoading = false
+                      })
                 }
             },
         },
