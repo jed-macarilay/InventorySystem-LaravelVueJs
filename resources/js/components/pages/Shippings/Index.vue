@@ -1,7 +1,10 @@
 <template>
     <div>
-      <v-toolbar flat class="mt-n5">
-        <v-toolbar-title>List of Shippings</v-toolbar-title>
+      <v-toolbar flat class="mt-5 mb-10">
+        <v-toolbar-title>
+          List of Shippings <br />
+          Vehicle Plate Number <strong>{{ vehicle.plate_no }}
+        </strong></v-toolbar-title>
      </v-toolbar>
       <v-item-group mandatory class="mt-n4">
         <v-container>
@@ -24,7 +27,7 @@
                       <v-list-item 
                         three-line  
                         class="mt-10"
-                        href="/vehicle/create"
+                        :href="`/vehicle/shippings/${vehicle.id}/create`"
                       >
                         <v-list-item-content>
                           <div class="mb-4">
@@ -48,7 +51,7 @@
       <v-divider></v-divider>
       <v-data-table
         :headers="headers"
-        :items="vehicles"
+        :items="shippings"
         :items-per-page="5"
         class="elevation-1 mt-10 ml-5"
       >
@@ -56,15 +59,9 @@
           <v-icon
             small
             class="mr-2"
-            @click="editVehicle(item)"
+            @click="editShipping(item.id)"
           >
             fa fa-pencil
-          </v-icon>
-          <v-icon
-            small
-            @click="deleteVehicle(item)"
-          >
-            fa fa-trash
           </v-icon>
         </template>
       </v-data-table>
@@ -75,7 +72,7 @@
   import Snackbar from '../../templates/Snackbar.vue'
 
     export default {
-      name: "Vehicles",
+      name: "Shippings",
       props: {
         vehicle: {
           type: [Array, Object],
@@ -114,25 +111,12 @@
           axios.get(`/api/vehicle/shippings/${this.vehicle.id}`)
             .then(response => {
               this.shippings = response.data.data
+              console.log(this.shippings);
             })
             .catch(error => console.log(error.response.data.message))
         },
-        editVehicle(vehicle) {
-          window.location.href = `/vehicle/edit/${vehicle.id}`
-        },
-        deleteVehicle(vehicle) {
-          if (confirm('Are you sure to delete this data?')) {
-            axios.delete(`/api/vehicle/delete/${vehicle.id}`)
-              .then(response => {
-                this.snackbarShow = true
-                this.message = response.data.message
-                this.fetchShippings()
-              })
-              .catch(error => {
-                this.snackbarShow = true
-                this.message = error.response.data.message
-              })
-          }
+        editShipping(id) {
+          window.location.href = `/vehicle/shippings/${id}/edit`
         },
       },
     }

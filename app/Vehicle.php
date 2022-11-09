@@ -17,6 +17,6 @@ class Vehicle extends Model
     ];
 
     public function shippings() {
-        return $this->hasMany(Shipping::class);
+        return $this->hasMany(Shipping::class)->latest();
     }
 }

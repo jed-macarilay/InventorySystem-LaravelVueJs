@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::post('api/login', 'Api\AuthController@login');
+
 Auth::routes();
 
 Route::get('/', 'DashboardController@index')->name('dashboard');
@@ -28,6 +30,8 @@ Route::prefix('vehicle')->group(function () {
 
     Route::prefix('shippings')->group(function() {
         Route::get('{vehicle}', 'ShippingController@index');
+        Route::get('{vehicle}/create', 'ShippingController@create');
+        Route::get('{shipping}/edit', 'ShippingController@edit');
     });
 });
 
@@ -40,6 +44,8 @@ Route::prefix('api')->group(function () {
 
         Route::prefix('shippings')->group(function() {
             Route::get('{vehicle}', 'Api\VehicleShippingController@index');
+            Route::post('{vehicle}/create', 'Api\VehicleShippingController@create');
+            Route::put('{shipping}/edit', 'Api\VehicleShippingController@edit');
         });
     });    
 });

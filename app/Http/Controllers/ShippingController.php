@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Vehicle;
+use App\Shipping;
 
 class ShippingController extends Controller
 {
@@ -15,5 +16,16 @@ class ShippingController extends Controller
     public function index(Vehicle $vehicle) {
         $data['vehicle'] = $vehicle;
         return view('pages.shippings.index', $data);
+    }
+
+    public function create(Vehicle $vehicle) {
+        $data['vehicle'] = $vehicle;
+        return view('pages.shippings.create', $data);
+    }
+
+    public function edit(Shipping $shipping) {
+        return view('pages.shippings.edit', [
+            'shipping' => $shipping,
+        ]);
     }
 }
