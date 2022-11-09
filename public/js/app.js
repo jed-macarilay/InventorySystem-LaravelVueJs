@@ -3105,7 +3105,7 @@ var render = function render() {
     }
   }, [_c("strong", [_vm._v("Status")])]), _vm._v(" "), _c("v-select", {
     attrs: {
-      items: ["To be Shipping", "To be Deliver"],
+      items: ["To be Deliver", "To be Shipped", "Delivered"],
       outlined: "",
       dense: "",
       rounded: "",

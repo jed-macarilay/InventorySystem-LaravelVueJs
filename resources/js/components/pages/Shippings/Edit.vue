@@ -59,7 +59,7 @@
                             </label>
                             <v-select
                               v-model="edit_shipping.status"
-                              :items="['To be Shipping', 'To be Deliver']"
+                              :items="['To be Deliver', 'To be Shipped', 'Delivered']"
                               outlined
                               dense
                               rounded
