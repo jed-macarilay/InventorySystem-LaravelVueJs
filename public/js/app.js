@@ -2057,8 +2057,13 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _templates_Snackbar_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../templates/Snackbar.vue */ "./resources/js/components/templates/Snackbar.vue");
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Inventory",
+  components: {
+    Snackbar: _templates_Snackbar_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
   data: function data() {
     return {
       toggle_exclusive: 1,
@@ -2077,7 +2082,9 @@ __webpack_require__.r(__webpack_exports__);
         text: 'Actions',
         value: 'actions'
       }],
-      products: []
+      products: [],
+      message: '',
+      snackbarShow: false
     };
   },
   mounted: function mounted() {
@@ -2094,6 +2101,19 @@ __webpack_require__.r(__webpack_exports__);
     },
     editProduct: function editProduct(product) {
       window.location.href = "/inventory/edit/".concat(product.id);
+    },
+    deleteVehicle: function deleteVehicle(product) {
+      var _this2 = this;
+      if (confirm('Are you sure to delete this product?')) {
+        axios["delete"]("/api/inventory/product/delete/".concat(product.id)).then(function (response) {
+          _this2.snackbarShow = true;
+          _this2.message = response.data.message;
+          _this2.fetchProduct();
+        })["catch"](function (error) {
+          _this2.snackbarShow = true;
+          _this2.message = error.response.data.message;
+        });
+      }
     }
   }
 });
@@ -3111,6 +3131,11 @@ var render = function render() {
         }, [_vm._v("\n          fa fa-trash\n        ")])];
       }
     }])
+  }), _vm._v(" "), _c("snackbar", {
+    attrs: {
+      show: _vm.snackbarShow,
+      message: _vm.message
+    }
   })], 1);
 };
 var staticRenderFns = [];
@@ -3462,6 +3487,11 @@ var render = function render() {
         }, [_vm._v("\n        fa fa-pencil\n      ")])];
       }
     }])
+  }), _vm._v(" "), _c("snackbar", {
+    attrs: {
+      show: _vm.snackbarShow,
+      message: _vm.message
+    }
   })], 1);
 };
 var staticRenderFns = [];
@@ -3775,6 +3805,11 @@ var render = function render() {
         }, [_vm._v("\n        fa fa-trash\n      ")])];
       }
     }])
+  }), _vm._v(" "), _c("snackbar", {
+    attrs: {
+      show: _vm.snackbarShow,
+      message: _vm.message
+    }
   })], 1);
 };
 var staticRenderFns = [];

@@ -65,6 +65,11 @@
           </v-icon>
         </template>
       </v-data-table>
+
+      <snackbar 
+        :show="snackbarShow"
+        :message="message"
+      />
     </div>
   </template>
   

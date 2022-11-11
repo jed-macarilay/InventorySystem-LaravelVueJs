@@ -41,4 +41,13 @@ class InventoryController extends Controller
             ];
         }
     }
+
+    public function destroy(Inventory $inventory) {
+        if ($inventory->delete()) {
+            return [
+                'status' => 'success',
+                'message' => 'Deleted successful.',
+            ];
+        }
+    }
 }

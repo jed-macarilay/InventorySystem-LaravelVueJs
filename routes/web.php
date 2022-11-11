@@ -42,6 +42,7 @@ Route::prefix('api')->group(function () {
             Route::get('/', 'Api\InventoryController@index');
             Route::post('create', 'Api\InventoryController@create');
             Route::put('edit/{inventory}', 'Api\InventoryController@edit');
+            Route::delete('delete/{inventory}', 'Api\InventoryController@destroy');
         });
     });
 

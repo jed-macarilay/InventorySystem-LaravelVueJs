@@ -68,46 +68,72 @@
             </v-icon>
           </template>
       </v-data-table>
+
+      <snackbar 
+        :show="snackbarShow"
+        :message="message"
+      />
     </div>
   </template>
   
   <script>
-    export default {
-      name: "Inventory",
-      data () {
-        return {
-          toggle_exclusive: 1,
-          headers: [
-            {
-              text: 'Product Name',
-              align: 'start',
-              sortable: false,
-              value: 'product_name',
-            },
-            { text: 'Serial Code', value: 'serial_code' },
-            { text: 'Quantity', value: 'quantity' },
-            { text: 'Actions', value: 'actions' },
-          ],
-          products: [],
+  import Snackbar from '../../templates/Snackbar.vue'
+
+  export default {
+    name: "Inventory",
+    components: {
+      Snackbar,
+    },
+    data () {
+      return {
+        toggle_exclusive: 1,
+        headers: [
+          {
+            text: 'Product Name',
+            align: 'start',
+            sortable: false,
+            value: 'product_name',
+          },
+          { text: 'Serial Code', value: 'serial_code' },
+          { text: 'Quantity', value: 'quantity' },
+          { text: 'Actions', value: 'actions' },
+        ],
+        products: [],
+        message: '',
+        snackbarShow: false,
+      }
+    },
+    mounted() {
+      this.fetchProduct()
+    },
+    methods: {
+      fetchProduct() {
+        axios.get(`/api/inventory/product`)
+          .then(response => {
+            this.products = response.data.data
+          })
+          .catch(error => console.log(error.response.data.message))
+      },
+      editProduct(product) {
+        window.location.href = `/inventory/edit/${product.id}`
+      },
+      deleteVehicle(product) {
+        if (confirm('Are you sure to delete this product?')) {
+          axios.delete(`/api/inventory/product/delete/${product.id}`)
+          .then(response => {
+              this.snackbarShow = true
+              this.message = response.data.message
+              this.fetchProduct()
+          })
+          .catch(error => {
+              this.snackbarShow = true
+              this.message = error.response.data.message
+          })
         }
-      },
-      mounted() {
-        this.fetchProduct()
-      },
-      methods: {
-        fetchProduct() {
-          axios.get(`/api/inventory/product`)
-            .then(response => {
-              this.products = response.data.data
-            })
-            .catch(error => console.log(error.response.data.message))
-        },
-        editProduct(product) {
-          window.location.href = `/inventory/edit/${product.id}`
-        },
-      },
-    }
-  </script>
+    },
+    },
+  }
+</script>
   
   <style>
     .space{
