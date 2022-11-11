@@ -93,7 +93,7 @@
 import Snackbar from '../../templates/Snackbar.vue';
 
     export default {
-        name: "ShippingsCreate",
+        name: "ShippingsEdit",
         props: {
             shipping: {
                 type: [Array, Object],

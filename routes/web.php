@@ -21,6 +21,7 @@ Route::get('/', 'DashboardController@index')->name('dashboard');
 Route::prefix('inventory')->group(function () {
     Route::get('/', 'InventoryController@index');
     Route::get('create', 'InventoryController@create');
+    Route::get('edit/{inventory}', 'InventoryController@edit');
 });
 
 Route::prefix('vehicle')->group(function () {
@@ -36,6 +37,14 @@ Route::prefix('vehicle')->group(function () {
 });
 
 Route::prefix('api')->group(function () {
+    Route::prefix('inventory')->group(function() {
+        Route::prefix('product')->group(function() {
+            Route::get('/', 'Api\InventoryController@index');
+            Route::post('create', 'Api\InventoryController@create');
+            Route::put('edit/{inventory}', 'Api\InventoryController@edit');
+        });
+    });
+
     Route::prefix('vehicle')->group(function () {
         Route::get('/', 'Api\VehicleController@index');
         Route::post('store', 'Api\VehicleController@store');

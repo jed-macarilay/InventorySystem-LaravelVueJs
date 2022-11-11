@@ -53,8 +53,8 @@
         class="elevation-1 mt-10 ml-5"
       >
         <template v-slot:item.plate_no="{ item }">
-            <a :href="`/vehicle/shippings/${item.id}`">{{ item.plate_no }}</a>
-          </template>
+          <a :href="`/vehicle/shippings/${item.id}`">{{ item.plate_no }}</a>
+        </template>
         <template v-slot:item.actions="{ item }">
           <v-icon
             small

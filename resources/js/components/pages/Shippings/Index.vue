@@ -111,7 +111,6 @@
           axios.get(`/api/vehicle/shippings/${this.vehicle.id}`)
             .then(response => {
               this.shippings = response.data.data
-              console.log(this.shippings);
             })
             .catch(error => console.log(error.response.data.message))
         },

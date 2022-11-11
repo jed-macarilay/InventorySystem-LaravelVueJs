@@ -21,6 +21,7 @@ Vue.component('dashboard', require('./components/pages/Dashboard').default);
 
 Vue.component('inventory-index', require('./components/pages/Inventory/Index').default);
 Vue.component('inventory-create', require('./components/pages/Inventory/Create').default);
+Vue.component('inventory-edit', require('./components/pages/Inventory/Edit').default);
 
 Vue.component('vehicle-index', require('./components/pages/Vehicles/Index').default);
 Vue.component('vehicle-create', require('./components/pages/Vehicles/Create').default);

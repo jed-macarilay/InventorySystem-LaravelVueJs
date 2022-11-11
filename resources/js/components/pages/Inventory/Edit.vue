@@ -2,7 +2,7 @@
     <div>
         <v-card class="pa-5 mt-4">
             <v-toolbar flat class="mt-n5">
-                <v-toolbar-title>Create Product</v-toolbar-title>
+                <v-toolbar-title>Edit Product <strong>{{ product.product_name }}</strong></v-toolbar-title>
             </v-toolbar>
             <v-divider class="mr-6"></v-divider>
             <v-card-text>
@@ -16,7 +16,7 @@
                             <strong>Product Name</strong>
                         </label>
                         <v-text-field
-                          v-model="product.product_name"
+                          v-model="edit_product.product_name"
                           outlined
                           dense
                           rounded
@@ -29,12 +29,13 @@
                             <strong>Serial Code</strong>
                         </label>
                         <v-text-field
-                          v-model="product.serial_code"
+                          v-model="edit_product.serial_code"
                           outlined
                           dense
                           rounded
                           required
                           :rules="serialCodeRule"
+                          disabled
                         ></v-text-field>
                     </div>
                     <div>
@@ -42,7 +43,7 @@
                             <strong>Quantity</strong>
                         </label>
                         <v-text-field
-                          v-model="product.quantity"
+                          v-model="edit_product.quantity"
                           type="number"
                           outlined
                           dense
@@ -59,9 +60,9 @@
                       color="#49D9A0"
                       text
                       :loading="isLoading"
-                      @click="addProduct"
+                      @click="editProduct"
                   >
-                      Submit
+                      Update
                   </v-btn>
                 </v-card-actions>
             </v-card-text>
@@ -78,13 +79,19 @@
   import Snackbar from '../../templates/Snackbar.vue'
 
   export default {
-      name: "InventoryCreate",
+      name: "InventoryEdit",
+      props: {
+        product: {
+            type: [Array, Object],
+            required: true,
+        }
+      },
       components: {
         Snackbar,
       },
       data() {
         return {
-          product: {},
+          edit_product: this.product,
           snackbarShow: false,
           message: '',
           isLoading: false,
@@ -100,14 +107,13 @@
         }
       },
       methods: {
-          addProduct() {
+          editProduct() {
             if (this.$refs.form.validate()) {
-              axios.post(`/api/inventory/product/create`, this.product)
+              axios.put(`/api/inventory/product/edit/${this.product.id}`, this.edit_product)
                 .then(response => {
                     this.snackbarShow = true
                     this.message = response.data.message
                     this.isLoading = false
-                    this.$refs.form.reset()
                 })
                 .catch(error => {
                     this.snackbarShow = true
