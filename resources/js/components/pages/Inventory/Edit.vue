@@ -40,6 +40,33 @@
                     </div>
                     <div>
                         <label for="">
+                            <strong>Description</strong>
+                        </label>
+                        <v-textarea
+                          v-model="product.description"
+                          outlined
+                          dense
+                          rounded
+                          placeholder="Enter Description"
+                        ></v-textarea>
+                    </div>
+                    <div>
+                        <label for="">
+                            <strong>Retail Price</strong>
+                        </label>
+                        <v-text-field
+                          v-model="product.retail_price"
+                          type="number"
+                          outlined
+                          dense
+                          rounded
+                          required
+                          :rules="retailPriceRule"
+                          placeholder="Enter Retail price"
+                        ></v-text-field>
+                    </div>
+                    <div>
+                        <label for="">
                             <strong>Quantity</strong>
                         </label>
                         <v-text-field
@@ -100,6 +127,9 @@
           ],
           serialCodeRule: [
             v => !!v || 'Serial code is required',
+          ],
+          retailPriceRule: [
+            v => !!v || 'Product price is required',
           ],
           quantityRule: [
             v => !!v || 'Product quantity is required',

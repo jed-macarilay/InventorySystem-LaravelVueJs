@@ -28,4 +28,8 @@ class ShippingController extends Controller
             'shipping' => $shipping,
         ]);
     }
+    
+    public function map(Shipping $shipping) {
+        return view('pages.shippings.map');
+    }
 }

@@ -19,4 +19,8 @@ class Vehicle extends Model
     public function shippings() {
         return $this->hasMany(Shipping::class)->latest();
     }
+
+    protected $casts = [
+        'updated_at' => 'datetime:l jS F Y, h:i:s A',
+    ];
 }

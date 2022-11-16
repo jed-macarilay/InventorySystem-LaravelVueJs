@@ -55,6 +55,8 @@
                         </div>
                     </v-col>
                     <v-divider></v-divider>
+                    <ItemCreate />
+                    <v-divider></v-divider>
                     <v-card-actions>
                         <v-btn
                             :loading="isLoading"
@@ -77,7 +79,8 @@
 </template>
 
 <script>
-import Snackbar from '../../templates/Snackbar.vue';
+import Snackbar from '../../templates/Snackbar.vue'
+import ItemCreate from './Items/Create.vue'
 
     export default {
         name: "ShippingsCreate",
@@ -89,6 +92,7 @@ import Snackbar from '../../templates/Snackbar.vue';
         },
         components: {
           Snackbar,
+          ItemCreate,
         },
         data() {
             return {
@@ -96,7 +100,7 @@ import Snackbar from '../../templates/Snackbar.vue';
                   receiver: '',
                   contact_number: '',
                   address: '',
-                  status: 'To be Deliver',
+                  status: 'In Progress',
                 },
                 isLoading: false,
                 snackbarShow: false,

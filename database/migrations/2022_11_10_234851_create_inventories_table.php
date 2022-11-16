@@ -17,7 +17,10 @@ class CreateInventoriesTable extends Migration
             $table->id();
             $table->string('product_name');
             $table->string('serial_code');
+            $table->string('description')->nullable();
             $table->integer('quantity');
+            $table->integer('last_quantity')->nullable();
+            $table->float('retail_price')->default(0.00);
             $table->softDeletes();
             $table->timestamps();
         });

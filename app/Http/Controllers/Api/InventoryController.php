@@ -34,7 +34,14 @@ class InventoryController extends Controller
         Request $request, 
         Inventory $inventory
     ) {
-        if ($inventory->update($request->all())) {
+        $inventory->product_name = $request->product_name;
+        $inventory->serial_code = $request->serial_code;
+        $inventory->description = $request->description;
+        $inventory->last_quantity = $inventory->quantity;
+        $inventory->quantity = $request->quantity;
+        $inventory->retail_price = $request->retail_price;
+        
+        if ($inventory->save()) {
             return [
                 'status' => 'success',
                 'message' => 'Update existed product successful.',

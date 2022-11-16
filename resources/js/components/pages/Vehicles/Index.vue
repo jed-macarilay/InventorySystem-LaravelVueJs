@@ -98,6 +98,7 @@
               value: 'plate_no',
             },
             { text: 'Driver', value: 'driver' },
+            { text: 'Last Update', value: 'updated_at' },
             { text: 'Actions', value: 'actions' },
           ],
           vehicles: [],

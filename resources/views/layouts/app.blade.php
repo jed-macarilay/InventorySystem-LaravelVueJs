@@ -34,7 +34,7 @@
                     <v-toolbar color="rgba(0,0,0,0)" flat class="mt-n4">
                         <v-btn-toggle tile group color="#49D9A0" >
                             <v-btn 
-                                onclick="history.back()" 
+                                href="{{ url()->previous() }}" 
                                 text
                             >
                                 <v-icon>fa fa-arrow-left</v-icon>

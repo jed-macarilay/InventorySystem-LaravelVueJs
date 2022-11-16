@@ -7,6 +7,7 @@ import 'font-awesome/css/font-awesome.min.css'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
+
 Vue.use(Vuetify)
 
 /**
@@ -18,6 +19,8 @@ Vue.component('sidebar', require('./components/templates/Sidebar').default);
  * pages
  */
 Vue.component('dashboard', require('./components/pages/Dashboard').default);
+
+Vue.component('add-user', require('./components/pages/Users/Create').default);
 
 Vue.component('inventory-index', require('./components/pages/Inventory/Index').default);
 Vue.component('inventory-create', require('./components/pages/Inventory/Create').default);

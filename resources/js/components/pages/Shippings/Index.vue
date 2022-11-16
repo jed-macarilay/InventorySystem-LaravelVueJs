@@ -55,6 +55,9 @@
         :items-per-page="5"
         class="elevation-1 mt-10 ml-5"
       >
+        <template v-slot:item.location="{ item }">
+          <a :href="`/vehicle/shippings/${item.id}/map`" target="_blank">View here</a>
+        </template>
         <template v-slot:item.actions="{ item }">
           <v-icon
             small
@@ -92,14 +95,16 @@
           toggle_exclusive: 1,
           headers: [
             {
-              text: 'Receiver',
+              text: 'ID #',
               align: 'start',
               sortable: false,
-              value: 'receiver',
+              value: 'id',
             },
+            { text: 'Receiver', value: 'receiver' },
             { text: 'Contact #', value: 'contact_number' },
             { text: 'Address', value: 'address' },
             { text: 'Status', value: 'status' },
+            { text: 'Location', value: 'location' },
             { text: 'Actions', value: 'actions' },
           ],
           vehicles: [],

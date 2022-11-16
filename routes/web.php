@@ -14,9 +14,15 @@ use Illuminate\Support\Facades\Route;
 */
 Route::post('api/login', 'Api\AuthController@login');
 
-Auth::routes();
+Auth::routes([
+    // 'register' => false, // Registration Routes...
+    'reset' => false, // Password Reset Routes...
+    'verify' => false, // Email Verification Routes...
+]);
 
 Route::get('/', 'DashboardController@index')->name('dashboard');
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+Route::get('user/create', 'DashboardController@create');
 
 Route::prefix('inventory')->group(function () {
     Route::get('/', 'InventoryController@index');
@@ -33,10 +39,14 @@ Route::prefix('vehicle')->group(function () {
         Route::get('{vehicle}', 'ShippingController@index');
         Route::get('{vehicle}/create', 'ShippingController@create');
         Route::get('{shipping}/edit', 'ShippingController@edit');
+        Route::get('{shipping}/map', 'ShippingController@map');
     });
 });
 
 Route::prefix('api')->group(function () {
+    Route::get('users', 'Api\AuthController@user');
+    Route::post('create/new_user', 'Api\AuthController@add_user');
+
     Route::prefix('inventory')->group(function() {
         Route::prefix('product')->group(function() {
             Route::get('/', 'Api\InventoryController@index');

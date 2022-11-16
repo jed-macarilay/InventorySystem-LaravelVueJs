@@ -41,26 +41,27 @@
                 >
                     <v-icon>fa fa-truck</v-icon>
                 </v-list-item>
+                <v-list-item
+                    active-class="border"
+                    class="mb-5"
+                    href="/user/create"
+                >
+                    <v-icon>fa fa-user</v-icon>
+                </v-list-item>
             </v-list-item-group>
         </v-list>
          <div style="position: absolute; bottom: 20px; margin-left: auto; margin-right: auto; left: 0; right: 0; text-align: center;">
             <v-btn
                 icon
                 :ripple="false"
+                @click="logout"
             >
-                <v-badge
-                    bordered
-                    overlap
-                    color="red"
-                    dot
-                >
-                    <v-icon>fa fa-bell</v-icon>
-                </v-badge>
+                <v-icon>fa fa-sign-out</v-icon>
             </v-btn>
-            <br />
+            <!-- <br />
             <v-avatar color="red">
                 <span class="white--text text-h5">CJ</span>
-            </v-avatar>
+            </v-avatar> -->
          </div>
     </v-navigation-drawer>
 </template>
@@ -109,6 +110,18 @@
               this.selectedItem = 2
             } else {
               this.selectedItem = 0
+            }
+          },
+          logout() {
+            if (confirm("Are you sure you want to logout?")) {
+                axios.get('/logout')
+                    .then(response => {
+                      console.log(response.status === 200);
+                      if(response.status === 200) {
+                        window.location.href = '/'
+                      }      
+                    })
+                    .catch(error => console.log(error))
             }
           },
         },
