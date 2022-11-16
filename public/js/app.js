@@ -1928,8 +1928,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      toggle_exclusive: 1
+      toggle_exclusive: 1,
+      counts: []
     };
+  },
+  mounted: function mounted() {
+    this.fetchCountAll();
+  },
+  methods: {
+    fetchCountAll: function fetchCountAll() {
+      var _this = this;
+      axios.get('/api/view/all').then(function (response) {
+        _this.counts = response.data;
+      })["catch"](function (error) {
+        return console.log(error);
+      });
+    }
   }
 });
 
@@ -2829,7 +2843,7 @@ var render = function render() {
         }, [_vm._v("Inventory")]), _vm._v(" "), _c("v-list-item-title", {
           staticClass: "headline mb-1",
           "class": active ? "white--text" : "black--text"
-        }, [_c("strong", [_vm._v("52")])])], 1)], 1)], 1)], 1)], 1)];
+        }, [_c("strong", [_vm._v(_vm._s(_vm.counts.inventory_count))])])], 1)], 1)], 1)], 1)], 1)];
       }
     }])
   })], 1), _vm._v(" "), _c("v-col", {
@@ -2875,7 +2889,7 @@ var render = function render() {
         }, [_vm._v("Total Vehicle")]), _vm._v(" "), _c("v-list-item-title", {
           staticClass: "headline mb-1",
           "class": active ? "white--text" : "black--text"
-        }, [_c("strong", [_vm._v("12")])])], 1)], 1)], 1)], 1)], 1)];
+        }, [_c("strong", [_vm._v(_vm._s(_vm.counts.vehicle_count))])])], 1)], 1)], 1)], 1)], 1)];
       }
     }])
   })], 1), _vm._v(" "), _c("v-col", {
@@ -2921,7 +2935,53 @@ var render = function render() {
         }, [_vm._v("Shipping now")]), _vm._v(" "), _c("v-list-item-title", {
           staticClass: "headline mb-1",
           "class": active ? "white--text" : "black--text"
-        }, [_c("strong", [_vm._v("52")])])], 1)], 1)], 1)], 1)], 1)];
+        }, [_c("strong", [_vm._v(_vm._s(_vm.counts.shipping_count))])])], 1)], 1)], 1)], 1)], 1)];
+      }
+    }])
+  })], 1), _vm._v(" "), _c("v-col", {
+    attrs: {
+      cols: "12",
+      md: "2"
+    }
+  }, [_c("v-item", {
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function fn(_ref4) {
+        var active = _ref4.active,
+          toggle = _ref4.toggle;
+        return [_c("v-card", {
+          staticClass: "d-flex align-center rounded-xl",
+          attrs: {
+            color: active ? "#49D9A0" : "white",
+            dark: "",
+            height: "200"
+          },
+          on: {
+            click: toggle
+          }
+        }, [_c("v-row", [_c("v-col", {
+          attrs: {
+            cols: "12",
+            sm: "12"
+          }
+        }, [_c("v-list-item", {
+          staticClass: "mt-10",
+          attrs: {
+            "three-line": ""
+          }
+        }, [_c("v-list-item-content", [_c("div", {
+          staticClass: "mb-4"
+        }, [_c("v-icon", {
+          attrs: {
+            "x-large": "",
+            color: active ? "white" : "#49D9A0"
+          }
+        }, [_vm._v("fa fa-users")])], 1), _vm._v(" "), _c("v-list-item-subtitle", {
+          "class": active ? "white--text" : "black--text"
+        }, [_vm._v("Total Users")]), _vm._v(" "), _c("v-list-item-title", {
+          staticClass: "headline mb-1",
+          "class": active ? "white--text" : "black--text"
+        }, [_c("strong", [_vm._v(_vm._s(_vm.counts.user_count))])])], 1)], 1)], 1)], 1)], 1)];
       }
     }])
   })], 1)], 1)], 1)], 1)], 1);
@@ -3744,7 +3804,7 @@ var render = function render() {
     attrs: {
       flat: ""
     }
-  }, [_c("v-toolbar-title", [_vm._v("\n          User\n        ")])], 1), _vm._v(" "), _c("v-row", [_c("v-col", {
+  }, [_c("v-toolbar-title", [_vm._v("\n          Added new User\n        ")])], 1), _vm._v(" "), _c("v-row", [_c("v-col", {
     attrs: {
       md: "4"
     }

@@ -47,6 +47,8 @@ Route::prefix('api')->group(function () {
     Route::get('users', 'Api\AuthController@user');
     Route::post('create/new_user', 'Api\AuthController@add_user');
 
+    Route::get('view/all', 'Api\ViewAllController@view');
+
     Route::prefix('inventory')->group(function() {
         Route::prefix('product')->group(function() {
             Route::get('/', 'Api\InventoryController@index');

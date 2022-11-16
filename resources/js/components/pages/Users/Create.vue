@@ -2,7 +2,7 @@
     <div class="pa-4">
         <v-toolbar flat class="mt-n5">
             <v-toolbar-title>
-              User
+              Added new User
             </v-toolbar-title>
         </v-toolbar>
         <v-row>
