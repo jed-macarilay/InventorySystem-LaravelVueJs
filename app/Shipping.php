@@ -24,6 +24,7 @@ class Shipping extends Model
     }
 
     protected $casts = [
-        'updated_at' => 'datetime:l jS F Y, h:i:s A',
+        'created_at' => 'datetime:l jS F Y, h:i A',
+        'updated_at' => 'datetime:l jS F Y, h:i A',
     ];
 }

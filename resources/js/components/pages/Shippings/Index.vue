@@ -105,6 +105,8 @@
             { text: 'Address', value: 'address' },
             { text: 'Status', value: 'status' },
             { text: 'Location', value: 'location' },
+            { text: 'Date Created', value: 'created_at' },
+            { text: 'Last Update', value: 'updated_at' },
             { text: 'Actions', value: 'actions' },
           ],
           vehicles: [],

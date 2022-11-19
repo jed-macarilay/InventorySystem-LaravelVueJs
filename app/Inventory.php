@@ -21,6 +21,6 @@ class Inventory extends Model
     ];
 
     protected $casts = [
-        'updated_at' => 'datetime:l jS F Y, h:i:s A',
+        'updated_at' => 'datetime:l jS F Y, h:i A',
     ];
 }

@@ -7,6 +7,8 @@
             <v-divider class="mr-6"></v-divider>
             <v-card-text>
                 <v-form ref="form">
+                    <ItemCreate />
+                    <v-divider></v-divider>
                     <v-col
                         cols="12"
                         md="7"
@@ -54,8 +56,6 @@
                             ></v-text-field>
                         </div>
                     </v-col>
-                    <v-divider></v-divider>
-                    <ItemCreate />
                     <v-divider></v-divider>
                     <v-card-actions>
                         <v-btn

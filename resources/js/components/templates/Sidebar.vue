@@ -42,6 +42,7 @@
                     <v-icon>fa fa-truck</v-icon>
                 </v-list-item>
                 <v-list-item
+                    v-show="auth === 'admin'"
                     active-class="border"
                     class="mb-5"
                     href="/user/create"
@@ -74,6 +75,10 @@
               type: String,
               default: '/',
               required: false,
+            },
+            auth: {
+                type: String,
+                required: true,
             }
         },
         data() {

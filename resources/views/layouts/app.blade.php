@@ -26,6 +26,7 @@
             @auth
             <sidebar
                 current-link="{{ Request::path() }}"
+                auth="{{ Auth::user()->user_type }}"
             ></sidebar>
             @endauth
 
