@@ -12,8 +12,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::post('api/login', 'Api\AuthController@login');
-
 Auth::routes([
     // 'register' => false, // Registration Routes...
     'reset' => false, // Password Reset Routes...
@@ -21,7 +19,7 @@ Auth::routes([
 ]);
 
 Route::get('/', 'DashboardController@index')->name('dashboard');
-Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+Route::get('logout', 'Auth\LoginController@logout');
 Route::get('user/create', 'DashboardController@create');
 
 Route::prefix('inventory')->group(function () {
@@ -44,8 +42,8 @@ Route::prefix('vehicle')->group(function () {
 });
 
 Route::prefix('api')->group(function () {
-    Route::get('users', 'Api\AuthController@user');
-    Route::post('create/new_user', 'Api\AuthController@add_user');
+    Route::get('users', 'Auth\LoginController@user');
+    Route::post('create/new_user', 'Api\LoginController@add_user');
 
     Route::get('view/all', 'Api\ViewAllController@view');
 
