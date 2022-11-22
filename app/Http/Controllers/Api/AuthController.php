@@ -29,4 +29,15 @@ class AuthController extends Controller
                 ->plainTextToken,
         ], 200);
     }
+
+    public function logout() {
+        auth()
+            ->user()
+            ->tokens()
+            ->delete();
+
+        return response([
+            'message' => 'Logout Success',
+        ], 200);
+    }
 }
