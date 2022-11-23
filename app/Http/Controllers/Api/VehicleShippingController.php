@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Vehicle;
 use App\Shipping;
 use App\ShippingItem;
+use App\Inventory;
 use Illuminate\Support\Str;
 
 class VehicleShippingController extends Controller
@@ -45,6 +46,11 @@ class VehicleShippingController extends Controller
                 'price' => $item['retail_price'],
                 'total' => $item['total'],
             ]);
+
+            $product = Inventory::find($item['id']);
+            $product->last_quantity = $product->quantity;
+            $product->quantity = $product->quantity - $item['item_quantity'];
+            $product->save();
         }
         
         return [
