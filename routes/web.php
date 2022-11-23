@@ -21,6 +21,7 @@ Auth::routes([
 Route::get('/', 'DashboardController@index')->name('dashboard');
 Route::get('logout', 'Auth\LoginController@logout');
 Route::get('user/create', 'DashboardController@create');
+Route::get('change-password', 'DashboardController@changePassword');
 
 Route::prefix('inventory')->group(function () {
     Route::get('/', 'InventoryController@index');
@@ -42,8 +43,9 @@ Route::prefix('vehicle')->group(function () {
 });
 
 Route::prefix('api')->group(function () {
-    Route::get('users', 'Auth\LoginController@user');
-    Route::post('create/new_user', 'Api\LoginController@add_user');
+    Route::get('users', 'Api\UserController@user');
+    Route::post('create/new_user', 'Api\UserController@add_user');
+    Route::put('change-password/{user}', 'Api\UserController@changePassword');
 
     Route::get('view/all', 'Api\ViewAllController@view');
 

@@ -19,7 +19,7 @@ Vue.component('sidebar', require('./components/templates/Sidebar').default);
  * pages
  */
 Vue.component('dashboard', require('./components/pages/Dashboard').default);
-
+Vue.component('change-password', require('./components/pages/ChangePassword').default);
 Vue.component('add-user', require('./components/pages/Users/Create').default);
 
 Vue.component('inventory-index', require('./components/pages/Inventory/Index').default);

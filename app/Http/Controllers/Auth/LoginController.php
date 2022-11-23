@@ -48,33 +48,4 @@ class LoginController extends Controller
             ], 200);
         }
     }
-
-    public function add_user(Request $request) {
-        $this->validate(request(), [
-            'name' => 'required',
-            'email' => 'required|email',
-            'password' => 'required',
-            'user_type' => 'required',
-        ]);
-        
-        $user = User::create(request([
-            'name',
-            'email',
-            'password',
-            'user_type',
-        ]));
-                
-        return [
-            'status' => 'success',
-            'message' => 'Added user successful.',
-        ];
-    }
-
-    public function user() {
-        return [
-            'status' => 'success',
-            'message' => 'Get all users successful.', 
-            'data' => User::all(),
-        ];
-    }
 }

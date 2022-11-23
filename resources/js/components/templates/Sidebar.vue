@@ -49,6 +49,13 @@
                 >
                     <v-icon>fa fa-user</v-icon>
                 </v-list-item>
+                <v-list-item
+                    active-class="border"
+                    class="mb-5"
+                    href="/change-password"
+                >
+                    <v-icon>fa fa-cog</v-icon>
+                </v-list-item>
             </v-list-item-group>
         </v-list>
          <div style="position: absolute; bottom: 20px; margin-left: auto; margin-right: auto; left: 0; right: 0; text-align: center;">
