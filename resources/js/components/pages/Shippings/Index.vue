@@ -2,7 +2,7 @@
     <div>
       <v-toolbar flat class="mt-5 mb-10">
         <v-toolbar-title>
-          List of Shippings <br />
+          List of Deliveries <br />
           Vehicle Plate Number <strong>{{ vehicle.plate_no }}
         </strong></v-toolbar-title>
      </v-toolbar>
@@ -102,7 +102,8 @@
             },
             { text: 'Receiver', value: 'receiver' },
             { text: 'Contact #', value: 'contact_number' },
-            { text: 'Address', value: 'address' },
+            { text: 'Origin', value: 'origin' },
+            { text: 'Destination', value: 'destination' },
             { text: 'Status', value: 'status' },
             { text: 'Location', value: 'location' },
             { text: 'Date Created', value: 'created_at' },

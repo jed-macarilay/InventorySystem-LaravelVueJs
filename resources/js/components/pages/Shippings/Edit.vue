@@ -41,16 +41,32 @@
                         </div>
                         <div>
                             <label for="">
-                                <strong>Address</strong>
+                                <strong>Origin</strong>
                             </label>
                             <v-text-field
-                                v-model="edit_shipping.address"
+                                v-model="shipping.origin"
+                                placeholder="Enter Package Address Origin"
+                                outlined
+                                dense
+                                rounded
+                                required
+                                :rules="originRule"
+                                append-icon="fa fa-map-marker"
+                            ></v-text-field>
+                        </div>
+                        <div>
+                            <label for="">
+                                <strong>Destination</strong>
+                            </label>
+                            <v-text-field
+                                v-model="shipping.destination"
                                 placeholder="Enter Package Address Destination"
                                 outlined
                                 dense
                                 rounded
                                 required
-                                :rules="addressRule"
+                                :rules="destinationRule"
+                                append-icon="fa fa-map-marker"
                             ></v-text-field>
                         </div>
                         <div>
@@ -115,8 +131,11 @@ import Snackbar from '../../templates/Snackbar.vue';
                 contactNumberRule: [
                     v => !!v || 'Receiver Contact # is required',
                 ],
-                addressRule: [
-                    v => !!v || 'Package Delivery Address is required',
+                originRule: [
+                    v => !!v || 'Package Delivery Origin is required',
+                ],
+                destinationRule: [
+                    v => !!v || 'Package Delivery Destination is required',
                 ],
             }
         },

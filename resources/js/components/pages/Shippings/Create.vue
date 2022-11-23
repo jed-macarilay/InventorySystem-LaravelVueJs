@@ -2,12 +2,12 @@
     <div>
         <v-card class="pa-5 mt-4">
             <v-toolbar flat class="mt-n5">
-                <v-toolbar-title>Add Vehicle Shipping</v-toolbar-title>
+                <v-toolbar-title>Add Delivery</v-toolbar-title>
             </v-toolbar>
             <v-divider class="mr-6"></v-divider>
             <v-card-text>
                 <v-form ref="form">
-                    <ItemCreate />
+                    <ItemCreate @get-item="collectItemCallBack" />
                     <v-divider></v-divider>
                     <v-col
                         cols="12"
@@ -43,16 +43,32 @@
                         </div>
                         <div>
                             <label for="">
-                                <strong>Address</strong>
+                                <strong>Origin</strong>
                             </label>
                             <v-text-field
-                                v-model="shipping.address"
+                                v-model="shipping.origin"
+                                placeholder="Enter Package Address Origin"
+                                outlined
+                                dense
+                                rounded
+                                required
+                                :rules="originRule"
+                                append-icon="fa fa-map-marker"
+                            ></v-text-field>
+                        </div>
+                        <div>
+                            <label for="">
+                                <strong>Destination</strong>
+                            </label>
+                            <v-text-field
+                                v-model="shipping.destination"
                                 placeholder="Enter Package Address Destination"
                                 outlined
                                 dense
                                 rounded
                                 required
-                                :rules="addressRule"
+                                :rules="destinationRule"
+                                append-icon="fa fa-map-marker"
                             ></v-text-field>
                         </div>
                     </v-col>
@@ -99,8 +115,10 @@ import ItemCreate from './Items/Create.vue'
                 shipping: {
                   receiver: '',
                   contact_number: '',
-                  address: '',
+                  origin: '',
+                  destination: '',
                   status: 'In Progress',
+                  items: [],
                 },
                 isLoading: false,
                 snackbarShow: false,
@@ -111,8 +129,11 @@ import ItemCreate from './Items/Create.vue'
                 contactNumberRule: [
                     v => !!v || 'Receiver Contact # is required',
                 ],
-                addressRule: [
-                    v => !!v || 'Package Delivery Address is required',
+                originRule: [
+                    v => !!v || 'Package Delivery Origin is required',
+                ],
+                destinationRule: [
+                    v => !!v || 'Package Delivery Destination is required',
                 ],
             }
         },
@@ -125,6 +146,7 @@ import ItemCreate from './Items/Create.vue'
                             this.message = response.data.message
                             this.isLoading = false
                             this.$refs.form.reset()
+                            window.location.href = `/vehicle/shippings/${this.vehicle.id}`
                         })
                         .catch(error => {
                             this.snackbarShow = true
@@ -132,6 +154,9 @@ import ItemCreate from './Items/Create.vue'
                             this.isLoading = false
                         })
                 }
+            },
+            collectItemCallBack(value) {
+              this.shipping.items = value
             },
         },
     }

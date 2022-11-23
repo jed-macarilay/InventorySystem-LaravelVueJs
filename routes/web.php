@@ -69,3 +69,5 @@ Route::prefix('api')->group(function () {
         });
     });    
 });
+
+date_default_timezone_set('Asia/Singapore');

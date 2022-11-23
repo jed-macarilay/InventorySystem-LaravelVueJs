@@ -64,6 +64,7 @@
                           required
                           :rules="retailPriceRule"
                           placeholder="Enter Retail price"
+                          prefix="PHP"
                         ></v-text-field>
                     </div>
                     <div>

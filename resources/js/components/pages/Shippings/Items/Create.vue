@@ -38,31 +38,37 @@
 
             <v-card-text>
               <v-container>
-                <v-row>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-select
-                      v-model="editedItem.id"
-                      :items="products"
-                      label="Select Product"
-                      item-text="product_name"
-                      item-value="id"
-                    ></v-select>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      v-model="editedItem.item_quantity"
-                      label="Quantity"
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
+                <v-form ref="form">
+                  <v-row>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="4"
+                    >
+                      <v-select
+                        v-model="editedItem.id"
+                        :items="products"
+                        label="Select Product"
+                        item-text="product_name"
+                        item-value="id" 
+                        :rules="[v => !!v || 'Select Product is required']"
+                        required
+                      ></v-select>
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="4"
+                    >
+                      <v-text-field
+                        v-model="editedItem.item_quantity"
+                        label="Quantity"
+                        :rules="quantityRule"
+                        required
+                      ></v-text-field>
+                    </v-col>
+                  </v-row>
+                </v-form>
               </v-container>
             </v-card-text>
 
@@ -113,6 +119,12 @@
         fa fa-trash
       </v-icon>
     </template>
+    <template v-slot:item.retail_price="{ item }">
+      {{ formatCurrency(item.retail_price) }}
+    </template>
+    <template v-slot:item.total="{ item }">
+      <strong>{{ formatCurrency(item.total) }}</strong>
+    </template>
   </v-data-table>
 </template>
 
@@ -151,6 +163,10 @@
         item_quantity: "0",
         total: "0",
       },
+      quantityRule: [
+        v => !!v || 'Quantity is required',
+        v => (v && v > 0) || 'Item must have quantity',
+      ],
     }),
 
     computed: {
@@ -195,6 +211,7 @@
 
       deleteItemConfirm () {
         this.items.splice(this.editedIndex, 1)
+        this.$emit('get-item', this.items)
         this.closeDelete()
       },
 
@@ -215,21 +232,27 @@
       },
 
       save () {
-        if (this.editedIndex > -1) {
-          Object.assign(this.items[this.editedIndex], this.editedItem)
-        } else {
-          this.products.find((element) => { 
-            if(element.id === this.editedItem.id) {
-              this.editedItem.serial_code = element.serial_code
-              this.editedItem.product_name = element.product_name
-              this.editedItem.retail_price = element.retail_price
-              this.editedItem.total = (element.retail_price * this.editedItem.item_quantity)
-            }
-          })
-          this.items.push(this.editedItem)
-          console.log(this.items)
+        if(this.$refs.form.validate()) {
+          if (this.editedIndex > -1) {
+            Object.assign(this.items[this.editedIndex], this.editedItem)
+          } else {
+            this.products.find((element) => { 
+              if(element.id === this.editedItem.id) {
+                this.editedItem.serial_code = element.serial_code
+                this.editedItem.product_name = element.product_name
+                this.editedItem.retail_price = element.retail_price
+                this.editedItem.total = (element.retail_price * this.editedItem.item_quantity)
+              }
+            })
+            this.items.push(this.editedItem)
+          }
+          this.$emit('get-item', this.items)
+          this.$refs.form.resetValidation()
+          this.close()
         }
-        this.close()
+      },
+      formatCurrency (value) {
+        return '₱' + parseFloat(value)
       },
     },
   }

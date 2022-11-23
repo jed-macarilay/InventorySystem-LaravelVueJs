@@ -17,7 +17,8 @@ class CreateShippingsTable extends Migration
             $table->id();
             $table->string('receiver');
             $table->string('contact_number');
-            $table->string('address');
+            $table->string('origin')->nullable();
+            $table->string('destination')->nullable();
             $table->string('status');
             $table->unsignedBigInteger('vehicle_id');
             $table->foreign('vehicle_id')->references('id')->on('vehicles');

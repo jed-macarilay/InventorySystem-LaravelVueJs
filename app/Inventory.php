@@ -20,6 +20,10 @@ class Inventory extends Model
         'quantity',
     ];
 
+    function shippings() {
+        return $this->belongsToMany('App\Shipping');
+    }
+
     protected $casts = [
         'updated_at' => 'datetime:l jS F Y, h:i A',
     ];

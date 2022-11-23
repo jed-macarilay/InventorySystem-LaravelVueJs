@@ -14,13 +14,18 @@ class Shipping extends Model
     protected $fillable = [
         'receiver',
         'contact_number',
-        'address',
+        'origin',
+        'destination',
         'status',
         'vehicle_id',
     ];
 
     public function vehicle() {
         return $this->belongsTo(Vehicle::class)->latest();
+    }
+
+    function items() {
+        return $this->belongsToMany('App\Inventory', 'inventories', 'shipping_id', 'product_id');
     }
 
     protected $casts = [

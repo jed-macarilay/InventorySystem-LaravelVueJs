@@ -52,6 +52,9 @@
         :items-per-page="5"
         class="elevation-1 mt-10 ml-5"
       >
+        <template v-slot:item.retail_price="{ item }">
+          <strong>{{ formatCurrency(item.retail_price) }}</strong>
+        </template>
         <template v-slot:item.actions="{ item }">
             <v-icon
               small
@@ -133,7 +136,10 @@
               this.message = error.response.data.message
           })
         }
-    },
+      },
+      formatCurrency (value) {
+          return '₱' + parseFloat(value)
+      },
     },
   }
 </script>

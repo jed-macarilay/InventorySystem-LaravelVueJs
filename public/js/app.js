@@ -2143,6 +2143,9 @@ __webpack_require__.r(__webpack_exports__);
           _this2.message = error.response.data.message;
         });
       }
+    },
+    formatCurrency: function formatCurrency(value) {
+      return '₱' + parseFloat(value);
     }
   }
 });
@@ -2179,8 +2182,10 @@ __webpack_require__.r(__webpack_exports__);
       shipping: {
         receiver: '',
         contact_number: '',
-        address: '',
-        status: 'In Progress'
+        origin: '',
+        destination: '',
+        status: 'In Progress',
+        items: []
       },
       isLoading: false,
       snackbarShow: false,
@@ -2191,8 +2196,11 @@ __webpack_require__.r(__webpack_exports__);
       contactNumberRule: [function (v) {
         return !!v || 'Receiver Contact # is required';
       }],
-      addressRule: [function (v) {
-        return !!v || 'Package Delivery Address is required';
+      originRule: [function (v) {
+        return !!v || 'Package Delivery Origin is required';
+      }],
+      destinationRule: [function (v) {
+        return !!v || 'Package Delivery Destination is required';
       }]
     };
   },
@@ -2205,12 +2213,16 @@ __webpack_require__.r(__webpack_exports__);
           _this.message = response.data.message;
           _this.isLoading = false;
           _this.$refs.form.reset();
+          window.location.href = "/vehicle/shippings/".concat(_this.vehicle.id);
         })["catch"](function (error) {
           _this.snackbarShow = true;
           _this.message = error.response.data.message;
           _this.isLoading = false;
         });
       }
+    },
+    collectItemCallBack: function collectItemCallBack(value) {
+      this.shipping.items = value;
     }
   }
 });
@@ -2251,8 +2263,11 @@ __webpack_require__.r(__webpack_exports__);
       contactNumberRule: [function (v) {
         return !!v || 'Receiver Contact # is required';
       }],
-      addressRule: [function (v) {
-        return !!v || 'Package Delivery Address is required';
+      originRule: [function (v) {
+        return !!v || 'Package Delivery Origin is required';
+      }],
+      destinationRule: [function (v) {
+        return !!v || 'Package Delivery Destination is required';
       }]
     };
   },
@@ -2313,8 +2328,11 @@ __webpack_require__.r(__webpack_exports__);
         text: 'Contact #',
         value: 'contact_number'
       }, {
-        text: 'Address',
-        value: 'address'
+        text: 'Origin',
+        value: 'origin'
+      }, {
+        text: 'Destination',
+        value: 'destination'
       }, {
         text: 'Status',
         value: 'status'
@@ -2409,7 +2427,12 @@ __webpack_require__.r(__webpack_exports__);
         serial_code: '',
         item_quantity: "0",
         total: "0"
-      }
+      },
+      quantityRule: [function (v) {
+        return !!v || 'Quantity is required';
+      }, function (v) {
+        return v && v > 0 || 'Item must have quantity';
+      }]
     };
   },
   computed: {
@@ -2449,6 +2472,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     deleteItemConfirm: function deleteItemConfirm() {
       this.items.splice(this.editedIndex, 1);
+      this.$emit('get-item', this.items);
       this.closeDelete();
     },
     close: function close() {
@@ -2469,21 +2493,27 @@ __webpack_require__.r(__webpack_exports__);
     },
     save: function save() {
       var _this4 = this;
-      if (this.editedIndex > -1) {
-        Object.assign(this.items[this.editedIndex], this.editedItem);
-      } else {
-        this.products.find(function (element) {
-          if (element.id === _this4.editedItem.id) {
-            _this4.editedItem.serial_code = element.serial_code;
-            _this4.editedItem.product_name = element.product_name;
-            _this4.editedItem.retail_price = element.retail_price;
-            _this4.editedItem.total = element.retail_price * _this4.editedItem.item_quantity;
-          }
-        });
-        this.items.push(this.editedItem);
-        console.log(this.items);
+      if (this.$refs.form.validate()) {
+        if (this.editedIndex > -1) {
+          Object.assign(this.items[this.editedIndex], this.editedItem);
+        } else {
+          this.products.find(function (element) {
+            if (element.id === _this4.editedItem.id) {
+              _this4.editedItem.serial_code = element.serial_code;
+              _this4.editedItem.product_name = element.product_name;
+              _this4.editedItem.retail_price = element.retail_price;
+              _this4.editedItem.total = element.retail_price * _this4.editedItem.item_quantity;
+            }
+          });
+          this.items.push(this.editedItem);
+        }
+        this.$emit('get-item', this.items);
+        this.$refs.form.resetValidation();
+        this.close();
       }
-      this.close();
+    },
+    formatCurrency: function formatCurrency(value) {
+      return '₱' + parseFloat(value);
     }
   }
 });
@@ -2733,6 +2763,9 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         text: 'Last Update',
         value: 'updated_at'
+      }, {
+        text: 'Delivery',
+        value: 'delivery'
       }, {
         text: 'Actions',
         value: 'actions'
@@ -3235,7 +3268,8 @@ var render = function render() {
       rounded: "",
       required: "",
       rules: _vm.retailPriceRule,
-      placeholder: "Enter Retail price"
+      placeholder: "Enter Retail price",
+      prefix: "PHP"
     },
     model: {
       value: _vm.product.retail_price,
@@ -3386,7 +3420,8 @@ var render = function render() {
       rounded: "",
       required: "",
       rules: _vm.retailPriceRule,
-      placeholder: "Enter Retail price"
+      placeholder: "Enter Retail price",
+      prefix: "PHP"
     },
     model: {
       value: _vm.product.retail_price,
@@ -3521,9 +3556,15 @@ var render = function render() {
       "items-per-page": 5
     },
     scopedSlots: _vm._u([{
-      key: "item.actions",
+      key: "item.retail_price",
       fn: function fn(_ref2) {
         var item = _ref2.item;
+        return [_c("strong", [_vm._v(_vm._s(_vm.formatCurrency(item.retail_price)))])];
+      }
+    }, {
+      key: "item.actions",
+      fn: function fn(_ref3) {
+        var item = _ref3.item;
         return [_c("v-icon", {
           staticClass: "mr-2",
           attrs: {
@@ -3580,11 +3621,15 @@ var render = function render() {
     attrs: {
       flat: ""
     }
-  }, [_c("v-toolbar-title", [_vm._v("Add Vehicle Shipping")])], 1), _vm._v(" "), _c("v-divider", {
+  }, [_c("v-toolbar-title", [_vm._v("Add Delivery")])], 1), _vm._v(" "), _c("v-divider", {
     staticClass: "mr-6"
   }), _vm._v(" "), _c("v-card-text", [_c("v-form", {
     ref: "form"
-  }, [_c("ItemCreate"), _vm._v(" "), _c("v-divider"), _vm._v(" "), _c("v-col", {
+  }, [_c("ItemCreate", {
+    on: {
+      "get-item": _vm.collectItemCallBack
+    }
+  }), _vm._v(" "), _c("v-divider"), _vm._v(" "), _c("v-col", {
     attrs: {
       cols: "12",
       md: "7"
@@ -3633,21 +3678,43 @@ var render = function render() {
     attrs: {
       "for": ""
     }
-  }, [_c("strong", [_vm._v("Address")])]), _vm._v(" "), _c("v-text-field", {
+  }, [_c("strong", [_vm._v("Origin")])]), _vm._v(" "), _c("v-text-field", {
+    attrs: {
+      placeholder: "Enter Package Address Origin",
+      outlined: "",
+      dense: "",
+      rounded: "",
+      required: "",
+      rules: _vm.originRule,
+      "append-icon": "fa fa-map-marker"
+    },
+    model: {
+      value: _vm.shipping.origin,
+      callback: function callback($$v) {
+        _vm.$set(_vm.shipping, "origin", $$v);
+      },
+      expression: "shipping.origin"
+    }
+  })], 1), _vm._v(" "), _c("div", [_c("label", {
+    attrs: {
+      "for": ""
+    }
+  }, [_c("strong", [_vm._v("Destination")])]), _vm._v(" "), _c("v-text-field", {
     attrs: {
       placeholder: "Enter Package Address Destination",
       outlined: "",
       dense: "",
       rounded: "",
       required: "",
-      rules: _vm.addressRule
+      rules: _vm.destinationRule,
+      "append-icon": "fa fa-map-marker"
     },
     model: {
-      value: _vm.shipping.address,
+      value: _vm.shipping.destination,
       callback: function callback($$v) {
-        _vm.$set(_vm.shipping, "address", $$v);
+        _vm.$set(_vm.shipping, "destination", $$v);
       },
-      expression: "shipping.address"
+      expression: "shipping.destination"
     }
   })], 1)]), _vm._v(" "), _c("v-divider"), _vm._v(" "), _c("v-card-actions", [_c("v-btn", {
     attrs: {
@@ -3745,21 +3812,43 @@ var render = function render() {
     attrs: {
       "for": ""
     }
-  }, [_c("strong", [_vm._v("Address")])]), _vm._v(" "), _c("v-text-field", {
+  }, [_c("strong", [_vm._v("Origin")])]), _vm._v(" "), _c("v-text-field", {
+    attrs: {
+      placeholder: "Enter Package Address Origin",
+      outlined: "",
+      dense: "",
+      rounded: "",
+      required: "",
+      rules: _vm.originRule,
+      "append-icon": "fa fa-map-marker"
+    },
+    model: {
+      value: _vm.shipping.origin,
+      callback: function callback($$v) {
+        _vm.$set(_vm.shipping, "origin", $$v);
+      },
+      expression: "shipping.origin"
+    }
+  })], 1), _vm._v(" "), _c("div", [_c("label", {
+    attrs: {
+      "for": ""
+    }
+  }, [_c("strong", [_vm._v("Destination")])]), _vm._v(" "), _c("v-text-field", {
     attrs: {
       placeholder: "Enter Package Address Destination",
       outlined: "",
       dense: "",
       rounded: "",
       required: "",
-      rules: _vm.addressRule
+      rules: _vm.destinationRule,
+      "append-icon": "fa fa-map-marker"
     },
     model: {
-      value: _vm.edit_shipping.address,
+      value: _vm.shipping.destination,
       callback: function callback($$v) {
-        _vm.$set(_vm.edit_shipping, "address", $$v);
+        _vm.$set(_vm.shipping, "destination", $$v);
       },
-      expression: "edit_shipping.address"
+      expression: "shipping.destination"
     }
   })], 1), _vm._v(" "), _c("div", [_c("label", {
     attrs: {
@@ -3821,7 +3910,7 @@ var render = function render() {
     attrs: {
       flat: ""
     }
-  }, [_c("v-toolbar-title", [_vm._v("\n      List of Shippings "), _c("br"), _vm._v("\n      Vehicle Plate Number "), _c("strong", [_vm._v(_vm._s(_vm.vehicle.plate_no) + "\n    ")])])], 1), _vm._v(" "), _c("v-item-group", {
+  }, [_c("v-toolbar-title", [_vm._v("\n      List of Deliveries "), _c("br"), _vm._v("\n      Vehicle Plate Number "), _c("strong", [_vm._v(_vm._s(_vm.vehicle.plate_no) + "\n    ")])])], 1), _vm._v(" "), _c("v-item-group", {
     staticClass: "mt-n4",
     attrs: {
       mandatory: ""
@@ -3987,7 +4076,9 @@ var render = function render() {
           }
         }, [_vm._v(" "), _c("v-card", [_c("v-card-title", [_c("span", {
           staticClass: "text-h5"
-        }, [_vm._v(_vm._s(_vm.formTitle))])]), _vm._v(" "), _c("v-card-text", [_c("v-container", [_c("v-row", [_c("v-col", {
+        }, [_vm._v(_vm._s(_vm.formTitle))])]), _vm._v(" "), _c("v-card-text", [_c("v-container", [_c("v-form", {
+          ref: "form"
+        }, [_c("v-row", [_c("v-col", {
           attrs: {
             cols: "12",
             sm: "6",
@@ -3998,7 +4089,11 @@ var render = function render() {
             items: _vm.products,
             label: "Select Product",
             "item-text": "product_name",
-            "item-value": "id"
+            "item-value": "id",
+            rules: [function (v) {
+              return !!v || "Select Product is required";
+            }],
+            required: ""
           },
           model: {
             value: _vm.editedItem.id,
@@ -4015,7 +4110,9 @@ var render = function render() {
           }
         }, [_c("v-text-field", {
           attrs: {
-            label: "Quantity"
+            label: "Quantity",
+            rules: _vm.quantityRule,
+            required: ""
           },
           model: {
             value: _vm.editedItem.item_quantity,
@@ -4024,7 +4121,7 @@ var render = function render() {
             },
             expression: "editedItem.item_quantity"
           }
-        })], 1)], 1)], 1)], 1), _vm._v(" "), _c("v-card-actions", [_c("v-spacer"), _vm._v(" "), _c("v-btn", {
+        })], 1)], 1)], 1)], 1)], 1), _vm._v(" "), _c("v-card-actions", [_c("v-spacer"), _vm._v(" "), _c("v-btn", {
           attrs: {
             color: "blue darken-1",
             text: ""
@@ -4096,6 +4193,18 @@ var render = function render() {
             }
           }
         }, [_vm._v("\n      fa fa-trash\n    ")])];
+      }
+    }, {
+      key: "item.retail_price",
+      fn: function fn(_ref3) {
+        var item = _ref3.item;
+        return [_vm._v("\n    " + _vm._s(_vm.formatCurrency(item.retail_price)) + "\n  ")];
+      }
+    }, {
+      key: "item.total",
+      fn: function fn(_ref4) {
+        var item = _ref4.item;
+        return [_c("strong", [_vm._v(_vm._s(_vm.formatCurrency(item.total)))])];
       }
     }])
   });
@@ -4519,14 +4628,14 @@ var render = function render() {
       "items-per-page": 5
     },
     scopedSlots: _vm._u([{
-      key: "item.plate_no",
+      key: "item.delivery",
       fn: function fn(_ref2) {
         var item = _ref2.item;
         return [_c("a", {
           attrs: {
             href: "/vehicle/shippings/".concat(item.id)
           }
-        }, [_vm._v(_vm._s(item.plate_no))])];
+        }, [_vm._v("View Delivery")])];
       }
     }, {
       key: "item.actions",

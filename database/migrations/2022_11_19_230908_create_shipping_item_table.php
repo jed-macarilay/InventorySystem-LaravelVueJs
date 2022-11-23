@@ -15,6 +15,14 @@ class CreateShippingItemTable extends Migration
     {
         Schema::create('shipping_item', function (Blueprint $table) {
             $table->id();
+            $table->string('ref');
+            $table->integer('quantity');
+            $table->float('price');
+            $table->float('total');
+            $table->unsignedBigInteger('product_id');
+            $table->foreign('product_id')->references('id')->on('inventories');
+            $table->unsignedBigInteger('shipping_id');
+            $table->foreign('shipping_id')->references('id')->on('shippings');
             $table->timestamps();
         });
     }

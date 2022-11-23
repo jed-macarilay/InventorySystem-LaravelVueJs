@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Vehicle;
 use App\Shipping;
+use App\ShippingItem;
+use Illuminate\Support\Str;
 
 class VehicleShippingController extends Controller
 {
@@ -17,7 +19,7 @@ class VehicleShippingController extends Controller
     public function index(Vehicle $vehicle) {
         return [
             'status' => 'success',
-            'message' => 'Get all vehicle shippings successful.', 
+            'message' => 'Get all vehicle delivery list successful.', 
             'data' => $vehicle->shippings,
         ];
     }
@@ -26,14 +28,29 @@ class VehicleShippingController extends Controller
         Vehicle $vehicle,
         Request $request
     ) {
-        $new_shipping = $vehicle->shippings()->create($request->all());
+        $new_shipping = $vehicle->shippings()->create([
+            'receiver' => $request->receiver,
+            'contact_number' => $request->contact_number,
+            'origin' => $request->origin,
+            'destination' => $request->destination,
+            'status' => $request->status,
+        ]);
 
-        if ($new_shipping) {
-            return [
-                'status' => 'success',
-                'message' => 'Added Shipping in Vehicle is successful.',
-            ];
+        foreach ($request->items as $item) {
+            ShippingItem::create([
+                'ref' => Str::random(15),
+                'product_id' => $item['id'],
+                'shipping_id' => $new_shipping->id,
+                'quantity' => $item['item_quantity'],
+                'price' => $item['retail_price'],
+                'total' => $item['total'],
+            ]);
         }
+        
+        return [
+            'status' => 'success',
+            'message' => 'Added Delivery successful.',
+        ];
     }
 
     public function edit(
@@ -45,7 +62,7 @@ class VehicleShippingController extends Controller
         if ($update_shipping) {
             return [
                 'status' => 'success',
-                'message' => 'Updated Shipping in Vehicle is successful.',
+                'message' => 'Updated Delivery successful.',
             ];
         }
     }

@@ -26,7 +26,7 @@ class InventoryController extends Controller
 
         return [
             'status' => 'success',
-            'message' => 'Added new vehicle successful.',
+            'message' => 'Added new product successful.',
         ];
     }
 

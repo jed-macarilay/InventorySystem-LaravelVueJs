@@ -52,8 +52,8 @@
         :items-per-page="5"
         class="elevation-1 mt-10 ml-5"
       >
-        <template v-slot:item.plate_no="{ item }">
-          <a :href="`/vehicle/shippings/${item.id}`">{{ item.plate_no }}</a>
+        <template v-slot:item.delivery="{ item }">
+          <a :href="`/vehicle/shippings/${item.id}`">View Delivery</a>
         </template>
         <template v-slot:item.actions="{ item }">
           <v-icon
@@ -99,6 +99,7 @@
             },
             { text: 'Driver', value: 'driver' },
             { text: 'Last Update', value: 'updated_at' },
+            { text: 'Delivery', value: 'delivery' },
             { text: 'Actions', value: 'actions' },
           ],
           vehicles: [],
