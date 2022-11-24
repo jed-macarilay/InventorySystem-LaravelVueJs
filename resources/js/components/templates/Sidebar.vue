@@ -30,14 +30,14 @@
                 <v-list-item
                     active-class="border"
                     class="mb-5"
-                    href="/inventory"
+                    href="/sales"
                 >
                     <v-icon>fa fa-bar-chart</v-icon>
                 </v-list-item>
                 <v-list-item
                     active-class="border"
                     class="mb-5"
-                    href="/sales"
+                    href="/inventory"
                 >
                     <v-icon>fa fa-archive</v-icon>
                 </v-list-item>
@@ -123,10 +123,16 @@
         },
         methods: {
           getCurrentLink(link) {
-            if (link === 'inventory' || link === 'inventory/create' || link === 'inventory/edit') {
+            if (link === 'sales') {
               this.selectedItem = 1
-            } else if (link === 'vehicle' || link === 'vehicle/create' || link === 'vehicle/edit') {
+            } else if (link === 'inventory' || link === 'inventory/create' || link === 'inventory/edit') {
               this.selectedItem = 2
+            } else if (link === 'vehicle' || link === 'vehicle/create' || link === 'vehicle/edit') {
+              this.selectedItem = 3
+            } else if (link === 'user/create') {
+              this.selectedItem = 4
+            } else if (link === 'change-password') {
+              this.selectedItem = 5
             } else {
               this.selectedItem = 0
             }
