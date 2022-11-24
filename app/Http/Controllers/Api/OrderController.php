@@ -12,7 +12,7 @@ class OrderController extends Controller
 {
     public function index(Shipping $shipping) {
         $order = Order::find($shipping->order->id);
-        
+
         return [
             'status' => 'success',
             'message' => 'Get all Orders successful.', 

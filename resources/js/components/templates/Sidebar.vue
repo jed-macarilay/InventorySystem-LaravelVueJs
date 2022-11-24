@@ -32,6 +32,13 @@
                     class="mb-5"
                     href="/inventory"
                 >
+                    <v-icon>fa fa-bar-chart</v-icon>
+                </v-list-item>
+                <v-list-item
+                    active-class="border"
+                    class="mb-5"
+                    href="/sales"
+                >
                     <v-icon>fa fa-archive</v-icon>
                 </v-list-item>
                 <v-list-item

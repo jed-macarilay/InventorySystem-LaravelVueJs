@@ -26,7 +26,7 @@ class Inventory extends Model
 
     public function orders()
     {
-        return $this->belongsToMany('App\Order')->withPivot('inventory_id', 'order_id');;
+        return $this->belongsToMany('App\Order')->withPivot('quantity', 'total');
     }
 
     protected $casts = [

@@ -42,6 +42,8 @@ Route::prefix('vehicle')->group(function () {
     });
 });
 
+Route::get('sales', 'SaleController@index');
+
 Route::prefix('api')->group(function () {
     Route::get('users', 'Api\UserController@user');
     Route::post('create/new_user', 'Api\UserController@add_user');
@@ -72,6 +74,8 @@ Route::prefix('api')->group(function () {
             Route::get('{shipping}/order', 'Api\OrderController@index');
         });
     });    
+
+    Route::get('sales', 'Api\ShippingController@index');
 });
 
 date_default_timezone_set('Asia/Singapore');

@@ -34,6 +34,8 @@ Vue.component('shipping-index', require('./components/pages/Shippings/Index').de
 Vue.component('shipping-create', require('./components/pages/Shippings/Create').default);
 Vue.component('shipping-edit', require('./components/pages/Shippings/Edit').default);
 
+Vue.component('sales-index', require('./components/pages/Sales/Index').default);
+
 const app = new Vue({
     el: '#app',
     vuetify: new Vuetify(),

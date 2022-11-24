@@ -84,6 +84,23 @@
                         </div>
                     </v-col>
                     <v-divider></v-divider>
+                    <v-toolbar-title>
+                        <strong>Items</strong>
+                    </v-toolbar-title>
+                    <v-data-table
+                      :headers="headers"
+                      :items="items"
+                      sort-by="calories"
+                      class="elevation-1 my-4"
+                    >
+                      <template v-slot:item.retail_price="{ item }">
+                        {{ formatCurrency(item.retail_price) }}
+                      </template>
+                      <template v-slot:item.pivot.total="{ item }">
+                        <strong>{{ formatCurrency(item.pivot.total) }}</strong>
+                      </template>
+                    </v-data-table>
+                    <v-divider></v-divider>
                     <v-card-actions>
                         <v-btn
                             :loading="isLoading"
@@ -122,6 +139,19 @@ import Snackbar from '../../templates/Snackbar.vue';
         data() {
             return {
                 edit_shipping: this.shipping,
+                items: [],
+                headers: [
+                  {
+                    text: 'Serial Code',
+                    align: 'start',
+                    sortable: false,
+                    value: 'serial_code',
+                  },
+                  { text: 'Product Name', value: 'product_name' },
+                  { text: 'Quantity', value: 'pivot.quantity' },
+                  { text: 'Retail Price', value:'retail_price' },
+                  { text: 'Total Amount', value:'pivot.total' },
+                ],
                 isLoading: false,
                 snackbarShow: false,
                 message: '',
@@ -139,21 +169,38 @@ import Snackbar from '../../templates/Snackbar.vue';
                 ],
             }
         },
+        mounted() {
+          this.fetchOrder()
+        },
         methods: {
+            fetchOrder() {
+              axios.get(`/api/vehicle/shippings/${this.shipping.id}/order`)
+                .then(response => {
+                  this.items = response.data.data
+                })
+                .catch(error => {
+                    this.snackbarShow = true
+                    this.message = error.response.data.message
+                    this.isLoading = false
+                })
+            },
             editVehicleShipping() {
                 if (this.$refs.form.validate()) {
-                    axios.put(`/api/vehicle/shippings/${this.shipping.id}/edit`, this.edit_shipping)
-                        .then(response => {
-                            this.snackbarShow = true
-                            this.message = response.data.message
-                            this.isLoading = false
-                        })
-                        .catch(error => {
-                            this.snackbarShow = true
-                            this.message = error.response.data.message
-                            this.isLoading = false
-                        })
+                  axios.put(`/api/vehicle/shippings/${this.shipping.id}/edit`, this.edit_shipping)
+                    .then(response => {
+                      this.snackbarShow = true
+                      this.message = response.data.message
+                      this.isLoading = false
+                    })
+                    .catch(error => {
+                      this.snackbarShow = true
+                      this.message = error.response.data.message
+                      this.isLoading = false
+                    })
                 }
+            },
+            formatCurrency (value) {
+              return '₱' + parseFloat(value)
             },
         },
     }
