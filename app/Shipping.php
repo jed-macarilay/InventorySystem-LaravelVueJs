@@ -24,8 +24,9 @@ class Shipping extends Model
         return $this->belongsTo(Vehicle::class)->latest();
     }
 
-    function items() {
-        return $this->belongsToMany('App\Inventory', 'inventories', 'shipping_id', 'product_id');
+    public function order()
+    {
+        return $this->hasOne('App\Order');
     }
 
     protected $casts = [

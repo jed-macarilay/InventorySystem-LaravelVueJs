@@ -68,6 +68,8 @@ Route::prefix('api')->group(function () {
             Route::get('{vehicle}', 'Api\VehicleShippingController@index');
             Route::post('{vehicle}/create', 'Api\VehicleShippingController@create');
             Route::put('{shipping}/edit', 'Api\VehicleShippingController@edit');
+
+            Route::get('{shipping}/order', 'Api\OrderController@index');
         });
     });    
 });

@@ -24,6 +24,11 @@ class Inventory extends Model
         return $this->belongsToMany('App\Shipping');
     }
 
+    public function orders()
+    {
+        return $this->belongsToMany('App\Order')->withPivot('inventory_id', 'order_id');;
+    }
+
     protected $casts = [
         'updated_at' => 'datetime:l jS F Y, h:i A',
     ];

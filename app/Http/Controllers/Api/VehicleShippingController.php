@@ -6,8 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Vehicle;
 use App\Shipping;
-use App\ShippingItem;
 use App\Inventory;
+use App\Order;
+use App\OrderDetail;
 use Illuminate\Support\Str;
 
 class VehicleShippingController extends Controller
@@ -37,13 +38,16 @@ class VehicleShippingController extends Controller
             'status' => $request->status,
         ]);
 
+        $order = Order::create([
+            'shipping_id' => $new_shipping->id,
+            'order_date' => now(),
+        ]);
+
         foreach ($request->items as $item) {
-            ShippingItem::create([
-                'ref' => Str::random(15),
-                'product_id' => $item['id'],
-                'shipping_id' => $new_shipping->id,
+            OrderDetail::create([
+                'order_id' => $order->id,
+                'inventory_id' => $item['id'],
                 'quantity' => $item['item_quantity'],
-                'price' => $item['retail_price'],
                 'total' => $item['total'],
             ]);
 
