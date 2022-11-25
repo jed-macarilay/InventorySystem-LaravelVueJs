@@ -22,12 +22,30 @@
 </head>
 <body>
     <div id="app">
-        <v-app app>
+        <v-app id="inspire" :style="{background: $vuetify.theme.themes.dark.background,}">
+            @auth
+            <sidebar
+                current-link="{{ Request::path() }}"
+                auth="{{ Auth::user()->user_type }}"
+            ></sidebar>
+            @endauth
+
             <v-container>
+                @auth
+                    <v-toolbar color="rgba(0,0,0,0)" flat class="mt-n4">
+                        <v-btn-toggle tile group color="#49D9A0" >
+                            <v-btn 
+                                href="{{ url()->previous() }}" 
+                                text
+                            >
+                                <v-icon>fa fa-arrow-left</v-icon>
+                            </v-btn>
+                        </v-btn-toggle>
+                    </v-toolbar>
+                @endauth
                 @yield('content')
             </v-container>
         </v-app>
     </div>
-    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>

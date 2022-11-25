@@ -14,4 +14,17 @@ class DashboardController extends Controller
     public function index() {
         return view('pages.dashboard.index');
     }
+
+    public function create() {
+        if (auth()->user()->user_type !== 'admin') {
+            return abort(404);
+        }
+        
+        return view('pages.users.create');
+    }
+
+    public function changePassword() {
+        
+        return view('pages.users.change_password');
+    }
 }
