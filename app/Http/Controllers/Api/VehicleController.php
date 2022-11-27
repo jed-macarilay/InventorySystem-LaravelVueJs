@@ -17,7 +17,7 @@ class VehicleController extends Controller
         return [
             'status' => 'success',
             'message' => 'Get all vehicle list successful.', 
-            'data' => Vehicle::all(),
+            'data' => Vehicle::with('user')->get(),
         ];
     }
 

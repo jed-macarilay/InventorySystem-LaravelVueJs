@@ -29,15 +29,16 @@
                             <label for="">
                                 <strong>Driver</strong>
                             </label>
-                            <v-text-field
-                                v-model="vehicle[0].driver"
-                                placeholder="Enter Vehicle Driver"
-                                outlined
-                                dense
-                                rounded
-                                required
-                                :rules="driverFieldRules"
-                            ></v-text-field>
+                            <v-select
+                            v-model="vehicle[0].user_id"
+                              placeholder="Enter Vehicle Driver"
+                              outlined
+                              rounded
+                              required
+                              item-text="name"
+                              item-value="id"
+                              :items="drivers"
+                          ></v-select>
                         </div>
                     </v-col>
                     <v-divider></v-divider>
@@ -87,9 +88,24 @@ import Snackbar from '../../templates/Snackbar.vue';
                 isLoading: false,
                 snackbarShow: false,
                 message: '',
+                drivers: [],
             }
         },
+        mounted() {
+          this.fetchDrivers()
+        },
         methods: {
+          fetchDrivers() {
+            axios.get(`/api/drivers`)
+              .then(response => {
+                this.drivers = response.data.data
+              })
+              .catch(error => {
+                this.snackbarShow = true
+                this.message = error.response.data.message
+                this.isLoading = false
+              })
+            },
             addVehicle() {
                 if (this.$refs.form.validate()) {
                     axios.post('/api/vehicle/store', this.vehicle)

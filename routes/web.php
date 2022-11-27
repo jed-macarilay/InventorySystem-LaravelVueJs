@@ -46,6 +46,7 @@ Route::get('sales', 'SaleController@index');
 
 Route::prefix('api')->group(function () {
     Route::get('users', 'Api\UserController@user');
+    Route::get('drivers', 'Api\UserController@showDrivers');
     Route::post('create/new_user', 'Api\UserController@add_user');
     Route::put('change-password/{user}', 'Api\UserController@changePassword');
 

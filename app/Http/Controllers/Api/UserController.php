@@ -35,6 +35,16 @@ class UserController extends Controller
         ];
     }
 
+    public function showDrivers() {
+        return [
+            'status' => 'success',
+            'message' => 'Get all drivers successful.',
+            'data' => User::whereUserType('Driver')
+                ->orderBy('created_at', 'desc')
+                ->get(),
+        ];
+    }
+
     public function user() {
         if (auth()->user()->user_type !== 'admin') {
             return abort(404);

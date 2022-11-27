@@ -13,14 +13,15 @@ class Vehicle extends Model
 
     protected $fillable = [
         'plate_no',
-        'driver',
+        'user_id',
     ];
 
     public function shippings() {
         return $this->hasMany(Shipping::class)->latest();
     }
 
-    protected $casts = [
-        'updated_at' => 'datetime:l jS F Y, h:i A',
-    ];
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 }

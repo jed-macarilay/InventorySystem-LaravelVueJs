@@ -37,6 +37,11 @@ class User extends Authenticatable
         $this->attributes['password'] = bcrypt($password);
     }
 
+    public function vehicles()
+    {
+        return $this->hasMany('App\Vehicle');
+    }
+
     /**
      * The attributes that should be cast to native types.
      *
