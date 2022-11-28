@@ -97,7 +97,7 @@
               sortable: false,
               value: 'plate_no',
             },
-            { text: 'Driver', value: 'driver' },
+            { text: 'Driver', value: 'user.name' },
             { text: 'Last Update', value: 'updated_at' },
             { text: 'Delivery', value: 'delivery' },
             { text: 'Actions', value: 'actions' },
