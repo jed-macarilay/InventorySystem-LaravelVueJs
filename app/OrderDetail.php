@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use DateTimeInterface;
 
 class OrderDetail extends Model
 {
@@ -14,4 +15,15 @@ class OrderDetail extends Model
         'quantity',
         'total',
     ];
+
+    /**
+     * Prepare a date for array / JSON serialization.
+     *
+     * @param  \DateTimeInterface  $date
+     * @return string
+     */
+    protected function serializeDate(DateTimeInterface $date)
+    {
+        return $date->format('l jS F Y, h:i A');
+    }
 }

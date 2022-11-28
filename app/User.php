@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use DateTimeInterface;
 
 class User extends Authenticatable
 {
@@ -43,13 +44,13 @@ class User extends Authenticatable
     }
 
     /**
-     * The attributes that should be cast to native types.
+     * Prepare a date for array / JSON serialization.
      *
-     * @var array
+     * @param  \DateTimeInterface  $date
+     * @return string
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'created_at' => 'datetime:l jS F Y, h:i A',
-        'updated_at' => 'datetime:l jS F Y, h:i A',
-    ];
+    protected function serializeDate(DateTimeInterface $date)
+    {
+        return $date->format('l jS F Y, h:i A');
+    }
 }
