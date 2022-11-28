@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    {{-- <shipping-index 
-        shipping="{{ $shipping }}"
-    /> --}}
+    <map-index
+        :shipping="{{ $shipping }}"
+        driver="{{ $driver }}"
+    />
 @endsection

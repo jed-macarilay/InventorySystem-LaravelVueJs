@@ -78,5 +78,3 @@ Route::prefix('api')->group(function () {
 
     Route::get('sales', 'Api\ShippingController@index');
 });
-
-date_default_timezone_set('Asia/Singapore');

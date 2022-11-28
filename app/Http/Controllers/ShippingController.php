@@ -30,6 +30,9 @@ class ShippingController extends Controller
     }
     
     public function map(Shipping $shipping) {
-        return view('pages.shippings.map');
+        return view('pages.shippings.map', [
+            'shipping' => $shipping,
+            'driver' => $shipping->vehicle->user->name,
+        ]);
     }
 }

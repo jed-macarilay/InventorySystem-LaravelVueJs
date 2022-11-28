@@ -7,9 +7,16 @@ import 'font-awesome/css/font-awesome.min.css'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
+import * as VueGoogleMaps from 'vue2-google-maps'
 
 Vue.use(Vuetify)
-
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: 'AIzaSyAiZc5IxkocC88d_ZIzBPf9jNn-X7XYRGI',
+    libraries: 'places',
+  },
+})
+  
 /**
  * templates
  */
@@ -35,6 +42,8 @@ Vue.component('shipping-create', require('./components/pages/Shippings/Create').
 Vue.component('shipping-edit', require('./components/pages/Shippings/Edit').default);
 
 Vue.component('sales-index', require('./components/pages/Sales/Index').default);
+
+Vue.component('map-index', require('./components/pages/Maps/Index').default);
 
 const app = new Vue({
     el: '#app',

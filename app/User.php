@@ -33,11 +33,6 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function setPasswordAttribute($password)
-    {
-        $this->attributes['password'] = bcrypt($password);
-    }
-
     public function vehicles()
     {
         return $this->hasMany('App\Vehicle');

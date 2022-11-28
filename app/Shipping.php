@@ -22,7 +22,7 @@ class Shipping extends Model
     ];
 
     public function vehicle() {
-        return $this->belongsTo(Vehicle::class)->latest();
+        return $this->belongsTo('App\Vehicle', 'id')->latest();
     }
 
     public function order()

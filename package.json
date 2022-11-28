@@ -29,6 +29,7 @@
     },
     "dependencies": {
         "moment": "^2.29.4",
+        "vue2-google-maps": "^0.10.7",
         "vuetify": "^2.6.12"
     }
 }

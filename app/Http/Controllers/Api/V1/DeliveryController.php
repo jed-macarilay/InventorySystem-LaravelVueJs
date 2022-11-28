@@ -10,13 +10,9 @@ use App\Shipping;
 class DeliveryController extends Controller
 {
     public function index() {
+        $vehicle = Vehicle::whereUserId(2)->first();
         return response([
-            'deliveries' => Vehicle::whereUserId(auth()->user()->id)
-                ->with(['shippings' => function($query) {
-                        $query->orderBy('created_at', 'DESC');
-                    }])
-                ->get(), 
-            'user_id' => auth()->user()->id,
+            'deliveries' => $vehicle->shippings, 
         ], 200);
     }
 
