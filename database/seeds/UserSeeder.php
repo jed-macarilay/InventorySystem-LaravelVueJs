@@ -21,24 +21,36 @@ class UserSeeder extends Seeder
                 'user_type' => 'admin',
                 'password' => Hash::make('denlee@pass'),
             ],
+        );
+
+        DB::table('users')->insert(
             [
                 'name' => 'Edrian Agenga',
                 'email' => 'dev1@denlee',
                 'user_type' => 'admin',
                 'password' => Hash::make('denlee@pass'),
             ],
+        );
+
+        DB::table('users')->insert(
             [
                 'name' => 'Nico Candaroma',
                 'email' => 'dev2@denlee',
                 'user_type' => 'admin',
                 'password' => Hash::make('denlee@pass'),
             ],
+        );
+
+        DB::table('users')->insert(
             [
                 'name' => 'Vargas Kenneth',
                 'email' => 'dev3@denlee',
                 'user_type' => 'admin',
                 'password' => Hash::make('denlee@pass'),
             ],
+        );
+
+        DB::table('users')->insert(
             [
                 'name' => 'Kim Caparas',
                 'email' => 'dev4@denlee',
