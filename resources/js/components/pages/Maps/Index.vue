@@ -4,12 +4,23 @@
         <v-toolbar-title>View Location</v-toolbar-title>
      </v-toolbar>
       <gmap-map
-        :center="center"
-        :zoom="10"
+        :center="google && new google.maps.LatLng(shipping.origin_latitude, shipping.origin_longtitude)"
+        :zoom="13.5"
+        :options="{
+          zoomControl: false,
+          mapTypeControl: false,
+          scaleControl: false,
+          streetViewControl: false,
+          rotateControl: false,
+          fullscreenControl: false,
+          disableDefaultUi: false
+        }"
         style="width:100%;  height: 555px;">
+          <gmap-marker
+            :position="google && new google.maps.LatLng(shipping.origin_latitude, shipping.origin_longtitude)"
+          ></gmap-marker>
         <gmap-marker
-          :position="gmp"
-          @click="center=gmp"
+          :position="google && new google.maps.LatLng(shipping.destination_latitude, shipping.destination_longtitude)"
         ></gmap-marker>
       </gmap-map>
       <v-card class="pa-4 mt-5">
@@ -29,7 +40,7 @@
             <v-list-item-content>
               <v-list-item-title>
                 <strong>Destination: </strong> {{ shipping.destination }} <br />
-                <strong>Current Location of Vehicle: </strong> {{ shipping.destination }}
+                <strong>Current Location of Vehicle: </strong> {{ shipping.current_location }}
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
@@ -64,6 +75,8 @@
 </template>
 
 <script>
+import {gmapApi} from 'vue2-google-maps'
+
 export default {
   name: 'GoogleMap',
   props: {
@@ -76,15 +89,14 @@ export default {
       required: true,
     }
   },
+  computed: {
+    google: gmapApi
+  },
   data() {
     return {
+      center: this.google && new this.google.maps.LatLng(shipping.origin_latitude, shipping.origin_longtitude),
       items: [],
-      center: { 
-        lat: 39.7837304, 
-        lng: -100.4458825 
-      },
       locations: [],
-      currentLocation: null,
       headers: [
         {
           text: 'Serial Code',
@@ -101,9 +113,8 @@ export default {
   },
 
   mounted() {
-    console.log(this.driver);
     this.fetchOrder()
-    this.setLocationLatLng();
+    this.setLocationLatLng()
   },
  
  methods: {

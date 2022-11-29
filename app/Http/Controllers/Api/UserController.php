@@ -53,7 +53,7 @@ class UserController extends Controller
         return [
             'status' => 'success',
             'message' => 'Get all users successful.', 
-            'data' => User::all(),
+            'data' => User::latest()->get(),
         ];
     }
 
