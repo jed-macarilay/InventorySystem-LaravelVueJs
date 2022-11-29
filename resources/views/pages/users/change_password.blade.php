@@ -2,6 +2,6 @@
 
 @section('content')
     <change-password 
-        :auth-id="{{ auth()->user()->id }}"
+        :auth="{{ auth()->user() }}"
     />
 @endsection
