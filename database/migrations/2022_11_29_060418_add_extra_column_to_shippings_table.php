@@ -18,7 +18,7 @@ class AddExtraColumnToShippingsTable extends Migration
             $table->string('origin_latitude')->nullable()->after('origin');
             $table->string('destination_longtitude')->nullable()->after('destination');
             $table->string('destination_latitude')->nullable()->after('destination');
-            $table->string('current_location')->nullable()->afer('destination');
+            $table->string('current_location')->nullable()->afer('destination_latitude');
         });
     }
 

@@ -39,7 +39,7 @@
                                 :rules="contactNumberRule"
                             ></v-text-field>
                         </div>
-                        <div>
+                        <!-- <div>
                             <label for="">
                                 <strong>Origin</strong>
                             </label>
@@ -68,6 +68,30 @@
                                 :rules="destinationRule"
                                 append-icon="fa fa-map-marker"
                             ></v-text-field>
+                        </div> -->
+                        <div>
+                            <label for="">
+                                <strong>Origin</strong>
+                            </label><br />
+                            <gmap-autocomplete
+                              class="g-map-input"
+                              placeholder="Enter Package Address Start Point"
+                              required
+                              :value="edit_shipping.origin"
+                              @place_changed="setOrigin"
+                            ></gmap-autocomplete>
+                        </div>
+                        <div>
+                            <label for="">
+                                <strong>Destination</strong>
+                            </label><br />
+                            <gmap-autocomplete
+                              class="g-map-input"
+                              placeholder="Enter Package Address Destination"
+                              required
+                              :value="edit_shipping.destination"
+                              @place_changed="setDestination"
+                            ></gmap-autocomplete>
                         </div>
                         <div>
                             <label for="">
@@ -121,7 +145,18 @@
         />
     </div>
 </template>
-
+<style scoped>
+  .g-map-input {
+    flex: 1 1 auto;
+    line-height: 20px;
+    padding: 8px 14px;
+    max-width: 100%;
+    min-width: 0;
+    width: 100%;
+    border: 1px solid grey;
+    border-radius: 20px;
+  }
+</style>
 <script>
 import Snackbar from '../../templates/Snackbar.vue';
 
@@ -201,6 +236,16 @@ import Snackbar from '../../templates/Snackbar.vue';
             },
             formatCurrency (value) {
               return '₱' + parseFloat(value)
+            },
+            setOrigin(v) {
+                this.shipping.origin = v.formatted_address
+                this.shipping.origin_latitude = v.geometry.location.lat()
+                this.shipping.origin_longtitude = v.geometry.location.lng()
+            },
+            setDestination(v) {
+                this.shipping.destination = v.formatted_address
+                this.shipping.destination_latitude = v.geometry.location.lat()
+                this.shipping.destination_longtitude = v.geometry.location.lng()
             },
         },
     }

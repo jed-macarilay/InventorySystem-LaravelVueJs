@@ -34,7 +34,11 @@ class VehicleShippingController extends Controller
             'receiver' => $request->receiver,
             'contact_number' => $request->contact_number,
             'origin' => $request->origin,
+            'origin_latitude' => $request->origin_latitude,
+            'origin_longtitude' => $request->origin_longtitude,
             'destination' => $request->destination,
+            'destination_latitude' => $request->destination_latitude,
+            'destination_longtitude' => $request->destination_longtitude,
             'status' => $request->status,
         ]);
 

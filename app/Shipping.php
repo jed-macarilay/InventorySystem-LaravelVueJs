@@ -16,9 +16,14 @@ class Shipping extends Model
         'receiver',
         'contact_number',
         'origin',
+        'origin_latitude',
+        'origin_longtitude',
         'destination',
+        'destination_latitude',
+        'destination_longtitude',
         'status',
         'vehicle_id',
+        'current_location',
     ];
 
     public function vehicle() {
