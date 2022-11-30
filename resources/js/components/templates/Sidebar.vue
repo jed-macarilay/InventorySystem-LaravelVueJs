@@ -6,18 +6,6 @@
         mini-variant
         mini-variant-width="80"
     >
-        <v-avatar
-            class="d-block text-center mx-auto mt-4"
-            size="40"
-        >
-            <v-icon
-                color="#49D9A0"
-                large
-            >
-                fa fa-home
-            </v-icon>
-        </v-avatar>
-        <v-divider></v-divider>
         <v-list flat class="mt-5">
             <v-list-item-group v-model="selectedItem">
                 <v-list-item
@@ -25,28 +13,48 @@
                     class="mb-5"
                     href="/"
                 >
-                    <v-icon>fa fa-dashboard</v-icon>
+                    <v-tooltip right>
+                        <template #activator="{ on }">
+                            <v-icon v-on="on">fa fa-dashboard</v-icon>
+                        </template>
+                        <span>Dashboard</span>
+                    </v-tooltip>
                 </v-list-item>
                 <v-list-item
                     active-class="border"
                     class="mb-5"
                     href="/sales"
                 >
-                    <v-icon>fa fa-bar-chart</v-icon>
+                    <v-tooltip right>
+                        <template #activator="{ on }">
+                            <v-icon v-on="on">fa fa-bar-chart</v-icon>
+                        </template>
+                        <span>Sales</span>
+                    </v-tooltip>
                 </v-list-item>
                 <v-list-item
                     active-class="border"
                     class="mb-5"
                     href="/inventory"
                 >
-                    <v-icon>fa fa-archive</v-icon>
+                    <v-tooltip right>
+                        <template #activator="{ on }">
+                            <v-icon v-on="on">fa fa-archive</v-icon>
+                        </template>
+                        <span>Inventory</span>
+                    </v-tooltip>
                 </v-list-item>
                 <v-list-item
                     active-class="border"
                     class="mb-5"
                     href="/vehicle"
                 >
-                    <v-icon>fa fa-truck</v-icon>
+                    <v-tooltip right>
+                        <template #activator="{ on }">
+                            <v-icon v-on="on">fa fa-truck</v-icon>
+                        </template>
+                        <span>Vehicles</span>
+                    </v-tooltip>
                 </v-list-item>
                 <v-list-item
                     v-show="auth === 'admin'"
@@ -54,14 +62,24 @@
                     class="mb-5"
                     href="/user/create"
                 >
-                    <v-icon>fa fa-user</v-icon>
+                    <v-tooltip right>
+                        <template #activator="{ on }">
+                            <v-icon v-on="on">fa fa-user</v-icon>
+                        </template>
+                        <span>All Users</span>
+                    </v-tooltip>
                 </v-list-item>
                 <v-list-item
                     active-class="border"
                     class="mb-5"
                     href="/change-password"
                 >
-                    <v-icon>fa fa-cog</v-icon>
+                    <v-tooltip right>
+                        <template #activator="{ on }">
+                            <v-icon v-on="on">fa fa-cog</v-icon>
+                        </template>
+                        <span>Setting</span>
+                    </v-tooltip>
                 </v-list-item>
             </v-list-item-group>
         </v-list>
@@ -71,7 +89,12 @@
                 :ripple="false"
                 @click="logout"
             >
-                <v-icon>fa fa-sign-out</v-icon>
+                <v-tooltip right>
+                    <template #activator="{ on }">
+                        <v-icon v-on="on">fa fa-sign-out</v-icon>
+                    </template>
+                    <span>Logout</span>
+                </v-tooltip>
             </v-btn>
             <!-- <br />
             <v-avatar color="red">

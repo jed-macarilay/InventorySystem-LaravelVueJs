@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="ml-auto ml-lg-7">
     <v-toolbar flat class="mt-n5">
       <v-toolbar-title>Overview</v-toolbar-title>
    </v-toolbar>
@@ -7,27 +7,25 @@
       <v-container>
         <v-row justify="start" class="space">
           <v-col
-            cols="12"
+            cols="4"
             md="2"
           >
-            <v-item v-slot="{ active, toggle }" > 
+            <v-item>
             <v-card
-                :color="active ? '#49D9A0' : 'white'"
+                color="#49D9A0"
                 class="d-flex align-center rounded-xl"
                 dark
                 height="200"
-                @click="toggle"
-                
               >
                 <v-row>
                   <v-col cols="12" sm="12">
                     <v-list-item three-line  class="mt-10">
                       <v-list-item-content>
                         <div class="mb-4">
-                            <v-icon  x-large :color="active ? 'white' : '#49D9A0'">fa fa-archive</v-icon>
+                            <v-icon  x-large color="white">fa fa-archive</v-icon>
                         </div>
-                        <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">Inventory</v-list-item-subtitle>
-                        <v-list-item-title class="headline mb-1" :class="active ? 'white--text' : 'black--text'">
+                        <v-list-item-subtitle class="white--text">Inventory</v-list-item-subtitle>
+                        <v-list-item-title class="headline mb-1 white--text">
                           <strong>{{ counts.inventory_count }}</strong>
                         </v-list-item-title>
                       </v-list-item-content>
@@ -41,13 +39,12 @@
             cols="12"
             md="2"
           >
-            <v-item v-slot="{ active, toggle }">
+            <v-item>
               <v-card
-                :color="active ? '#49D9A0' : 'white'"
+                color="#49D9A0"
                 class="d-flex align-center rounded-xl"
                 dark
                 height="200"
-                @click="toggle"
               >
                 <v-row>
                   <v-col cols="12" sm="12">
@@ -55,11 +52,11 @@
                       <v-list-item-content>
                         <div class="mb-4">
                         
-                            <v-icon  x-large :color="active ? 'white' : '#49D9A0'">fa fa-truck</v-icon>
+                            <v-icon  x-large color="white">fa fa-truck</v-icon>
                         
                         </div>
-                        <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">Total Vehicle</v-list-item-subtitle>
-                        <v-list-item-title class="headline mb-1" :class="active ? 'white--text' : 'black--text'">
+                        <v-list-item-subtitle class="white--text">Total Vehicle</v-list-item-subtitle>
+                        <v-list-item-title class="headline mb-1 white--text">
                           <strong>{{ counts.vehicle_count }}</strong>
                         </v-list-item-title>
                         
@@ -75,23 +72,22 @@
             cols="12"
             md="2"
           >
-            <v-item v-slot="{ active, toggle }" > 
+            <v-item> 
             <v-card
-              :color="active ? '#49D9A0' : 'white'"
+              color="#49D9A0"
               class="d-flex align-center rounded-xl"
               dark
               height="200"
-              @click="toggle"
             >
                 <v-row>
                   <v-col cols="12" sm="12">
                     <v-list-item three-line  class="mt-10">
                       <v-list-item-content>
                         <div class="mb-4">
-                            <v-icon  x-large :color="active ? 'white' : '#49D9A0'">fa fa-truck</v-icon>
+                            <v-icon  x-large color="white">fa fa-truck</v-icon>
                         </div>
-                        <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">Shipping now</v-list-item-subtitle>
-                        <v-list-item-title class="headline mb-1" :class="active ? 'white--text' : 'black--text'">
+                        <v-list-item-subtitle class="white--text">Shipping now</v-list-item-subtitle>
+                        <v-list-item-title class="headline mb-1 white--text">
                           <strong>{{ counts.shipping_count }}</strong>
                         </v-list-item-title>
                       </v-list-item-content>
@@ -105,23 +101,22 @@
             cols="12"
             md="2"
           >
-            <v-item v-slot="{ active, toggle }" > 
+            <v-item> 
             <v-card
-              :color="active ? '#49D9A0' : 'white'"
+              color="#49D9A0"
               class="d-flex align-center rounded-xl"
               dark
               height="200"
-              @click="toggle"
             >
                 <v-row>
                   <v-col cols="12" sm="12">
                     <v-list-item three-line  class="mt-10">
                       <v-list-item-content>
                         <div class="mb-4">
-                            <v-icon  x-large :color="active ? 'white' : '#49D9A0'">fa fa-users</v-icon>
+                            <v-icon  x-large color="white">fa fa-users</v-icon>
                         </div>
-                        <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">Total Users</v-list-item-subtitle>
-                        <v-list-item-title class="headline mb-1" :class="active ? 'white--text' : 'black--text'">
+                        <v-list-item-subtitle class="white--text">Total Users</v-list-item-subtitle>
+                        <v-list-item-title class="headline mb-1 white--text">
                           <strong>{{ counts.user_count }}</strong>
                         </v-list-item-title>
                       </v-list-item-content>

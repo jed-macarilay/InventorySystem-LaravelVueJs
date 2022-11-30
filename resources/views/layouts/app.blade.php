@@ -32,7 +32,7 @@
 
             <v-container>
                 @auth
-                    <v-toolbar color="rgba(0,0,0,0)" flat class="mt-n4">
+                    <v-toolbar color="rgba(0,0,0,0)" flat class="ml-auto ml-lg-5 mt-n4">
                         <v-btn-toggle tile group color="#49D9A0" >
                             <v-btn 
                                 href="{{ url()->previous() }}" 
