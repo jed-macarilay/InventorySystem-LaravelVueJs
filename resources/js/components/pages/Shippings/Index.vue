@@ -33,7 +33,7 @@
                           <div class="mb-4">
                               <v-icon  x-large :color="active ? 'white' : '#49D9A0'">fa fa-plus-square</v-icon>
                           </div>
-                          <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">Add new shipping</v-list-item-subtitle>
+                          <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">Add new Delivery</v-list-item-subtitle>
                           <v-list-item-title class="headline mb-1" :class="active ? 'white--text' : 'black--text'">
                             <strong>{{ shippings.length }}</strong>
                           </v-list-item-title>
