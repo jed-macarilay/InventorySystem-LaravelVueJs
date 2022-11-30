@@ -15,19 +15,20 @@ class UserController extends Controller
             return abort(404);
         }
 
-        $this->validate(request(), [
-            'name' => 'required',
-            'email' => 'required|email',
-            'password' => 'required',
+        $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:6',
             'user_type' => 'required',
         ]);
+
         
-        $user = User::create(request([
-            'name',
-            'email',
-            'password',
-            'user_type',
-        ]));
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'user_type' => $request->name,
+        ]);
                 
         return [
             'status' => 'success',
