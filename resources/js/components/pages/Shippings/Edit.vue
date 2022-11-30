@@ -238,9 +238,15 @@ import Snackbar from '../../templates/Snackbar.vue';
               return '₱' + parseFloat(value)
             },
             setOrigin(v) {
+                let lat = v.geometry.location.lat()
+                let lng = v.geometry.location.lng()
+                
                 this.shipping.origin = v.formatted_address
-                this.shipping.origin_latitude = v.geometry.location.lat()
-                this.shipping.origin_longtitude = v.geometry.location.lng()
+                this.shipping.origin_latitude = lat
+                this.shipping.origin_longtitude = lng
+                this.shipping.current_location = v.formatted_address
+                this.shipping.current_location_latitude = lat
+                this.shipping.current_location_longtitude = lng
             },
             setDestination(v) {
                 this.shipping.destination = v.formatted_address

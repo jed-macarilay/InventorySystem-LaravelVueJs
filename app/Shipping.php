@@ -21,13 +21,15 @@ class Shipping extends Model
         'destination',
         'destination_latitude',
         'destination_longtitude',
+        'current_location',
+        'current_location_latitude',
+        'current_location_longtitude',
         'status',
         'vehicle_id',
-        'current_location',
     ];
 
     public function vehicle() {
-        return $this->belongsTo('App\Vehicle', 'id')->latest();
+        return $this->belongsTo('App\Vehicle')->latest();
     }
 
     public function order()

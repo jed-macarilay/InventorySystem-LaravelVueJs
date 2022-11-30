@@ -43,7 +43,9 @@
                         </v-btn-toggle>
                     </v-toolbar>
                 @endauth
-                @yield('content')
+                <div class="ml-auto ml-lg-7">
+                    @yield('content')
+                </div>
             </v-container>
         </v-app>
     </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="ml-auto ml-lg-7">
+  <div>
     <v-toolbar flat class="mt-n5">
       <v-toolbar-title>Overview</v-toolbar-title>
    </v-toolbar>

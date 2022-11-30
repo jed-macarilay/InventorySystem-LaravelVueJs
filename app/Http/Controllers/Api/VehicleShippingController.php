@@ -39,6 +39,9 @@ class VehicleShippingController extends Controller
             'destination' => $request->destination,
             'destination_latitude' => $request->destination_latitude,
             'destination_longtitude' => $request->destination_longtitude,
+            'current_location' => $request->current_location,
+            'current_location_latitude' => $request->current_location_latitude,
+            'current_location_longtitude' => $request->current_location_longtitude,
             'status' => $request->status,
         ]);
 
