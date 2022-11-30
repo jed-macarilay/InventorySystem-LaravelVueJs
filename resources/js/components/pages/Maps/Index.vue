@@ -7,7 +7,7 @@
         :center="google && new google.maps.LatLng(shipping.origin_latitude, shipping.origin_longtitude)"
         :zoom="13.5"
         :options="{
-          zoomControl: false,
+          zoomControl: true,
           mapTypeControl: false,
           scaleControl: false,
           streetViewControl: false,
@@ -18,10 +18,16 @@
         style="width:100%;  height: 555px;">
           <gmap-marker
             :position="google && new google.maps.LatLng(shipping.origin_latitude, shipping.origin_longtitude)"
+            label="Origin"
           ></gmap-marker>
-        <gmap-marker
-          :position="google && new google.maps.LatLng(shipping.destination_latitude, shipping.destination_longtitude)"
-        ></gmap-marker>
+          <gmap-marker
+            :position="google && new google.maps.LatLng(shipping.destination_latitude, shipping.destination_longtitude)"
+            label="Destination"
+          ></gmap-marker>
+          <gmap-marker
+            :position="google && new google.maps.LatLng(shipping.current_location_latitude, shipping.current_location_longtitude)"
+            label="Driver"
+          ></gmap-marker>
       </gmap-map>
       <v-card class="pa-4 mt-5">
         <v-toolbar-title>
