@@ -19,7 +19,11 @@
               >
                 <v-row>
                   <v-col cols="12" sm="12">
-                    <v-list-item three-line  class="mt-10">
+                    <v-list-item 
+                      three-line  
+                      class="mt-10"
+                      href="/inventory"
+                    >
                       <v-list-item-content>
                         <div class="mb-4">
                             <v-icon  x-large color="white">fa fa-archive</v-icon>
@@ -45,6 +49,7 @@
                 class="d-flex align-center rounded-xl"
                 dark
                 height="200"
+                href="/vehicle"
               >
                 <v-row>
                   <v-col cols="12" sm="12">
@@ -81,7 +86,11 @@
             >
                 <v-row>
                   <v-col cols="12" sm="12">
-                    <v-list-item three-line  class="mt-10">
+                    <v-list-item 
+                      three-line  
+                      class="mt-10"
+                      href="/sales"
+                    >
                       <v-list-item-content>
                         <div class="mb-4">
                             <v-icon  x-large color="white">fa fa-truck</v-icon>
@@ -110,7 +119,11 @@
             >
                 <v-row>
                   <v-col cols="12" sm="12">
-                    <v-list-item three-line  class="mt-10">
+                    <v-list-item 
+                      three-line  
+                      class="mt-10"
+                      href="/user/create"
+                    >
                       <v-list-item-content>
                         <div class="mb-4">
                             <v-icon  x-large color="white">fa fa-users</v-icon>

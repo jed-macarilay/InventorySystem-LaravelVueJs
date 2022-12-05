@@ -7,6 +7,11 @@
         mini-variant-width="80"
     >
         <v-list flat class="mt-5">
+            <v-list-item class="px-2">
+            <v-list-item-avatar>
+              <v-img src="/storage/images/Icon-App-40x40@1x.png"></v-img>
+            </v-list-item-avatar>
+          </v-list-item>
             <v-list-item-group v-model="selectedItem">
                 <v-list-item
                     active-class="border"
@@ -27,7 +32,7 @@
                 >
                     <v-tooltip right>
                         <template #activator="{ on }">
-                            <v-icon v-on="on">fa fa-bar-chart</v-icon>
+                            <v-icon v-on="on">fa fa-usd</v-icon>
                         </template>
                         <span>Sales</span>
                     </v-tooltip>
