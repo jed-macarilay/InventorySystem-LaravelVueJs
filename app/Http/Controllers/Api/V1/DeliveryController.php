@@ -12,14 +12,13 @@ class DeliveryController extends Controller
     public function index() {
         $vehicle = Vehicle::whereUserId(auth()->user()->id)->first();
         return response([
-            'deliveries' => $vehicle->shippings, 
+            'deliveries' => $vehicle->shippings->where('status', 'To Ship'),
         ], 200);
     }
 
     public function show(Shipping $shipping) {
         return response([
             'delivery' => $shipping,
-            'user_id' => auth()->user()->id,
         ], 200);
     }
 

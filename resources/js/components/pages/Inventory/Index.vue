@@ -46,31 +46,46 @@
         </v-container>
       </v-item-group>
       <v-divider></v-divider>
-      <v-data-table
-        :headers="headers"
-        :items="products"
-        :items-per-page="5"
-        class="elevation-1 mt-10 ml-5"
-      >
-        <template v-slot:item.retail_price="{ item }">
-          <strong>{{ formatCurrency(item.retail_price) }}</strong>
-        </template>
-        <template v-slot:item.actions="{ item }">
-            <v-icon
-              small
-              class="mr-2"
-              @click="editProduct(item)"
-            >
-              fa fa-pencil
-            </v-icon>
-            <v-icon
-              small
-              @click="deleteVehicle(item)"
-            >
-              fa fa-trash
-            </v-icon>
+      <v-card class="pa-4 elavation-0">
+        <v-card-title>
+          <v-col cols="12" md="4">
+            <v-text-field
+              v-model="search"
+              append-icon="fa fa-search"
+              label="Search Product"
+              outlined
+              hide-details
+              rounded
+            ></v-text-field>
+          </v-col>
+      </v-card-title>
+        <v-data-table
+          :search="search"
+          :headers="headers"
+          :items="products"
+          :items-per-page="5"
+          class="mt-10 ml-5"
+        >
+          <template v-slot:item.retail_price="{ item }">
+            <strong>{{ formatCurrency(item.retail_price) }}</strong>
           </template>
-      </v-data-table>
+          <template v-slot:item.actions="{ item }">
+              <v-icon
+                small
+                class="mr-2"
+                @click="editProduct(item)"
+              >
+                fa fa-pencil
+              </v-icon>
+              <v-icon
+                small
+                @click="deleteVehicle(item)"
+              >
+                fa fa-trash
+              </v-icon>
+            </template>
+        </v-data-table>
+      </v-card>
 
       <snackbar 
         :show="snackbarShow"
@@ -90,6 +105,7 @@
     data () {
       return {
         toggle_exclusive: 1,
+        search: '',
         headers: [
           {
             text: 'Serial Code',
@@ -97,7 +113,7 @@
             sortable: false,
             value: 'serial_code',
           },
-          { text: 'Product Name', value: 'product_name' },
+          { text: 'Product Name', value: 'product_name', sortable: true, },
           { text: 'Retail Price', value: 'retail_price' },
           { text: 'Quantity', value: 'quantity' },
           { text: 'Last Quantity', value: 'last_quantity' },

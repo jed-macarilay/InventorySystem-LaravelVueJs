@@ -15,7 +15,11 @@ class AuthController extends Controller
             'password'  =>  'required|min:6',
         ]);
 
-        if(!Auth::attempt($attrs)) {
+        if(!Auth::attempt([
+            'email' => $attrs['email'],
+            'password' => $attrs['password'],
+            'user_type' => 'Driver',
+        ])) {
             return response([
                 'message' => 'Invalid credentials.',
             ], 403);
@@ -27,6 +31,13 @@ class AuthController extends Controller
                 ->user()
                 ->createToken('secret')
                 ->plainTextToken,
+        ], 200);
+    }
+
+    public function user()
+    {
+        return response([
+            'user' => auth()->user()
         ], 200);
     }
 

@@ -18,6 +18,7 @@ Route::post('login', 'Api\AuthController@login');
 
 Route::middleware('auth:sanctum')->group(function() {
     Route::prefix('v1')->group(function() {
+        Route::get('get-user', 'Api\AuthController@user');
         Route::post('logout', 'Api\AuthController@logout');
 
         Route::prefix('delivery')->group(function() {
