@@ -8,6 +8,7 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import * as VueGoogleMaps from 'vue2-google-maps'
+import { Bar } from 'vue-chartjs'
 
 Vue.use(Vuetify)
 Vue.use(VueGoogleMaps, {
@@ -16,6 +17,7 @@ Vue.use(VueGoogleMaps, {
     libraries: 'places,directions',
   },
 })
+
   
 /**
  * templates

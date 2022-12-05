@@ -142,19 +142,95 @@
         </v-row>
       </v-container>
     </v-item-group>
+    <div class="mt-10">
+      <h4>Inventory Summary</h4>
+      <Bar
+        :chart-options="chartOptions"
+        :chart-data="chartData"
+        :chart-id="chartId"
+        :dataset-id-key="datasetIdKey"
+        :plugins="plugins"
+        :css-classes="cssClasses"
+        :styles="styles"
+        :width="width"
+        :height="height"
+      />
+    </div>
   </div>
 </template>
 
 <script>
+  import { Bar } from 'vue-chartjs/legacy'
+
+  import {
+    Chart as ChartJS,
+    Title,
+    Tooltip,
+    Legend,
+    BarElement,
+    CategoryScale,
+    LinearScale
+  } from 'chart.js'
+
+  ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
+
   export default {
+    components: {
+      Bar,
+    },
+    props: {
+      chartId: {
+        type: String,
+        default: 'bar-chart'
+      },
+      datasetIdKey: {
+        type: String,
+        default: 'label'
+      },
+      width: {
+        type: Number,
+        default: 400
+      },
+      height: {
+        type: Number,
+        default: 400
+      },
+      cssClasses: {
+        default: '',
+        type: String
+      },
+      styles: {
+        type: Object,
+        default: () => {}
+      },
+      plugins: {
+        type: Array,
+        default: () => []
+      }
+    },
     data () {
       return {
         toggle_exclusive: 1,
         counts: [],
+        chartData: {
+          labels: [],
+          datasets: [
+            {
+              label: 'Product',
+              backgroundColor: '#49D9A0',
+              data: []
+            }
+          ]
+        },
+        chartOptions: {
+          responsive: true,
+          maintainAspectRatio: false
+        },
       }
     },
     mounted() {
       this.fetchCountAll()
+      this.fetchProduct()
     },
     methods: {
       fetchCountAll() {
@@ -163,6 +239,24 @@
             this.counts = response.data
           })
           .catch(error => console.log(error))
+      },
+      fetchProduct() {
+        axios.get(`/api/inventory/product`)
+          .then(response => {
+            let products = response.data.data
+
+            let labels = []
+            let datasets = []
+
+            products.forEach(element => {
+              labels.push(element.product_name)
+              datasets.push(element.quantity)
+            });
+
+            this.chartData.labels = labels
+            this.chartData.datasets[0].data = datasets
+          })
+          .catch(error => console.log(error.response.data.message))
       },
     },
   }
