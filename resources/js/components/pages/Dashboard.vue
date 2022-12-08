@@ -93,9 +93,9 @@
                     >
                       <v-list-item-content>
                         <div class="mb-4">
-                            <v-icon  x-large color="white">fa fa-truck</v-icon>
+                            <v-icon  x-large color="white">fa fa-dollar</v-icon>
                         </div>
-                        <v-list-item-subtitle class="white--text">Shipping now</v-list-item-subtitle>
+                        <v-list-item-subtitle class="white--text">Sales</v-list-item-subtitle>
                         <v-list-item-title class="headline mb-1 white--text">
                           <strong>{{ counts.shipping_count }}</strong>
                         </v-list-item-title>
@@ -144,7 +144,7 @@
     </v-item-group>
     <div class="mt-10">
       <h4>Inventory Summary</h4>
-      <Bar
+      <LineChartGenerator
         :chart-options="chartOptions"
         :chart-data="chartData"
         :chart-id="chartId"
@@ -160,28 +160,37 @@
 </template>
 
 <script>
-  import { Bar } from 'vue-chartjs/legacy'
+  import { Line as LineChartGenerator } from 'vue-chartjs/legacy'
 
   import {
     Chart as ChartJS,
     Title,
     Tooltip,
     Legend,
-    BarElement,
+    LineElement,
+    LinearScale,
     CategoryScale,
-    LinearScale
+    PointElement
   } from 'chart.js'
 
-  ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
+  ChartJS.register(
+    Title,
+    Tooltip,
+    Legend,
+    LineElement,
+    LinearScale,
+    CategoryScale,
+    PointElement
+  )
 
   export default {
     components: {
-      Bar,
+      LineChartGenerator,
     },
     props: {
       chartId: {
         type: String,
-        default: 'bar-chart'
+        default: 'line-chart'
       },
       datasetIdKey: {
         type: String,
@@ -212,11 +221,12 @@
       return {
         toggle_exclusive: 1,
         counts: [],
+        category_product_counts: [],
         chartData: {
           labels: [],
           datasets: [
             {
-              label: 'Product',
+              label: 'All Product in Category',
               backgroundColor: '#49D9A0',
               data: []
             }
@@ -241,20 +251,14 @@
           .catch(error => console.log(error))
       },
       fetchProduct() {
-        axios.get(`/api/inventory/product`)
+        axios.get(`/api/category/show`)
           .then(response => {
-            let products = response.data.data
+            this.category_product_counts = response.data.data
 
-            let labels = []
-            let datasets = []
-
-            products.forEach(element => {
-              labels.push(element.product_name)
-              datasets.push(element.quantity)
+            this.category_product_counts.forEach(element => {
+              this.chartData.labels.push(element.category)
+              this.chartData.datasets[0].data.push(element.products_count)
             });
-
-            this.chartData.labels = labels
-            this.chartData.datasets[0].data = datasets
           })
           .catch(error => console.log(error.response.data.message))
       },

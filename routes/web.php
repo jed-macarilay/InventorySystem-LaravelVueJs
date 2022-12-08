@@ -70,6 +70,7 @@ Route::prefix('api')->group(function () {
 
     Route::prefix('category')->group(function() {
         Route::get('/', 'Api\CategoryController@index');
+        Route::get('show', 'Api\CategoryController@show');
         Route::post('create', 'Api\CategoryController@create');
     });
 

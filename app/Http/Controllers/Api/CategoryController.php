@@ -16,6 +16,17 @@ class CategoryController extends Controller
         ], 200);
     }
 
+    public function show() {
+        $category = Category::with('products')
+            ->withCount('products')
+            ->get();
+        return response([
+            'status' => 'success',
+            'Get all Category for Chart',
+            'data' => $category,
+        ], 200);
+    }
+
     public function create(Request $request) {
         $category = Category::create([
             'category' => $request->category,

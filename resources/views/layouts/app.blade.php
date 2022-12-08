@@ -35,6 +35,19 @@
             <v-container>
                 @auth
                     <v-toolbar color="rgba(0,0,0,0)" flat class="ml-auto ml-lg-5 mt-n4">
+                        <v-toolbar-title>DENLEE VARIETY STORE</v-toolbar-title>
+                        <v-spacer></v-spacer>
+                        <v-badge class="mt-5">
+                            <v-icon
+                                color="grey lighten-1"
+                                large
+                                content="5"
+                            >
+                                mdi-bell
+                            </v-icon>
+                        </v-badge>
+                    </v-toolbar>
+                    <v-toolbar color="rgba(0,0,0,0)" flat class="ml-auto ml-lg-5 mt-n4">
                         <v-btn-toggle tile group color="#49D9A0" >
                             <v-btn 
                                 href="{{ url()->previous() }}" 
