@@ -3,6 +3,11 @@
     <v-toolbar flat class="mt-n5">
       <v-toolbar-title>Overview</v-toolbar-title>
    </v-toolbar>
+   <div class="py-5 ml-4 mb-10">
+      <h2>
+          <strong>Welcome Back, {{ user.name }}!</strong>
+      </h2>
+    </div>
     <v-item-group mandatory class="mt-n4">
       <v-container>
         <v-row justify="start" class="space">
@@ -188,6 +193,10 @@
       LineChartGenerator,
     },
     props: {
+      user: {
+        type: Object,
+        default: [],
+      },
       chartId: {
         type: String,
         default: 'line-chart'

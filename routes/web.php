@@ -51,6 +51,8 @@ Route::prefix('vehicle')->group(function () {
 Route::get('sales', 'SaleController@index');
 Route::get('order/create', 'ShippingController@createShipping');
 
+Route::get('notifications', 'NotificationController@index');
+
 Route::prefix('api')->group(function () {
     Route::get('users', 'Api\UserController@user');
     Route::get('drivers', 'Api\UserController@showDrivers');
@@ -91,4 +93,6 @@ Route::prefix('api')->group(function () {
 
     Route::post('shippings/orders/create', 'Api\ShippingController@create');
     Route::get('sales', 'Api\ShippingController@index');
+
+    Route::get('notifications', 'Api\NotificationController@index');
 });

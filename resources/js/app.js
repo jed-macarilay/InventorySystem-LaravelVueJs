@@ -52,6 +52,8 @@ Vue.component('category-create', require('./components/pages/Category/Create').d
 
 Vue.component('order-create', require('./components/pages/Orders/Create').default);
 
+Vue.component('notifications', require('./components/pages/Notification').default);
+
 const app = new Vue({
     el: '#app',
     vuetify: new Vuetify(),

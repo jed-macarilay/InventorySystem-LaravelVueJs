@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Inventory;
+use App\Notification;
 
 class InventoryController extends Controller
 {
@@ -18,12 +19,17 @@ class InventoryController extends Controller
             'status' => 'success',
             'message' => 'Get all product list successful.', 
             'data' => Inventory::with('category')
+                ->orderBy('created_at', 'DESC')
                 ->get(),
         ];
     }
 
     public function create(Request $request) {
         $new_product = Inventory::create($request->all());
+
+        if ($request->quantity < 1) {
+            Notification::create(['data' => 'Product ID# '.$new_product->id.' stock is empty']);
+        }
 
         return [
             'status' => 'success',
@@ -41,6 +47,10 @@ class InventoryController extends Controller
         $inventory->last_quantity = $inventory->quantity;
         $inventory->quantity = $request->quantity;
         $inventory->retail_price = $request->retail_price;
+
+        if ($request->quantity < 1) {
+            Notification::create(['data' => 'Product ID# '.$new_product->id.' stock is empty']);
+        }
         
         if ($inventory->save()) {
             return [

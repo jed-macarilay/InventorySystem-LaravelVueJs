@@ -54,6 +54,11 @@ class ShippingController extends Controller
             $product = Inventory::find($item['id']);
             $product->last_quantity = $product->quantity;
             $product->quantity = $product->quantity - $item['item_quantity'];
+
+            if ($product->quantity < 1) {
+                Notification::create(['data' => 'Product ID# '.$product->id.' stock is empty']);
+            }
+            
             $product->save();
         }
         

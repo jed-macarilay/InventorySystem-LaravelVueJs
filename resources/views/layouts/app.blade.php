@@ -37,15 +37,14 @@
                     <v-toolbar color="rgba(0,0,0,0)" flat class="ml-auto ml-lg-5 mt-n4">
                         <v-toolbar-title>DENLEE VARIETY STORE</v-toolbar-title>
                         <v-spacer></v-spacer>
-                        <v-badge class="mt-5">
-                            <v-icon
-                                color="grey lighten-1"
-                                large
-                                content="5"
-                            >
-                                mdi-bell
-                            </v-icon>
-                        </v-badge>
+                        <a href="/notifications" target="_blank">
+                            @php 
+                                $notification_count = App\Notification::get()->count();
+                            @endphp
+                            <v-badge content="{{ $notification_count }}" class="ml-3 mt-10" dark>
+                                <v-icon color="#878A94">fa fa-bell</v-icon>
+                            </v-badge>
+                        </a>
                     </v-toolbar>
                     <v-toolbar color="rgba(0,0,0,0)" flat class="ml-auto ml-lg-5 mt-n4">
                         <v-btn-toggle tile group color="#49D9A0" >
