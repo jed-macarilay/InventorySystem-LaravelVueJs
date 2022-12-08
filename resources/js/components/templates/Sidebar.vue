@@ -28,18 +28,6 @@
                 <v-list-item
                     active-class="border"
                     class="mb-5"
-                    href="/sales"
-                >
-                    <v-tooltip right>
-                        <template #activator="{ on }">
-                            <v-icon v-on="on">fa fa-usd</v-icon>
-                        </template>
-                        <span>Sales</span>
-                    </v-tooltip>
-                </v-list-item>
-                <v-list-item
-                    active-class="border"
-                    class="mb-5"
                     href="/inventory"
                 >
                     <v-tooltip right>
@@ -52,6 +40,18 @@
                 <v-list-item
                     active-class="border"
                     class="mb-5"
+                    href="/category"
+                >
+                    <v-tooltip right>
+                        <template #activator="{ on }">
+                            <v-icon v-on="on">fa fa-clone</v-icon>
+                        </template>
+                        <span>Category</span>
+                    </v-tooltip>
+                </v-list-item>
+                <v-list-item
+                    active-class="border"
+                    class="mb-5"
                     href="/vehicle"
                 >
                     <v-tooltip right>
@@ -59,6 +59,30 @@
                             <v-icon v-on="on">fa fa-truck</v-icon>
                         </template>
                         <span>Vehicles</span>
+                    </v-tooltip>
+                </v-list-item>
+                <v-list-item
+                    active-class="border"
+                    class="mb-5"
+                    href="/vehicle"
+                >
+                    <v-tooltip right>
+                        <template #activator="{ on }">
+                            <v-icon v-on="on">fa fa-book</v-icon>
+                        </template>
+                        <span>Orders</span>
+                    </v-tooltip>
+                </v-list-item>
+                <v-list-item
+                    active-class="border"
+                    class="mb-5"
+                    href="/sales"
+                >
+                    <v-tooltip right>
+                        <template #activator="{ on }">
+                            <v-icon v-on="on">fa fa-usd</v-icon>
+                        </template>
+                        <span>Sales</span>
                     </v-tooltip>
                 </v-list-item>
                 <v-list-item

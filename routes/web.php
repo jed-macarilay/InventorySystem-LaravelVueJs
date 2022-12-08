@@ -29,6 +29,12 @@ Route::prefix('inventory')->group(function () {
     Route::get('edit/{inventory}', 'InventoryController@edit');
 });
 
+Route::prefix('category')->group(function () {
+    Route::get('/', 'CategoryController@index');
+    Route::get('create', 'CategoryController@create');
+
+});
+
 Route::prefix('vehicle')->group(function () {
     Route::get('/', 'VehicleController@index');
     Route::get('create', 'VehicleController@create');
@@ -59,6 +65,11 @@ Route::prefix('api')->group(function () {
             Route::put('edit/{inventory}', 'Api\InventoryController@edit');
             Route::delete('delete/{inventory}', 'Api\InventoryController@destroy');
         });
+    });
+
+    Route::prefix('category')->group(function() {
+        Route::get('/', 'Api\CategoryController@index');
+        Route::post('create', 'Api\CategoryController@create');
     });
 
     Route::prefix('vehicle')->group(function () {

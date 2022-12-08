@@ -116,6 +116,7 @@
           { text: 'Product Name', value: 'product_name', sortable: true, },
           { text: 'Retail Price', value: 'retail_price' },
           { text: 'Quantity', value: 'quantity' },
+          { text: 'Category', value: 'category.category' },
           { text: 'Last Quantity', value: 'last_quantity' },
           { text: 'Last Update', value: 'updated_at' },
           { text: 'Actions', value: 'actions' },

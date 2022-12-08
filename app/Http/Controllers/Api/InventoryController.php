@@ -17,7 +17,8 @@ class InventoryController extends Controller
         return [
             'status' => 'success',
             'message' => 'Get all product list successful.', 
-            'data' => Inventory::all(),
+            'data' => Inventory::with('category')
+                ->get(),
         ];
     }
 

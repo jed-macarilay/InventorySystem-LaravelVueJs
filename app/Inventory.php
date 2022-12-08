@@ -19,6 +19,7 @@ class Inventory extends Model
         'description',
         'retail_price',
         'quantity',
+        'category_id',
     ];
 
     function shippings() {
@@ -28,6 +29,11 @@ class Inventory extends Model
     public function orders()
     {
         return $this->belongsToMany('App\Order')->withPivot('quantity', 'total');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo('App\Category');
     }
 
     /**

@@ -39,6 +39,23 @@
                         ></v-text-field>
                     </div>
                     <div>
+                      <label for="">
+                        <strong>Category</strong>
+                      </label>
+                      <v-autocomplete
+                        v-model="product.category_id"
+                        placeholder="Enter Product Category"
+                        outlined
+                        rounded
+                        required
+                        item-text="category"
+                        item-value="id"
+                        :items="categories"
+                        :rules="productCategoryRule"
+                        :return-object="false"
+                      ></v-autocomplete>
+                    </div>
+                    <div>
                         <label for="">
                             <strong>Description</strong>
                         </label>
@@ -120,6 +137,7 @@
       data() {
         return {
           edit_product: this.product,
+          categories: [],
           snackbarShow: false,
           message: '',
           isLoading: false,
@@ -135,24 +153,37 @@
           quantityRule: [
             v => !!v || 'Product quantity is required',
           ],
+          productCategoryRule: [
+            v => !!v || 'Product category is required',
+          ],
         }
       },
+      mounted() {
+        this.fetchCategory()
+      },
       methods: {
-          editProduct() {
-            if (this.$refs.form.validate()) {
-              axios.put(`/api/inventory/product/edit/${this.product.id}`, this.edit_product)
-                .then(response => {
-                    this.snackbarShow = true
-                    this.message = response.data.message
-                    this.isLoading = false
-                })
-                .catch(error => {
-                    this.snackbarShow = true
-                    this.message = error.response.data.message
-                    this.isLoading = false
-                })
-            }
-          },
+        editProduct() {
+          if (this.$refs.form.validate()) {
+            axios.put(`/api/inventory/product/edit/${this.product.id}`, this.edit_product)
+              .then(response => {
+                  this.snackbarShow = true
+                  this.message = response.data.message
+                  this.isLoading = false
+              })
+              .catch(error => {
+                  this.snackbarShow = true
+                  this.message = error.response.data.message
+                  this.isLoading = false
+              })
+          }
+        },
+        fetchCategory() {
+          axios.get(`/api/category`)
+            .then(response => {
+              this.categories = response.data.data
+            })
+            .catch(error => console.log(error.response.data.message))
+        },
       },
   }
 </script>
