@@ -23,6 +23,10 @@ class ShippingController extends Controller
         return view('pages.shippings.create', $data);
     }
 
+    public function createShipping() {
+        return view('pages.order.create');
+    }
+
     public function edit(Shipping $shipping) {
         return view('pages.shippings.edit', [
             'shipping' => $shipping,

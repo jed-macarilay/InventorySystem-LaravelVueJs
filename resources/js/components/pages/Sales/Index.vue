@@ -3,6 +3,48 @@
       <v-toolbar flat class="mt-5 mb-10">
         <v-toolbar-title>Sales</v-toolbar-title>
      </v-toolbar>
+     <v-item-group mandatory class="mt-n4">
+        <v-container>
+          <v-row justify="start" class="space">
+            <v-col
+              cols="12"
+              md="2"
+            >
+              <v-item v-slot="{ active, toggle }" > 
+              <v-card
+                  :color="active ? '#49D9A0' : 'white'"
+                  class="d-flex align-center rounded-xl"
+                  dark
+                  height="200"
+                  @click="toggle"
+                  
+                >
+                  <v-row>
+                    <v-col cols="12" sm="12">
+                      <v-list-item 
+                        three-line  
+                        class="mt-10"
+                        href="/order/create"
+                      >
+                        <v-list-item-content>
+                          <div class="mb-4">
+                              <v-icon  x-large :color="active ? 'white' : '#49D9A0'">fa fa-plus-square</v-icon>
+                          </div>
+                          <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">Add Order</v-list-item-subtitle>
+                          <v-list-item-title class="headline mb-1" :class="active ? 'white--text' : 'black--text'">
+                            <strong>{{ sales.length }}</strong>
+                          </v-list-item-title>
+                          
+                        </v-list-item-content>
+                      </v-list-item>
+                    </v-col>
+                  </v-row>
+                </v-card>
+              </v-item>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-item-group>
       <v-divider></v-divider>
       <v-data-table
         :headers="headers"
@@ -37,7 +79,7 @@
               value: 'id',
             },
             { text: 'Destination', value: 'destination' },
-            { text: 'Driver', value: 'vehicle.driver' },
+            { text: 'Vehicle Plate No.', value: 'vehicle.plate_no' },
             { text: 'Vehicle Plate #', value: 'vehicle.plate_no' },
             { text: 'Status', value: 'status' },
             { text: 'Date Created', value: 'created_at' },

@@ -49,6 +49,7 @@ Route::prefix('vehicle')->group(function () {
 });
 
 Route::get('sales', 'SaleController@index');
+Route::get('order/create', 'ShippingController@createShipping');
 
 Route::prefix('api')->group(function () {
     Route::get('users', 'Api\UserController@user');
@@ -87,5 +88,6 @@ Route::prefix('api')->group(function () {
         });
     });    
 
+    Route::post('shippings/orders/create', 'Api\ShippingController@create');
     Route::get('sales', 'Api\ShippingController@index');
 });

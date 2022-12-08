@@ -64,25 +64,13 @@
                 <v-list-item
                     active-class="border"
                     class="mb-5"
-                    href="/vehicle"
-                >
-                    <v-tooltip right>
-                        <template #activator="{ on }">
-                            <v-icon v-on="on">fa fa-book</v-icon>
-                        </template>
-                        <span>Orders</span>
-                    </v-tooltip>
-                </v-list-item>
-                <v-list-item
-                    active-class="border"
-                    class="mb-5"
                     href="/sales"
                 >
                     <v-tooltip right>
                         <template #activator="{ on }">
                             <v-icon v-on="on">fa fa-usd</v-icon>
                         </template>
-                        <span>Sales</span>
+                        <span>Sales & Orders</span>
                     </v-tooltip>
                 </v-list-item>
                 <v-list-item
@@ -175,16 +163,18 @@
         },
         methods: {
           getCurrentLink(link) {
-            if (link === 'sales') {
+            if (link === 'inventory') {
               this.selectedItem = 1
-            } else if (link === 'inventory' || link === 'inventory/create' || link === 'inventory/edit') {
+            } else if (link === 'category') {
               this.selectedItem = 2
-            } else if (link === 'vehicle' || link === 'vehicle/create' || link === 'vehicle/edit') {
+            } else if (link === 'vehicle') {
               this.selectedItem = 3
-            } else if (link === 'user/create') {
+            } else if (link === 'sales') {
               this.selectedItem = 4
-            } else if (link === 'change-password') {
+            } else if (link === 'user/create') {
               this.selectedItem = 5
+            } else if (link === 'change-password') {
+              this.selectedItem = 6
             } else {
               this.selectedItem = 0
             }

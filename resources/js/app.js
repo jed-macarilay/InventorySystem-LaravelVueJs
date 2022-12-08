@@ -50,6 +50,8 @@ Vue.component('map-index', require('./components/pages/Maps/Index').default);
 Vue.component('category-index', require('./components/pages/Category/Index').default);
 Vue.component('category-create', require('./components/pages/Category/Create').default);
 
+Vue.component('order-create', require('./components/pages/Orders/Create').default);
+
 const app = new Vue({
     el: '#app',
     vuetify: new Vuetify(),

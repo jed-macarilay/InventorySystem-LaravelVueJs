@@ -45,7 +45,7 @@
                       sm="6"
                       md="4"
                     >
-                      <v-select
+                      <v-autocomplete
                         v-model="editedItem.id"
                         :items="products"
                         label="Select Product"
@@ -53,7 +53,7 @@
                         item-value="id" 
                         :rules="[v => !!v || 'Select Product is required']"
                         required
-                      ></v-select>
+                      ></v-autocomplete>
                     </v-col>
                     <v-col
                       cols="12"
