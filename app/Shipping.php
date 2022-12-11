@@ -26,6 +26,7 @@ class Shipping extends Model
         'current_location_longtitude',
         'status',
         'vehicle_id',
+        'order_code',
     ];
 
     public function vehicle() {

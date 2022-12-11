@@ -51,7 +51,11 @@
         :items="sales"
         :items-per-page="5"
         class="elevation-1 mt-10 ml-5"
-      ></v-data-table>
+      >
+        <template v-slot:item.order_code="{ item }">
+          <a :href="`/vehicle/shippings/${item.id}/map`" target="_blank">{{ item.order_code }}</a>
+        </template>
+      </v-data-table>
 
       <snackbar 
         :show="snackbarShow"
@@ -78,8 +82,9 @@
               sortable: false,
               value: 'id',
             },
-            { text: 'Destination', value: 'destination' },
-            { text: 'Vehicle Plate No.', value: 'vehicle.plate_no' },
+            { text: 'Order #', value: 'order_code' },
+            { text: 'Customer', value: 'receiver' },
+            { text: 'Vehicle', value: 'vehicle.vehicle_type' },
             { text: 'Vehicle Plate #', value: 'vehicle.plate_no' },
             { text: 'Status', value: 'status' },
             { text: 'Date Created', value: 'created_at' },

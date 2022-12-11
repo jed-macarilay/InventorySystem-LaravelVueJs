@@ -13,6 +13,20 @@
                     >
                         <div>
                             <label for="">
+                                <strong>Vehicle Type</strong>
+                            </label>
+                            <v-text-field
+                                v-model="vehicle.vehicle_type"
+                                placeholder="Enter Vehicle Type"
+                                outlined
+                                dense
+                                rounded
+                                reuired
+                                :rules="vehicleTypeFieldRules"
+                            ></v-text-field>
+                        </div>
+                        <div>
+                            <label for="">
                                 <strong>Plate No. *</strong>
                             </label>
                             <v-text-field
@@ -74,6 +88,9 @@ import Snackbar from '../../templates/Snackbar.vue';
         data() {
             return {
                 vehicle: {},
+                vehicleTypeFieldRules: [
+                    v => !!v || 'Vehicle type is required',
+                ],
                 plateNoFieldRules: [
                     v => !!v || 'Plate No. is required',
                 ],

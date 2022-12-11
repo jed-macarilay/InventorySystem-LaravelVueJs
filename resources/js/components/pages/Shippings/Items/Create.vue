@@ -62,10 +62,12 @@
                         md="4"
                       >
                         <v-text-field
+                          type="number"
                           v-model="editedItem.item_quantity"
                           label="Quantity"
                           :rules="quantityRule"
                           required
+                          autofocus
                         ></v-text-field>
                       </v-col>
                     </v-row>
@@ -160,14 +162,14 @@
         id: 0,
         product_name: '',
         serial_code: '',
-        item_quantity: "0",
+        item_quantity: "1",
         total: "0",
       },
       defaultItem: {
         id: 0,
         product_name: '',
         serial_code: '',
-        item_quantity: "0",
+        item_quantity: "1",
         total: "0",
       },
       quantityRule: [

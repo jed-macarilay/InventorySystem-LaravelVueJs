@@ -1,7 +1,9 @@
 <template>
     <div class="pa-4">
-      <v-toolbar flat class="">
-        <v-toolbar-title>View Location</v-toolbar-title>
+      <v-toolbar flat class="mb-5">
+        <v-toolbar-title>
+          <h2><strong>Order Details</strong></h2>
+        </v-toolbar-title>
      </v-toolbar>
       <gmap-map
         :center="google && new google.maps.LatLng(shipping.origin_latitude, shipping.origin_longtitude)"

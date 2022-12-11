@@ -13,6 +13,20 @@
                     >
                         <div>
                             <label for="">
+                                <strong>Vehicle Type</strong>
+                            </label>
+                            <v-text-field
+                                v-model="vehicle[0].vehicle_type"
+                                placeholder="Enter Vehicle Type"
+                                outlined
+                                dense
+                                rounded
+                                reuired
+                                :rules="vehicleTypeFieldRules"
+                            ></v-text-field>
+                        </div>
+                        <div>
+                            <label for="">
                                 <strong>Plate No. *</strong>
                             </label>
                             <v-text-field

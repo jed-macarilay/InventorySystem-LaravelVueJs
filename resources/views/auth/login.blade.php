@@ -6,7 +6,9 @@
         <div class="cold-md-8 col-lg-5">
             <div class="card">
                 <div class="card-body">
-                    <h1 class="text-center mb-10">Denlee Variety Store</h1>
+                    <center>
+                        <img class="denlee-logo" src="/images/Icon-App-40x40@1x.png" alt="">
+                    </center>
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
@@ -54,6 +56,13 @@
 @endsection
 
 <style>
+    .denlee-logo {
+        height: auto;
+        width: 8vw;
+        margin-left: 2vw;
+        margin-bottom: 5vh;
+    }
+
     .card {
         margin-top: 25vh;
     }
@@ -66,5 +75,7 @@
     .theme--light.v-application {
         background-image: url("images/318624696_612907163936517_3734310914409450691_n.jpg") !important;
         background-size: cover !important;
+        background-repeat: no-repeat !important;
+        background-position: center center !important;
     }
 </style>

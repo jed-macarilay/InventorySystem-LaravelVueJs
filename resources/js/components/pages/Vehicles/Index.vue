@@ -97,6 +97,7 @@
               sortable: false,
               value: 'plate_no',
             },
+            { text: 'Vehicle', value: 'vehicle_type' },
             { text: 'Driver', value: 'user.name' },
             { text: 'Last Update', value: 'updated_at' },
             { text: 'Delivery', value: 'delivery' },

@@ -9,6 +9,7 @@ use App\Order;
 use App\OrderDetail;
 use App\Inventory;
 use Illuminate\Support\Str;
+use App\Notification;
 
 class ShippingController extends Controller
 {
