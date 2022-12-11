@@ -65,3 +65,11 @@
     </div>
 </body>
 </html>
+
+<style>
+    @media (min-width: 1440px) {
+        .container {
+            margin-left: 4vw;
+        }
+    }
+</style>
