@@ -47,6 +47,7 @@ class InventoryController extends Controller
         $inventory->last_quantity = $inventory->quantity;
         $inventory->quantity = $request->quantity;
         $inventory->retail_price = $request->retail_price;
+        $inventory->category_id = $request->category_id;
 
         if ($request->quantity < 1) {
             Notification::create(['data' => 'Product ID# '.$new_product->id.' stock is empty']);

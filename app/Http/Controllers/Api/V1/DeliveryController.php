@@ -26,6 +26,21 @@ class DeliveryController extends Controller
         ], 200);
     }
 
+    public function updateCurrentMap(
+        Request $request,
+        Shipping $shipping
+    ){
+        $shipping->update([
+            'current_location_latitude' => $request->current_location_latitude,
+            'current_location_longtitude' => $request->current_location_longtitude,
+        ]);
+
+        return response([
+            'message' => 'Delivery updated.',
+            'delivery' => $shipping,
+        ], 200);
+    }
+
     public function setStatus(
         Request $request,
         Shipping $shipping
@@ -42,5 +57,5 @@ class DeliveryController extends Controller
             'message' => 'Delivery updated.',
             'delivery' => $shipping,
         ], 200);
-    } 
+    }
 }

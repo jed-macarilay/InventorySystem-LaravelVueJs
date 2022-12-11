@@ -43,7 +43,7 @@
                         <strong>Category</strong>
                       </label>
                       <v-autocomplete
-                        v-model="product.category_id"
+                        v-model="edit_product.category_id"
                         placeholder="Enter Product Category"
                         outlined
                         rounded
@@ -60,7 +60,7 @@
                             <strong>Description</strong>
                         </label>
                         <v-textarea
-                          v-model="product.description"
+                          v-model="edit_product.description"
                           outlined
                           dense
                           rounded
@@ -72,7 +72,7 @@
                             <strong>Retail Price</strong>
                         </label>
                         <v-text-field
-                          v-model="product.retail_price"
+                          v-model="edit_product.retail_price"
                           type="number"
                           outlined
                           dense

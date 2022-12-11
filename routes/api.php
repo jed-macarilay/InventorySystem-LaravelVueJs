@@ -25,6 +25,7 @@ Route::middleware('auth:sanctum')->group(function() {
             Route::get('/', 'Api\V1\DeliveryController@index');
             Route::get('{shipping}', 'Api\V1\DeliveryController@show');
             Route::put('{shipping}/setStatus', 'Api\V1\DeliveryController@setStatus');
+            Route::put('{shipping}/updateCurrentMap', 'Api\V1\DeliveryController@updateCurrentMap');
         });
     });
 });
