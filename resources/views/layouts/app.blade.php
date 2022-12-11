@@ -32,7 +32,7 @@
             ></sidebar>
             @endauth
 
-            <v-container>
+            <v-container class="main-page">
                 @auth
                     <v-toolbar color="rgba(0,0,0,0)" flat class="ml-auto ml-lg-5 mt-n4">
                         <v-toolbar-title>DENLEE VARIETY STORE</v-toolbar-title>
@@ -68,7 +68,7 @@
 
 <style>
     @media (min-width: 1440px) {
-        .container {
+        .main-page {
             margin-left: 4vw;
         }
     }
