@@ -1,108 +1,108 @@
 <template>
     <div>
-        <v-toolbar flat class="mt-n5">
-                <v-toolbar-title>Change Password</v-toolbar-title>
+        <v-toolbar flat class="mt-n5 mb-5">
+          <v-toolbar-title>
+            <strong>Settings</strong>
+          </v-toolbar-title>
         </v-toolbar>
         <v-row>
-            <v-col cols="12" md="5">
+            <v-col cols="12" md="6">
               <v-card class="pa-4">
                   <v-card-title>Profile</v-card-title>
                   <v-card-text>
-                      <v-form ref="form">
-                          <div>
-                            <label for="">Email</label>
-                            <v-text-field
-                                v-model="auth.email"
-                                outlined
-                                dense
-                                rounded
-                                disabled
-                            ></v-text-field>
-                          </div>
-                          <div>
-                            <label for="">Name</label>
-                            <v-text-field
-                                v-model="auth.name"
-                                outlined
-                                dense
-                                rounded
-                                disabled
-                            ></v-text-field>
-                          </div>
-                          <div>
-                            <label for="">Role</label>
-                            <v-text-field
-                                v-model="auth.user_type"
-                                outlined
-                                dense
-                                rounded
-                                disabled
-                            ></v-text-field>
-                          </div>
-                      </v-form>
-                  </v-card-text>
-              </v-card>
-          </v-col>
-          <v-col cols="12" md="7">
-              <v-card class="pa-4">
-                  <v-card-title>Change Password</v-card-title>
-                  <v-card-text>
-                      <v-form ref="form">
-                          <div>
-                            <label for="">Current Password</label>
-                            <v-text-field
-                                v-model="user.password"
-                                type="password"
-                                placeholder="Enter your Password"
-                                outlined
-                                dense
-                                rounded
-                                :rules="passwordRule"
-                                required
-                            ></v-text-field>
-                          </div>
-                          <v-divider></v-divider>
-                          <div>
-                            <label for="">New Password</label>
-                            <v-text-field
-                                v-model="user.new_password"
-                                type="password"
-                                placeholder="Enter your Password"
-                                outlined
-                                dense
-                                rounded
-                                :rules="newPasswordRule"
-                                required
-                            ></v-text-field>
-                          </div>
-                          <div>
-                            <label for="">Confirm Password</label>
-                            <v-text-field
-                                type="password"
-                                placeholder="Enter your Password"
-                                outlined
-                                dense
-                                rounded
-                                :rules="confirmPasswordRules"
-                                required
-                            ></v-text-field>
-                          </div>
-                          <v-divider></v-divider>
-                          <v-card-actions>
-                            <v-btn
-                              :loading="isLoading"
-                              color="#49D9A0"
-                              text
-                              @click="updatePassword"
-                            >
-                                Submit
-                            </v-btn>
-                          </v-card-actions>
-                      </v-form>
-                  </v-card-text>
+                    <div>
+                      <label for="">Email</label>
+                      <v-text-field
+                          v-model="auth.email"
+                          outlined
+                          dense
+                          rounded
+                          disabled
+                      ></v-text-field>
+                    </div>
+                    <div>
+                      <label for="">Name</label>
+                      <v-text-field
+                          v-model="auth.name"
+                          outlined
+                          dense
+                          rounded
+                          disabled
+                      ></v-text-field>
+                    </div>
+                    <div>
+                      <label for="">Role</label>
+                      <v-text-field
+                          v-model="auth.user_type"
+                          outlined
+                          dense
+                          rounded
+                          disabled
+                      ></v-text-field>
+                    </div>
+                  <v-divider></v-divider>
+                  <v-form ref="form">
+                      <div>
+                        <label for="">Current Password</label>
+                        <v-text-field
+                            v-model="user.password"
+                            type="password"
+                            placeholder="Enter your Password"
+                            outlined
+                            dense
+                            rounded
+                            :rules="passwordRule"
+                            required
+                        ></v-text-field>
+                      </div>
+                      <v-divider></v-divider>
+                      <div>
+                        <label for="">New Password</label>
+                        <v-text-field
+                            v-model="user.new_password"
+                            type="password"
+                            placeholder="Enter your Password"
+                            outlined
+                            dense
+                            rounded
+                            :rules="newPasswordRule"
+                            required
+                        ></v-text-field>
+                      </div>
+                      <div>
+                        <label for="">Confirm Password</label>
+                        <v-text-field
+                            type="password"
+                            placeholder="Enter your Password"
+                            outlined
+                            dense
+                            rounded
+                            :rules="confirmPasswordRules"
+                            required
+                        ></v-text-field>
+                      </div>
+                      <v-divider></v-divider>
+                      <v-card-actions>
+                        <v-btn
+                          :loading="isLoading"
+                          color="#218c74"
+                          text
+                          @click="updatePassword"
+                        >
+                            Submit
+                        </v-btn>
+                      </v-card-actions>
+                  </v-form>
+                </v-card-text>
               </v-card>
           </v-col>
         </v-row>
+        <v-col 
+          class="mt-5"
+          cols="12"
+        >
+          <User />
+        </v-col>
         <snackbar 
           :show="snackbarShow"
           :message="message"
@@ -112,6 +112,7 @@
 
 <script>
 import Snackbar from '../templates/Snackbar.vue'
+import User from './Users/Create.vue'
 
 export default {
   props: {
@@ -122,6 +123,7 @@ export default {
   },
   components: {
     Snackbar,
+    User,
   },
   data() {
     return {

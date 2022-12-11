@@ -20,8 +20,7 @@ Auth::routes([
 
 Route::get('/', 'DashboardController@index')->name('dashboard');
 Route::get('logout', 'Auth\LoginController@logout');
-Route::get('user/create', 'DashboardController@create');
-Route::get('change-password', 'DashboardController@changePassword');
+Route::get('settings', 'DashboardController@changePassword');
 
 Route::prefix('inventory')->group(function () {
     Route::get('/', 'InventoryController@index');
@@ -32,7 +31,6 @@ Route::prefix('inventory')->group(function () {
 Route::prefix('category')->group(function () {
     Route::get('/', 'CategoryController@index');
     Route::get('create', 'CategoryController@create');
-
 });
 
 Route::prefix('vehicle')->group(function () {

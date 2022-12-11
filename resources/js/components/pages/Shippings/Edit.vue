@@ -37,6 +37,7 @@
                                 rounded
                                 required
                                 :rules="contactNumberRule"
+                                @keypress="filter(event)"
                             ></v-text-field>
                         </div>
                         <!-- <div>
@@ -69,18 +70,6 @@
                                 append-icon="fa fa-map-marker"
                             ></v-text-field>
                         </div> -->
-                        <div>
-                            <label for="">
-                                <strong>Origin</strong>
-                            </label><br />
-                            <gmap-autocomplete
-                              class="g-map-input"
-                              placeholder="Enter Package Address Start Point"
-                              required
-                              :value="edit_shipping.origin"
-                              @place_changed="setOrigin"
-                            ></gmap-autocomplete>
-                        </div>
                         <div>
                             <label for="">
                                 <strong>Destination</strong>
@@ -128,7 +117,7 @@
                     <v-card-actions>
                         <v-btn
                             :loading="isLoading"
-                            color="#49D9A0"
+                            color="#218c74"
                             text
                             @click="editVehicleShipping"
                         >
@@ -237,21 +226,20 @@ import Snackbar from '../../templates/Snackbar.vue';
             formatCurrency (value) {
               return '₱' + parseFloat(value)
             },
-            setOrigin(v) {
-                let lat = v.geometry.location.lat()
-                let lng = v.geometry.location.lng()
-                
-                this.shipping.origin = v.formatted_address
-                this.shipping.origin_latitude = lat
-                this.shipping.origin_longtitude = lng
-                this.shipping.current_location = v.formatted_address
-                this.shipping.current_location_latitude = lat
-                this.shipping.current_location_longtitude = lng
-            },
             setDestination(v) {
                 this.shipping.destination = v.formatted_address
                 this.shipping.destination_latitude = v.geometry.location.lat()
                 this.shipping.destination_longtitude = v.geometry.location.lng()
+            },
+            filter: function(evt) {
+                evt = (evt) ? evt : window.event;
+                let expect = evt.target.value.toString() + evt.key.toString();
+                
+                if (!/^[-+]?[0-9]*\.?[0-9]*$/.test(expect)) {
+                evt.preventDefault();
+                } else {
+                return true;
+                }
             },
         },
     }

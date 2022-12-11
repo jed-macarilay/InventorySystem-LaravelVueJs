@@ -1,131 +1,138 @@
 <template>
-  <v-data-table
-    :headers="headers"
-    :items="items"
-    sort-by="calories"
-    class="elevation-1"
-  >
-    <template v-slot:top>
-      <v-toolbar
-        flat
-      >
-        <v-toolbar-title>ITEMS</v-toolbar-title>
-        <v-divider
-          class="mx-4"
-          inset
-          vertical
-        ></v-divider>
-        <v-spacer></v-spacer>
-        <v-dialog
-          v-model="dialog"
-          max-width="500px"
+  <div>
+    <v-data-table
+      :headers="headers"
+      :items="items"
+      sort-by="calories"
+      class="elevation-1"
+    >
+      <template v-slot:top>
+        <v-toolbar
+          flat
         >
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              color="primary"
-              dark
-              class="mb-2"
-              v-bind="attrs"
-              v-on="on"
-            >
-              New Item
-            </v-btn>
-          </template>
-          <v-card>
-            <v-card-title>
-              <span class="text-h5">{{ formTitle }}</span>
-            </v-card-title>
-
-            <v-card-text>
-              <v-container>
-                <v-form ref="form">
-                  <v-row>
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="4"
-                    >
-                      <v-autocomplete
-                        v-model="editedItem.id"
-                        :items="products"
-                        label="Select Product"
-                        item-text="product_name"
-                        item-value="id" 
-                        :rules="[v => !!v || 'Select Product is required']"
-                        required
-                      ></v-autocomplete>
-                    </v-col>
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="4"
-                    >
-                      <v-text-field
-                        v-model="editedItem.item_quantity"
-                        label="Quantity"
-                        :rules="quantityRule"
-                        required
-                      ></v-text-field>
-                    </v-col>
-                  </v-row>
-                </v-form>
-              </v-container>
-            </v-card-text>
-
-            <v-card-actions>
-              <v-spacer></v-spacer>
+          <v-toolbar-title>ITEMS</v-toolbar-title>
+          <v-divider
+            class="mx-4"
+            inset
+            vertical
+          ></v-divider>
+          <v-spacer></v-spacer>
+          <v-dialog
+            v-model="dialog"
+            max-width="500px"
+          >
+            <template v-slot:activator="{ on, attrs }">
               <v-btn
-                color="blue darken-1"
-                text
-                @click="close"
+                color="primary"
+                dark
+                class="mb-2"
+                v-bind="attrs"
+                v-on="on"
               >
-                Cancel
+                New Item
               </v-btn>
-              <v-btn
-                color="blue darken-1"
-                text
-                @click="save"
-              >
-                ADD ITEM
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-        <v-dialog v-model="dialogDelete" max-width="500px">
-          <v-card>
-            <v-card-title class="text-h5">Are you sure you want to delete this item?</v-card-title>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="closeDelete">Cancel</v-btn>
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
-              <v-spacer></v-spacer>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-      </v-toolbar>
-    </template>
-    <template v-slot:item.actions="{ item }">
-      <v-icon
-        small
-        class="mr-2"
-        @click="editItem(item)"
-      >
-        fa fa-pencil
-      </v-icon>
-      <v-icon
-        small
-        @click="deleteItem(item)"
-      >
-        fa fa-trash
-      </v-icon>
-    </template>
-    <template v-slot:item.retail_price="{ item }">
-      {{ formatCurrency(item.retail_price) }}
-    </template>
-    <template v-slot:item.total="{ item }">
-      <strong>{{ formatCurrency(item.total) }}</strong>
-    </template>
-  </v-data-table>
+            </template>
+            <v-card>
+              <v-card-title>
+                <span class="text-h5">{{ formTitle }}</span>
+              </v-card-title>
+
+              <v-card-text>
+                <v-container>
+                  <v-form ref="form">
+                    <v-row>
+                      <v-col
+                        cols="12"
+                        sm="6"
+                        md="4"
+                      >
+                        <v-autocomplete
+                          v-model="editedItem.id"
+                          :items="products"
+                          label="Select Product"
+                          item-text="product_name"
+                          item-value="id" 
+                          :rules="[v => !!v || 'Select Product is required']"
+                          required
+                        ></v-autocomplete>
+                      </v-col>
+                      <v-col
+                        cols="12"
+                        sm="6"
+                        md="4"
+                      >
+                        <v-text-field
+                          v-model="editedItem.item_quantity"
+                          label="Quantity"
+                          :rules="quantityRule"
+                          required
+                        ></v-text-field>
+                      </v-col>
+                    </v-row>
+                  </v-form>
+                </v-container>
+              </v-card-text>
+
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn
+                  color="blue darken-1"
+                  text
+                  @click="close"
+                >
+                  Cancel
+                </v-btn>
+                <v-btn
+                  color="blue darken-1"
+                  text
+                  @click="save"
+                >
+                  ADD ITEM
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+          <v-dialog v-model="dialogDelete" max-width="500px">
+            <v-card>
+              <v-card-title class="text-h5">Are you sure you want to delete this item?</v-card-title>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="blue darken-1" text @click="closeDelete">Cancel</v-btn>
+                <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
+                <v-spacer></v-spacer>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+        </v-toolbar>
+      </template>
+      <template v-slot:item.actions="{ item }">
+        <v-icon
+          small
+          class="mr-2"
+          @click="editItem(item)"
+        >
+          fa fa-pencil
+        </v-icon>
+        <v-icon
+          small
+          @click="deleteItem(item)"
+        >
+          fa fa-trash
+        </v-icon>
+      </template>
+      <template v-slot:item.retail_price="{ item }">
+        {{ formatCurrency(item.retail_price) }}
+      </template>
+      <template v-slot:item.total="{ item }">
+        <strong>{{ formatCurrency(item.total) }}</strong>
+      </template>
+    </v-data-table>
+    <div class="mt-5">
+      <h3>
+        <strong>Total: {{ getTotal() }}</strong>
+      </h3>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -253,6 +260,13 @@
       },
       formatCurrency (value) {
         return '₱' + parseFloat(value)
+      },
+      getTotal() {
+        const sum = this.items.reduce((accumulator, object) => {
+          return accumulator + object.total;
+        }, 0);
+
+        return sum
       },
     },
   }

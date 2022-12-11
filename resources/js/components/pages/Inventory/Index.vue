@@ -7,12 +7,12 @@
         <v-container>
           <v-row justify="start" class="space">
             <v-col
-              cols="12"
+              cols="4"
               md="2"
             >
               <v-item v-slot="{ active, toggle }" > 
-              <v-card
-                  :color="active ? '#49D9A0' : 'white'"
+                <v-card
+                  :color="active ? '#218c74' : 'white'"
                   class="d-flex align-center rounded-xl"
                   dark
                   height="200"
@@ -28,12 +28,45 @@
                       >
                         <v-list-item-content>
                           <div class="mb-4">
-                              <v-icon  x-large :color="active ? 'white' : '#49D9A0'">fa fa-plus-square</v-icon>
+                              <v-icon  x-large :color="active ? 'white' : '#218c74'">fa fa-plus-square</v-icon>
                           </div>
-                          <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">Add new product</v-list-item-subtitle>
+                          <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">Add new Product</v-list-item-subtitle>
                           <v-list-item-title class="headline mb-1" :class="active ? 'white--text' : 'black--text'">
                             <strong>{{ products.length }}</strong>
                           </v-list-item-title>
+                          
+                        </v-list-item-content>
+                      </v-list-item>
+                    </v-col>
+                  </v-row>
+                </v-card>
+              </v-item>
+            </v-col>
+            <v-col
+              cols="4"
+              md="2"
+            >
+              <v-item v-slot="{ active, toggle }" > 
+                <v-card
+                  :color="active ? '#218c74' : 'white'"
+                  class="d-flex align-center rounded-xl"
+                  dark
+                  height="200"
+                  @click="toggle"
+                  
+                >
+                  <v-row>
+                    <v-col cols="12" sm="12">
+                      <v-list-item 
+                        three-line  
+                        class="mt-10"
+                        href="/category/create"
+                      >
+                        <v-list-item-content>
+                          <div class="mb-4">
+                              <v-icon  x-large :color="active ? 'white' : '#218c74'">fa fa-plus-square</v-icon>
+                          </div>
+                          <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">Add new Category</v-list-item-subtitle>
                           
                         </v-list-item-content>
                       </v-list-item>
@@ -46,46 +79,73 @@
         </v-container>
       </v-item-group>
       <v-divider></v-divider>
-      <v-card class="pa-4 elavation-0">
-        <v-card-title>
-          <v-col cols="12" md="4">
-            <v-text-field
-              v-model="search"
-              append-icon="fa fa-search"
-              label="Search Product"
-              outlined
-              hide-details
-              rounded
-            ></v-text-field>
-          </v-col>
-      </v-card-title>
-        <v-data-table
-          :search="search"
-          :headers="headers"
-          :items="products"
-          :items-per-page="5"
-          class="mt-10 ml-5"
+      <v-row>
+        <v-col
+         cols="12"
+         md="8"
         >
-          <template v-slot:item.retail_price="{ item }">
-            <strong>{{ formatCurrency(item.retail_price) }}</strong>
-          </template>
-          <template v-slot:item.actions="{ item }">
-              <v-icon
-                small
-                class="mr-2"
-                @click="editProduct(item)"
-              >
-                fa fa-pencil
-              </v-icon>
-              <v-icon
-                small
-                @click="deleteVehicle(item)"
-              >
-                fa fa-trash
-              </v-icon>
-            </template>
-        </v-data-table>
-      </v-card>
+          <v-card class="pa-4 ml-5 elavation-0">
+            <v-card-title>
+              <v-toolbar-title class="ml-3">
+                <strong>Product List</strong>
+              </v-toolbar-title>
+            </v-card-title>
+            <v-divider></v-divider>
+            <v-col cols="12" md="4">
+              <v-text-field
+                v-model="search"
+                append-icon="fa fa-search"
+                label="Search Product"
+                outlined
+                hide-details
+                rounded
+              ></v-text-field>
+            </v-col>
+            <v-data-table
+              :search="search"
+              :headers="headers"
+              :items="products"
+              :items-per-page="5"
+              class="mt-10 ml-5"
+            >
+              <template v-slot:item.retail_price="{ item }">
+                <strong>{{ formatCurrency(item.retail_price) }}</strong>
+              </template>
+              <template v-slot:item.actions="{ item }">
+                  <v-icon
+                    small
+                    class="mr-2"
+                    @click="editProduct(item)"
+                  >
+                    fa fa-pencil
+                  </v-icon>
+                  <v-icon
+                    small
+                    @click="deleteVehicle(item)"
+                  >
+                    fa fa-trash
+                  </v-icon>
+                </template>
+            </v-data-table>
+          </v-card>
+        </v-col>
+        <v-col
+         cols="12"
+         md="4"
+        >
+          <v-card class="pa-4 ml-5">
+            <v-card-title>
+              <v-toolbar-title>
+                <strong>Category List</strong>
+              </v-toolbar-title>
+            </v-card-title>
+            <v-divider></v-divider>
+            <v-card-text>
+              <Category />
+            </v-card-text>
+          </v-card>
+        </v-col>
+      </v-row>
 
       <snackbar 
         :show="snackbarShow"
@@ -96,11 +156,13 @@
   
   <script>
   import Snackbar from '../../templates/Snackbar.vue'
+  import Category from '../Category/Index.vue'
 
   export default {
     name: "Inventory",
     components: {
       Snackbar,
+      Category,
     },
     data () {
       return {

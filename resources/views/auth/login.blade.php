@@ -54,8 +54,17 @@
 @endsection
 
 <style>
+    .card {
+        margin-top: 25vh;
+    }
+    
     .btn-denlee {
-        background-color: #49D9A0 !important;
+        background-color: #218c74 !important;
         color: white !important; 
+    }
+
+    .theme--light.v-application {
+        background-image: url("images/318624696_612907163936517_3734310914409450691_n.jpg") !important;
+        background-size: cover !important;
     }
 </style>

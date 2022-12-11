@@ -1,12 +1,12 @@
 <template>
-    <div class="pa-4">
+    <div class="pa-auto ml-0">
         <v-toolbar flat class="mt-n5">
             <v-toolbar-title>
               Added new User
             </v-toolbar-title>
         </v-toolbar>
         <v-row>
-            <v-col md="4">
+            <v-col cols="12" md="4">
                 <v-card class="pa-4" elavation="4">
                     <v-card-text>
                       <v-form ref="form">
@@ -62,7 +62,7 @@
                     <v-card-actions>
                       <v-btn
                         :loading="isLoading"
-                        color="#49D9A0"
+                        color="#218c74"
                         text
                         @click="addUser"
                       >
@@ -71,7 +71,7 @@
                     </v-card-actions>
                 </v-card>
             </v-col>
-            <v-col md="8">
+            <v-col cols="12" md="8">
               <v-data-table
                   :headers="headers"
                   :items="users"

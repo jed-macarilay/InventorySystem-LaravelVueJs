@@ -15,7 +15,7 @@
             >
               <v-item v-slot="{ active, toggle }" > 
               <v-card
-                  :color="active ? '#49D9A0' : 'white'"
+                  :color="active ? '#218c74' : 'white'"
                   class="d-flex align-center rounded-xl"
                   dark
                   height="200"
@@ -31,7 +31,7 @@
                       >
                         <v-list-item-content>
                           <div class="mb-4">
-                              <v-icon  x-large :color="active ? 'white' : '#49D9A0'">fa fa-plus-square</v-icon>
+                              <v-icon  x-large :color="active ? 'white' : '#218c74'">fa fa-plus-square</v-icon>
                           </div>
                           <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">Add new Delivery</v-list-item-subtitle>
                           <v-list-item-title class="headline mb-1" :class="active ? 'white--text' : 'black--text'">

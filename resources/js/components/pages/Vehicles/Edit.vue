@@ -45,7 +45,7 @@
                     <v-card-actions>
                         <v-btn
                             :loading="isLoading"
-                            color="#49D9A0"
+                            color="#218c74"
                             text
                             @click="updateVehicle(vehicle)"
                         >

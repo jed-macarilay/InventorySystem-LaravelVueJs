@@ -11,8 +11,12 @@ class DeliveryController extends Controller
 {
     public function index() {
         $vehicle = Vehicle::whereUserId(auth()->user()->id)->first();
+        $shipping = Shipping::where('status', 'To Ship')
+            ->where('vehicle_id', $vehicle->id)
+            ->get();
+
         return response([
-            'deliveries' => $vehicle->shippings->where('status', 'To Ship'),
+            'deliveries' => $shipping,
         ], 200);
     }
 

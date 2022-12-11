@@ -45,7 +45,9 @@
           <v-list-item>
             <v-list-item-content>
               <v-list-item-title>
+                <strong>Origin: </strong> {{ shipping.origin }} <br />
                 <strong>Destination: </strong> {{ shipping.destination }} <br />
+                <v-divider></v-divider>
                 <strong>Current Location of Vehicle: </strong> {{ shipping.current_location }}
               </v-list-item-title>
             </v-list-item-content>
@@ -76,6 +78,11 @@
             <strong>{{ formatCurrency(item.pivot.total) }}</strong>
           </template>
         </v-data-table>
+        <div class="mt-5">
+          <h3>
+            <strong>Total: {{ getTotal() }}</strong>
+          </h3>
+        </div>
       </v-card>
     </div>
 </template>
@@ -148,6 +155,12 @@ export default {
     },
     formatCurrency (value) {
       return '₱' + parseFloat(value)
+    },
+    getTotal() {
+      const sum = this.items.reduce((accumulator, object) => {
+        return accumulator + object.pivot.total;
+      }, 0);
+      return sum
     },
  }
 }

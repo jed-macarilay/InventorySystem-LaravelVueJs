@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Shipping;
 use App\Order;
 use App\OrderDetail;
+use App\Inventory;
 use Illuminate\Support\Str;
 
 class ShippingController extends Controller

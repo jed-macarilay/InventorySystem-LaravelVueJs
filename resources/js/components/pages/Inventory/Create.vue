@@ -103,7 +103,7 @@
                 <v-divider></v-divider>
                 <v-card-actions>
                   <v-btn
-                      color="#49D9A0"
+                      color="#218c74"
                       text
                       :loading="isLoading"
                       @click="addProduct"

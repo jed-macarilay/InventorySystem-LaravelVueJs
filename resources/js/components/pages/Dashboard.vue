@@ -17,7 +17,7 @@
           >
             <v-item>
             <v-card
-                color="#49D9A0"
+                color="#218c74"
                 class="d-flex align-center rounded-xl"
                 dark
                 height="200"
@@ -50,7 +50,7 @@
           >
             <v-item>
               <v-card
-                color="#49D9A0"
+                color="#218c74"
                 class="d-flex align-center rounded-xl"
                 dark
                 height="200"
@@ -84,7 +84,7 @@
           >
             <v-item> 
             <v-card
-              color="#49D9A0"
+              color="#218c74"
               class="d-flex align-center rounded-xl"
               dark
               height="200"
@@ -117,7 +117,7 @@
           >
             <v-item> 
             <v-card
-              color="#49D9A0"
+              color="#218c74"
               class="d-flex align-center rounded-xl"
               dark
               height="200"
@@ -236,7 +236,7 @@
           datasets: [
             {
               label: 'All Product in Category',
-              backgroundColor: '#49D9A0',
+              backgroundColor: '#218c74',
               data: []
             }
           ]
