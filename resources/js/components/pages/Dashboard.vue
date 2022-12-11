@@ -127,7 +127,7 @@
                     <v-list-item 
                       three-line  
                       class="mt-10"
-                      href="/user/create"
+                      href="/settings"
                     >
                       <v-list-item-content>
                         <div class="mb-4">
