@@ -10,6 +10,7 @@
                         <v-list-item :key="item.data">
                             <v-list-item-content>
                               <v-list-item-subtitle v-html="item.data"></v-list-item-subtitle>
+                              <span>Date: {{ item.created_at }}</span>
                             </v-list-item-content>
                         </v-list-item>
                       </template>

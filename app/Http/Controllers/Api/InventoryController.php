@@ -49,8 +49,8 @@ class InventoryController extends Controller
         $inventory->retail_price = $request->retail_price;
         $inventory->category_id = $request->category_id;
 
-        if ($request->quantity < 1) {
-            Notification::create(['data' => 'Product ID# '.$new_product->id.' stock is empty']);
+        if ($request->quantity <= 50) {
+            Notification::create(['data' => 'Product - '.$new_product->product_name.' is in Critial Level.']);
         }
         
         if ($inventory->save()) {

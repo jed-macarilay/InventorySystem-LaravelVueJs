@@ -57,8 +57,8 @@ class ShippingController extends Controller
             $product->last_quantity = $product->quantity;
             $product->quantity = $product->quantity - $item['item_quantity'];
 
-            if ($product->quantity < 1) {
-                Notification::create(['data' => 'Product ID# '.$product->id.' stock is empty']);
+            if ($product->quantity <= 50) {
+                Notification::create(['data' => 'Product - '.$product->product_name.' is in Critial Level.']);
             }
             
             $product->save();

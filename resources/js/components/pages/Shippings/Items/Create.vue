@@ -131,7 +131,7 @@
     </v-data-table>
     <div class="mt-5">
       <h3>
-        <strong>Total: {{ getTotal() }}</strong>
+        <strong>Total: ₱ {{ getTotal() }}</strong>
       </h3>
     </div>
   </div>
