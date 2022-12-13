@@ -31,6 +31,7 @@ class VehicleShippingController extends Controller
         Request $request
     ) {
         $new_shipping = $vehicle->shippings()->create([
+            'order_code' => Str::random(5),
             'receiver' => $request->receiver,
             'contact_number' => $request->contact_number,
             'origin' => $request->origin,
