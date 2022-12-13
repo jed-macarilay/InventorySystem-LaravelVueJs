@@ -268,9 +268,11 @@
         return '₱' + parseFloat(value)
       },
       getTotal() {
-        const sum = this.items.reduce((accumulator, object) => {
-          return accumulator + object.total;
-        }, 0);
+        let sum = 0
+
+        this.items.forEach(element => {
+          sum = parseFloat(sum) + parseFloat(element.total)
+        });
 
         return (Math.round(sum * 100) / 100).toFixed(2)
       },
