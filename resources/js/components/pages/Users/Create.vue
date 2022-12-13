@@ -2,7 +2,7 @@
     <div class="pa-auto ml-0">
         <v-toolbar flat class="mt-n5">
             <v-toolbar-title>
-              Added new User
+              Add User
             </v-toolbar-title>
         </v-toolbar>
         <v-row>

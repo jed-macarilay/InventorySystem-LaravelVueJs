@@ -29,7 +29,7 @@
                 v-bind="attrs"
                 v-on="on"
               >
-                New Item
+                Add Item
               </v-btn>
             </template>
             <v-card>
@@ -249,8 +249,8 @@
               if(element.id === this.editedItem.id) {
                 this.editedItem.serial_code = element.serial_code
                 this.editedItem.product_name = element.product_name
-                this.editedItem.retail_price = element.retail_price
-                this.editedItem.total = (element.retail_price * this.editedItem.item_quantity)
+                this.editedItem.retail_price = (Math.round(element.retail_price * 100) / 100).toFixed(2)
+                this.editedItem.total = (Math.round((element.retail_price * this.editedItem.item_quantity) * 100) / 100).toFixed(2)
               }
             })
             this.items.push(this.editedItem)
@@ -268,7 +268,7 @@
           return accumulator + object.total;
         }, 0);
 
-        return sum
+        return (Math.round(sum * 100) / 100).toFixed(2)
       },
     },
   }

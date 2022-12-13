@@ -69,4 +69,15 @@ class ShippingController extends Controller
             'message' => 'Added Delivery successful.',
         ];
     }
+
+    public function updateCurrentLocation(Request $request, Shipping $shipping) {
+        $shipping->current_location = $request->current_location;
+
+        if ($shipping->save()) {
+            return response([
+                'status' => 'success',
+                'message' => 'Update current location done.'
+            ], 200);
+        }
+    }
 }

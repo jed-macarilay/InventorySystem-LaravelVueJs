@@ -42,16 +42,16 @@
                     >
                         <v-toolbar-title>DENLEE VARIETY STORE</v-toolbar-title>
                         <v-spacer></v-spacer>
-                        <a href="/notifications" target="_blank">
+                        <a class="pa-4" href="/notifications" target="_blank">
                             @php 
                                 $notification_count = App\Notification::get()->count();
                             @endphp
-                            <v-badge content="{{ $notification_count }}" class="ml-3 mt-5" dark>
+                            <v-badge content="{{ $notification_count }}" class="" dark>
                                 <v-icon color="white">fa fa-bell</v-icon>
                             </v-badge>
                         </a>
                     </v-toolbar>
-                    <v-toolbar color="rgba(0,0,0,0)" flat class="ml-auto ml-lg-5 mt-n4">
+                    <v-toolbar color="rgba(0,0,0,0)" flat class="">
                         <v-btn-toggle tile group color="#49D9A0" >
                             <v-btn 
                                 href="{{ url()->previous() }}" 

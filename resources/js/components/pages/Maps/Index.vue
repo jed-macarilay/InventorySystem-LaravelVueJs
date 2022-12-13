@@ -6,7 +6,11 @@
         </v-toolbar-title>
      </v-toolbar>
       <gmap-map
-        :center="google && new google.maps.LatLng(shipping.origin_latitude, shipping.origin_longtitude)"
+        ref="gmap"
+        :center="{
+          lat: parseFloat(shipping.current_location_latitude),
+          lng: parseFloat(shipping.current_location_longtitude)
+        }"
         :zoom="13.5"
         :options="{
           zoomControl: true,
@@ -50,7 +54,7 @@
                 <strong>Origin: </strong> {{ shipping.origin }} <br />
                 <strong>Destination: </strong> {{ shipping.destination }} <br />
                 <v-divider></v-divider>
-                <strong>Current Location of Vehicle: </strong> {{ shipping.current_location }}
+                <strong>Current Location of Vehicle: </strong> {{ current_location }}
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
@@ -109,7 +113,7 @@ export default {
   },
   data() {
     return {
-      center: this.google && new this.google.maps.LatLng(shipping.origin_latitude, shipping.origin_longtitude),
+      center: {},
       items: [],
       locations: [],
       headers: [
@@ -124,12 +128,13 @@ export default {
         { text: 'Retail Price', value:'retail_price' },
         { text: 'Total Amount', value:'pivot.total' },
       ],
+      current_location: ''
     }
   },
 
   mounted() {
+    this.fetchCurrentLocationFromMobile()
     this.fetchOrder()
-    this.setLocationLatLng()
   },
  
  methods: {
@@ -144,16 +149,28 @@ export default {
           this.isLoading = false
         })
     },
+    fetchCurrentLocationFromMobile(){
+      this.$refs.gmap.$mapPromise.then(() => {
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({
+            location: {
+              lat: parseFloat(this.shipping.current_location_latitude),
+              lng: parseFloat(this.shipping.current_location_longtitude)
+            }
+          }, (results, status) => {
+            if (status == google.maps.GeocoderStatus.OK) {
+              this.shipping.currentLocation = results[0].formatted_address
+              this.current_location = results[0].formatted_address
+            } 
+          });
+      })
+
+      axios.put(`/api/shippings/update/currentLocation/${this.shipping.id}`, {
+        current_location: this.current_location
+      });
+    },
     setPlace(loc) {
       this.currentLocation = loc;
-    },
-    setLocationLatLng: function() {
-      navigator.geolocation.getCurrentPosition(geolocation => {
-        this.center = {
-          lat: geolocation.coords.latitude,
-          lng: geolocation.coords.longitude
-        };
-      });
     },
     formatCurrency (value) {
       return '₱' + parseFloat(value)

@@ -90,6 +90,7 @@ Route::prefix('api')->group(function () {
     });    
 
     Route::post('shippings/orders/create', 'Api\ShippingController@create');
+    Route::put('shippings/update/currentLocation/{shipping}', 'Api\ShippingController@updateCurrentLocation');
     Route::get('sales', 'Api\ShippingController@index');
 
     Route::get('notifications', 'Api\NotificationController@index');
