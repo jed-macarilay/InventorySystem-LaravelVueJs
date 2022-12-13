@@ -13,6 +13,7 @@
                         <div>
                           <label for="">Name</label>
                           <v-text-field
+                              type="text"
                               v-model="user.name"
                               placeholder="Enter User Name"
                               outlined
