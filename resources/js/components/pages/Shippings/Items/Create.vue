@@ -89,7 +89,7 @@
                   text
                   @click="save"
                 >
-                  ADD ITEM
+                  {{ formButton }}
                 </v-btn>
               </v-card-actions>
             </v-card>
@@ -182,6 +182,9 @@
       formTitle () {
         return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
       },
+      formButton () {
+        return this.editedIndex === -1 ? 'Add Item' : 'Update Item'
+      },
     },
 
     watch: {
@@ -243,6 +246,7 @@
       save () {
         if(this.$refs.form.validate()) {
           if (this.editedIndex > -1) {
+            this.editedItem.total = (Math.round((this.editedItem.retail_price * this.editedItem.item_quantity) * 100) / 100).toFixed(2)
             Object.assign(this.items[this.editedIndex], this.editedItem)
           } else {
             this.products.find((element) => { 
