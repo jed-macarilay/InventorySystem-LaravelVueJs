@@ -15,8 +15,7 @@ class ViewAllController extends Controller
         return [
             'inventory_count' => Inventory::get()->count(),
             'vehicle_count' => Vehicle::get()->count(),
-            'shipping_count' => Shipping::whereStatus('To Ship')
-                            ->get()
+            'shipping_count' => Shipping::get()
                             ->count(),
             'user_count' => User::get()->count(),
         ];

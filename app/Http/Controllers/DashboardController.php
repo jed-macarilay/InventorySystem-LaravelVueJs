@@ -24,6 +24,9 @@ class DashboardController extends Controller
     }
 
     public function changePassword() {
+        if (auth()->user()->user_type !== 'admin') {
+            return abort(404);
+        }
         
         return view('pages.users.change_password');
     }

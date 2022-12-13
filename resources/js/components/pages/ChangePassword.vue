@@ -98,6 +98,7 @@
           </v-col>
         </v-row>
         <v-col 
+          v-if="auth.user_type === 'admin'"
           class="mt-5"
           cols="12"
         >
