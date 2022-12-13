@@ -44,7 +44,7 @@
             <v-list-item-content>
               <v-list-item-title>
                 <strong>Receiver: </strong> {{ shipping.receiver }}<br />
-                <span>Contact Number: {{ shipping.receiver }}</span>
+                <span><strong>Contact Number:</strong> {{ shipping.contact_number }}</span>
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
