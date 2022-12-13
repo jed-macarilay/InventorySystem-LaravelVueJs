@@ -10,6 +10,7 @@ use App\Inventory;
 use App\Order;
 use App\OrderDetail;
 use Illuminate\Support\Str;
+use App\Notification;
 
 class VehicleShippingController extends Controller
 {

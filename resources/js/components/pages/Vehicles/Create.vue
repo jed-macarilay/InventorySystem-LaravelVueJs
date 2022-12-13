@@ -87,14 +87,7 @@ import Snackbar from '../../templates/Snackbar.vue';
         },
         data() {
             return {
-                vehicle: {
-                  origin: 'Denlee Variety store, phase 6 blk2 lot 29 eastwood residence, Rodriguez, 1860 Rizal',
-                  origin_latitude: '14.7543368',
-                  origin_longtitude: '121.1573781',
-                  current_location: 'Denlee Variety store, phase 6 blk2 lot 29 eastwood residence, Rodriguez, 1860 Rizal',
-                  current_location_latitude: '14.7543368',
-                  current_location_longtitude: '121.1573781',
-                },
+                vehicle: {},
                 vehicleTypeFieldRules: [
                     v => !!v || 'Vehicle type is required',
                 ],
