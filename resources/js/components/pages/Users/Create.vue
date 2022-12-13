@@ -20,6 +20,7 @@
                               dense
                               rounded
                               :rules="nameRule"
+                              onkeydown="return /[a-z]/i.test(event.key)"
                           ></v-text-field>
                         </div>
                         <div>
