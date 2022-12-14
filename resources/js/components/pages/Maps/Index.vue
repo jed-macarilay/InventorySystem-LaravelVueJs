@@ -34,6 +34,12 @@
             :position="google && new google.maps.LatLng(shipping.current_location_latitude, shipping.current_location_longtitude)"
             label="Driver"
           ></gmap-marker>
+          <gmap-polyline
+            :path="[
+              google && new google.maps.LatLng(shipping.origin_latitude, shipping.origin_longtitude),
+              google && new google.maps.LatLng(shipping.destination_latitude, shipping.destination_longtitude)
+            ]"
+          ></gmap-polyline>
       </gmap-map>
       <v-card class="pa-4 mt-5">
         <v-toolbar-title>
