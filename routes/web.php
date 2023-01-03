@@ -51,6 +51,8 @@ Route::get('order/create', 'ShippingController@createShipping');
 
 Route::get('notifications', 'NotificationController@index');
 
+Route::get('reports', 'ReportController@index');
+
 Route::prefix('api')->group(function () {
     Route::get('users', 'Api\UserController@user');
     Route::get('drivers', 'Api\UserController@showDrivers');
@@ -62,6 +64,7 @@ Route::prefix('api')->group(function () {
     Route::prefix('inventory')->group(function() {
         Route::prefix('product')->group(function() {
             Route::get('/', 'Api\InventoryController@index');
+            Route::get('items', 'Api\InventoryController@getItems');
             Route::post('create', 'Api\InventoryController@create');
             Route::put('edit/{inventory}', 'Api\InventoryController@edit');
             Route::delete('delete/{inventory}', 'Api\InventoryController@destroy');
@@ -94,4 +97,6 @@ Route::prefix('api')->group(function () {
     Route::get('sales', 'Api\ShippingController@index');
 
     Route::get('notifications', 'Api\NotificationController@index');
+    
+    Route::get('reports', 'Api\ReportController@index');
 });

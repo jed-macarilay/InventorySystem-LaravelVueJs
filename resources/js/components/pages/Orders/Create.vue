@@ -85,7 +85,7 @@
             </v-card-text>
         </v-card>
 
-        <snackbar 
+        <snackbar
           :show="snackbarShow"
           :message="message"
         />

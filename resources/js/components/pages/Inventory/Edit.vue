@@ -26,16 +26,16 @@
                     </div>
                     <div>
                         <label for="">
-                            <strong>Serial Code</strong>
+                            <strong>SKU</strong>
                         </label>
                         <v-text-field
-                          v-model="edit_product.serial_code"
                           outlined
                           dense
                           rounded
                           required
-                          :rules="serialCodeRule"
+                          :rules="skuRule"
                           disabled
+                          :value="product.SKU"
                         ></v-text-field>
                     </div>
                     <div>
@@ -69,17 +69,17 @@
                     </div>
                     <div>
                         <label for="">
-                            <strong>Retail Price</strong>
+                            <strong>Unit Price</strong>
                         </label>
                         <v-text-field
-                          v-model="edit_product.retail_price"
+                          v-model="edit_product.unit_price"
                           type="number"
                           outlined
                           dense
                           rounded
                           required
-                          :rules="retailPriceRule"
-                          placeholder="Enter Retail price"
+                          :rules="unitPriceRule"
+                          placeholder="Enter Unit price"
                           prefix="PHP"
                         ></v-text-field>
                     </div>
@@ -144,14 +144,15 @@
           productNameRule: [
             v => !!v || 'Product name is required',
           ],
-          serialCodeRule: [
+          skuRule: [
             v => !!v || 'Serial code is required',
           ],
-          retailPriceRule: [
+          unitPriceRule: [
             v => !!v || 'Product price is required',
           ],
           quantityRule: [
             v => !!v || 'Product quantity is required',
+            v => (v > 0) || 'Product quantity cannot be 0 or less than 1',
           ],
           productCategoryRule: [
             v => !!v || 'Product category is required',

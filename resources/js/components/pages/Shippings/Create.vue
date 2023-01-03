@@ -42,36 +42,6 @@
                                 @keypress="filter(event)"
                             ></v-text-field>
                         </div>
-                        <!-- <div>
-                            <label for="">
-                                <strong>Origin</strong>
-                            </label>
-                            <v-text-field
-                                v-model="shipping.origin"
-                                placeholder="Enter Package Address Origin"
-                                outlined
-                                dense
-                                rounded
-                                required
-                                :rules="originRule"
-                                append-icon="fa fa-map-marker"
-                            ></v-text-field>
-                        </div>
-                        <div>
-                            <label for="">
-                                <strong>Destination</strong>
-                            </label>
-                            <v-text-field
-                                v-model="shipping.destination"
-                                placeholder="Enter Package Address Destination"
-                                outlined
-                                dense
-                                rounded
-                                required
-                                :rules="destinationRule"
-                                append-icon="fa fa-map-marker"
-                            ></v-text-field>
-                        </div> -->
                         <div>
                             <label for="">
                                 <strong>Destination</strong>

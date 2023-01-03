@@ -88,7 +88,7 @@
                             </label>
                             <v-select
                               v-model="edit_shipping.status"
-                              :items="['In Progress', 'To Ship', 'Delivered']"
+                              :items="['In Progress', 'To Ship', 'Completed Delivery']"
                               outlined
                               dense
                               rounded
@@ -106,13 +106,21 @@
                       sort-by="calories"
                       class="elevation-1 my-4"
                     >
-                      <template v-slot:item.retail_price="{ item }">
-                        {{ formatCurrency(item.retail_price) }}
+                      <template v-slot:item.unit_price="{ item }">
+                        {{ formatCurrency(item.unit_price) }}
                       </template>
                       <template v-slot:item.pivot.total="{ item }">
                         <strong>{{ formatCurrency(item.pivot.total) }}</strong>
                       </template>
                     </v-data-table>
+                    <div class="mt-5">
+                        <h5>Subtotal: {{ formatCurrency(subtotal) }}</h5>
+                        <h5>Including 12% tax: {{ formatCurrency(tax) }}</h5>
+                        <v-divider></v-divider>
+                        <h3>
+                            <strong>Total: ₱{{ getTotal() }}</strong>
+                        </h3>
+                    </div>
                     <v-divider></v-divider>
                     <v-card-actions>
                         <v-btn
@@ -166,14 +174,14 @@ import Snackbar from '../../templates/Snackbar.vue';
                 items: [],
                 headers: [
                   {
-                    text: 'Serial Code',
+                    text: 'SKU',
                     align: 'start',
                     sortable: false,
-                    value: 'serial_code',
+                    value: 'SKU',
                   },
                   { text: 'Product Name', value: 'product_name' },
                   { text: 'Quantity', value: 'pivot.quantity' },
-                  { text: 'Retail Price', value:'retail_price' },
+                  { text: 'Unit Price', value:'unit_price' },
                   { text: 'Total Amount', value:'pivot.total' },
                 ],
                 isLoading: false,
@@ -191,6 +199,8 @@ import Snackbar from '../../templates/Snackbar.vue';
                 destinationRule: [
                     v => !!v || 'Package Delivery Destination is required',
                 ],
+                subtotal: 0,
+                tax: 0,
             }
         },
         mounted() {
@@ -224,7 +234,19 @@ import Snackbar from '../../templates/Snackbar.vue';
                 }
             },
             formatCurrency (value) {
-              return '₱' + parseFloat(value)
+              return '₱ ' + (Math.round(value * 100) / 100).toFixed(2)
+            },
+            getTotal() {
+                const sum = this.items.reduce((accumulator, object) => {
+                    return accumulator + object.pivot.total
+                }, 0);
+
+                this.subtotal = sum
+                this.tax = sum * .12
+
+                let total = this.subtotal + this.tax
+
+                return (Math.round(total * 100) / 100).toFixed(2)
             },
             setDestination(v) {
                 this.shipping.destination = v.formatted_address
@@ -238,7 +260,7 @@ import Snackbar from '../../templates/Snackbar.vue';
                 if (!/^[-+]?[0-9]*\.?[0-9]*$/.test(expect)) {
                 evt.preventDefault();
                 } else {
-                return true;
+                    return true;
                 }
             },
         },

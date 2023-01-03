@@ -17,6 +17,7 @@
             vertical
           ></v-divider>
           <v-spacer></v-spacer>
+
           <v-dialog
             v-model="dialog"
             max-width="500px"
@@ -94,6 +95,7 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
+
           <v-dialog v-model="dialogDelete" max-width="500px">
             <v-card>
               <v-card-title class="text-h5">Are you sure you want to delete this item?</v-card-title>
@@ -122,36 +124,49 @@
           fa fa-trash
         </v-icon>
       </template>
-      <template v-slot:item.retail_price="{ item }">
-        {{ formatCurrency(item.retail_price) }}
+      <template v-slot:item.unit_price="{ item }">
+        {{ formatCurrency(item.unit_price) }}
       </template>
       <template v-slot:item.total="{ item }">
         <strong>{{ formatCurrency(item.total) }}</strong>
       </template>
     </v-data-table>
     <div class="mt-5">
+      <h5>Subtotal: {{ formatCurrency(subtotal) }}</h5>
+      <h5>Including 12% tax: {{ formatCurrency(tax) }}</h5>
+      <v-divider></v-divider>
       <h3>
         <strong>Total: ₱ {{ getTotal() }}</strong>
       </h3>
     </div>
+
+    <snackbar
+      :show="snackbarShow"
+      :message="message"
+    />
   </div>
 </template>
 
 <script>
+  import Snackbar from '../../../templates/Snackbar.vue'
+
   export default {
+    components: {
+      Snackbar,
+    },
     data: () => ({
       dialog: false,
       dialogDelete: false,
       headers: [
         {
-          text: 'Serial Code',
+          text: 'SKU',
           align: 'start',
           sortable: false,
-          value: 'serial_code',
+          value: 'SKU',
         },
         { text: 'Product Name', value: 'product_name' },
         { text: 'Quantity', value: 'item_quantity' },
-        { text: 'Retail Price', value:'retail_price' },
+        { text: 'Unit Price', value:'unit_price' },
         { text: 'Total Amount', value:'total' },
         { text: 'Actions', value: 'actions', sortable: false },
       ],
@@ -176,6 +191,10 @@
         v => !!v || 'Quantity is required',
         v => (v && v > 0) || 'Item must have quantity',
       ],
+      snackbarShow: false,
+      message: '',
+      subtotal: 0,
+      tax: 0,
     }),
 
     computed: {
@@ -202,7 +221,7 @@
 
     methods: {
       fetchProducts() {
-        axios.get(`/api/inventory/product`)
+        axios.get(`/api/inventory/product/items`)
           .then(response => {
             this.products = response.data.data
           })
@@ -246,35 +265,46 @@
       save () {
         if(this.$refs.form.validate()) {
           if (this.editedIndex > -1) {
-            this.editedItem.total = (Math.round((this.editedItem.retail_price * this.editedItem.item_quantity) * 100) / 100).toFixed(2)
+            this.editedItem.total = (Math.round((this.editedItem.unit_price * this.editedItem.item_quantity) * 100) / 100).toFixed(2)
             Object.assign(this.items[this.editedIndex], this.editedItem)
           } else {
-            this.products.find((element) => { 
+            this.products.find((element) => {
               if(element.id === this.editedItem.id) {
-                this.editedItem.serial_code = element.serial_code
-                this.editedItem.product_name = element.product_name
-                this.editedItem.retail_price = (Math.round(element.retail_price * 100) / 100).toFixed(2)
-                this.editedItem.total = (Math.round((element.retail_price * this.editedItem.item_quantity) * 100) / 100).toFixed(2)
+                if((this.editedItem.item_quantity - element.quantity) > 0) {
+                  this.snackbarShow = true
+                  this.message = 'Added Item is failed, Quantity is invalid.'
+                } else {
+                  this.editedItem.SKU = element.SKU
+                  this.editedItem.product_name = element.product_name
+                  this.editedItem.unit_price = (Math.round(element.unit_price * 100) / 100).toFixed(2)
+                  this.editedItem.total = (Math.round((element.unit_price * this.editedItem.item_quantity) * 100) / 100).toFixed(2)
+
+                  this.items.push(this.editedItem)
+                }
               }
             })
-            this.items.push(this.editedItem)
           }
+          
           this.$emit('get-item', this.items)
           this.$refs.form.resetValidation()
           this.close()
         }
       },
       formatCurrency (value) {
-        return '₱' + parseFloat(value)
+        return '₱ ' + (Math.round(value * 100) / 100).toFixed(2)
       },
       getTotal() {
-        let sum = 0
+        let subtotal = 0
+        let total = 0
 
         this.items.forEach(element => {
-          sum = parseFloat(sum) + parseFloat(element.total)
+          subtotal = parseFloat(subtotal) + parseFloat(element.total)
+          this.tax = subtotal * .12
+          this.subtotal = subtotal
+          total = subtotal + this.tax
         });
 
-        return (Math.round(sum * 100) / 100).toFixed(2)
+        return (Math.round(total * 100) / 100).toFixed(2)
       },
     },
   }

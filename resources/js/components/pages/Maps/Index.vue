@@ -83,14 +83,17 @@
           sort-by="calories"
           class="elevation-1 my-4"
         >
-          <template v-slot:item.retail_price="{ item }">
-            {{ formatCurrency(item.retail_price) }}
+          <template v-slot:item.unit_price="{ item }">
+            {{ formatCurrency(item.unit_price) }}
           </template>
           <template v-slot:item.pivot.total="{ item }">
             <strong>{{ formatCurrency(item.pivot.total) }}</strong>
           </template>
         </v-data-table>
         <div class="mt-5">
+          <h5>Subtotal: {{ formatCurrency(subtotal) }}</h5>
+          <h5>Including 12% tax: {{ formatCurrency(tax) }}</h5>
+          <v-divider></v-divider>
           <h3>
             <strong>Total: ₱{{ getTotal() }}</strong>
           </h3>
@@ -124,17 +127,19 @@ export default {
       locations: [],
       headers: [
         {
-          text: 'Serial Code',
+          text: 'SKU',
           align: 'start',
           sortable: false,
-          value: 'serial_code',
+          value: 'SKU',
         },
         { text: 'Product Name', value: 'product_name' },
         { text: 'Quantity', value: 'pivot.quantity' },
-        { text: 'Retail Price', value:'retail_price' },
+        { text: 'Unit Price', value:'unit_price' },
         { text: 'Total Amount', value:'pivot.total' },
       ],
-      current_location: ''
+      current_location: '',
+      subtotal: 0,
+      tax: 0,
     }
   },
 
@@ -179,13 +184,19 @@ export default {
       this.currentLocation = loc;
     },
     formatCurrency (value) {
-      return '₱' + parseFloat(value)
+      return '₱ ' + (Math.round(value * 100) / 100).toFixed(2)
     },
     getTotal() {
       const sum = this.items.reduce((accumulator, object) => {
-        return accumulator + object.pivot.total;
+        return accumulator + object.pivot.total
       }, 0);
-      return sum
+
+      this.subtotal = sum
+      this.tax = sum * .12
+
+      let total = this.subtotal + this.tax
+
+      return (Math.round(total * 100) / 100).toFixed(2)
     },
  }
 }
