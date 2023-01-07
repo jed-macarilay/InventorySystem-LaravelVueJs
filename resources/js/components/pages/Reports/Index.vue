@@ -18,6 +18,12 @@
             small
             dark
             color="#218c74"
+            @click="downloadReport"
+          >Dowload Report</v-btn>
+          <v-btn
+            small
+            dark
+            color="#218c74"
             @click="filter"
           >Filter</v-btn>
           <v-btn
@@ -47,6 +53,7 @@
   import Category from '../Category/Index.vue'
   import DatePicker from 'vue2-datepicker';
   import 'vue2-datepicker/index.css';
+  import {json2excel, excel2json} from 'js2excel';
 
   export default {
     name: "Inventory",
@@ -98,6 +105,17 @@
             this.reports = response.data.data
           })
           .catch(error => console.log(error.response.data.message))
+      },
+      downloadReport() {
+        try {
+            json2excel({
+                data: this.reports,
+                name: 'reports',
+                formateDate: 'yyyy/mm/dd',
+            });
+        } catch (e) {
+            console.error('export error');
+        }
       },
       clear() {
         this.fetchReports()

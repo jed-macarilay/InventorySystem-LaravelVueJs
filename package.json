@@ -29,6 +29,7 @@
     },
     "dependencies": {
         "chart.js": "^3.9.1",
+        "js2excel": "^1.0.1",
         "moment": "^2.29.4",
         "vue-chartjs": "^4.1.2",
         "vue2-datepicker": "^3.11.1",
