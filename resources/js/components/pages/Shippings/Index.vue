@@ -56,7 +56,10 @@
         class="elevation-1 mt-10 ml-5"
       >
         <template v-slot:item.location="{ item }">
-          <a :href="`/vehicle/shippings/${item.id}/map`" target="_blank">View here</a>
+          <a :href="`/vehicle/shippings/${item.id}/map`">View here</a>
+        </template>
+        <template v-slot:item.download="{ item }">
+          <a :href="`/api/download-delivery-receipt?shipping_id=${item.id}`">DOWNLOAD RECEIPT</a>
         </template>
         <template v-slot:item.actions="{ item }">
           <v-icon
@@ -76,62 +79,63 @@
     </div>
   </template>
   
-  <script>
-  import Snackbar from '../../templates/Snackbar.vue'
+<script>
+import Snackbar from '../../templates/Snackbar.vue'
 
-    export default {
-      name: "Shippings",
-      props: {
-        vehicle: {
-          type: [Array, Object],
-          required: true,
-        }
+  export default {
+    name: "Shippings",
+    props: {
+      vehicle: {
+        type: [Array, Object],
+        required: true,
+      }
+    },
+    components: {
+      Snackbar,
+    },
+    data () {
+      return {
+        toggle_exclusive: 1,
+        headers: [
+          {
+            text: 'ID #',
+            align: 'start',
+            sortable: false,
+            value: 'id',
+          },
+          { text: 'Order #', value: 'order_code' },
+          { text: 'Receiver', value: 'receiver' },
+          { text: 'Contact #', value: 'contact_number' },
+          { text: 'Status', value: 'status' },
+          { text: 'Location', value: 'location' },
+          { text: 'Date Created', value: 'created_at' },
+          { text: 'Last Update', value: 'updated_at' },
+          { text: '', value: 'download' },
+          { text: 'Actions', value: 'actions' },
+        ],
+        vehicles: [],
+        shippings: [],
+        snackbarShow: false,
+        message: '',
+      }
+    },
+    mounted() {
+      this.fetchShippings()
+    },
+    methods: {
+      fetchShippings() {
+        axios.get(`/api/vehicle/shippings/${this.vehicle.id}`)
+          .then(response => {
+            this.shippings = response.data.data
+          })
+          .catch(error => console.log(error.response.data.message))
       },
-      components: {
-        Snackbar,
+      editShipping(id) {
+        window.location.href = `/vehicle/shippings/${id}/edit`
       },
-      data () {
-        return {
-          toggle_exclusive: 1,
-          headers: [
-            {
-              text: 'ID #',
-              align: 'start',
-              sortable: false,
-              value: 'id',
-            },
-            { text: 'Order #', value: 'order_code' },
-            { text: 'Receiver', value: 'receiver' },
-            { text: 'Contact #', value: 'contact_number' },
-            { text: 'Status', value: 'status' },
-            { text: 'Location', value: 'location' },
-            { text: 'Date Created', value: 'created_at' },
-            { text: 'Last Update', value: 'updated_at' },
-            { text: 'Actions', value: 'actions' },
-          ],
-          vehicles: [],
-          shippings: [],
-          snackbarShow: false,
-          message: '',
-        }
-      },
-      mounted() {
-        this.fetchShippings()
-      },
-      methods: {
-        fetchShippings() {
-          axios.get(`/api/vehicle/shippings/${this.vehicle.id}`)
-            .then(response => {
-              this.shippings = response.data.data
-            })
-            .catch(error => console.log(error.response.data.message))
-        },
-        editShipping(id) {
-          window.location.href = `/vehicle/shippings/${id}/edit`
-        },
-      },
-    }
-  </script>
+    },
+  }
+</script>
   
   <style>
     .space{

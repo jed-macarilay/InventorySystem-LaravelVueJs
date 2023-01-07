@@ -42,7 +42,7 @@
                     >
                         <v-toolbar-title>DENLEE VARIETY STORE</v-toolbar-title>
                         <v-spacer></v-spacer>
-                        <a class="pa-4" href="/notifications" target="_blank">
+                        <a class="pa-4" href="/notifications">
                             @php 
                                 $notification_count = App\Notification::get()->count();
                             @endphp

@@ -99,4 +99,6 @@ Route::prefix('api')->group(function () {
     Route::get('notifications', 'Api\NotificationController@index');
     
     Route::get('reports', 'Api\ReportController@index');
+
+    Route::get('download-delivery-receipt', 'Api\DownloadPdfController@download');
 });

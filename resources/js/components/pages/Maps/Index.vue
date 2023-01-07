@@ -72,6 +72,13 @@
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>
+                <a :href="`/api/download-delivery-receipt?shipping_id=${shipping.id}`">DOWNLOAD RECEIPT</a>
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
         </v-list>
         <v-divider></v-divider>
         <v-toolbar-title>

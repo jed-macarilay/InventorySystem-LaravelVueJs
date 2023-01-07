@@ -53,7 +53,10 @@
       class="elevation-1 mt-10 ml-5"
     >
       <template v-slot:item.order_code="{ item }">
-        <a :href="`/vehicle/shippings/${item.id}/map`" target="_blank">{{ item.order_code }}</a>
+        <a :href="`/vehicle/shippings/${item.id}/map`">{{ item.order_code }}</a>
+      </template>
+      <template v-slot:item.actions="{ item }">
+        <a :href="`/api/download-delivery-receipt?shipping_id=${item.id}`">DOWNLOAD RECEIPT</a>
       </template>
     </v-data-table>
 
@@ -89,6 +92,7 @@
             { text: 'Status', value: 'status' },
             { text: 'Date Created', value: 'created_at' },
             { text: 'Last Update', value: 'updated_at' },
+            { text: '', value: 'actions' },
           ],
           sales: [],
           snackbarShow: false,
