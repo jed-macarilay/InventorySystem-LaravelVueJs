@@ -30,7 +30,7 @@
                           <div class="mb-4">
                               <v-icon  x-large :color="active ? 'white' : '#218c74'">fa fa-plus-square</v-icon>
                           </div>
-                          <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">Add new item</v-list-item-subtitle>
+                          <v-list-item-subtitle :class="active ? 'white--text' : 'black--text'">Add Vehicle</v-list-item-subtitle>
                           <v-list-item-title class="headline mb-1" :class="active ? 'white--text' : 'black--text'">
                             <strong>{{ vehicles.length }}</strong>
                           </v-list-item-title>
