@@ -13,10 +13,8 @@ class ReportController extends Controller
             'status' => 'success',
             'message' => 'Get all Sales successful.', 
             'data' => Shipping::with('vehicle')
-                ->whereBetween('created_at', [
-                    $request->start_date,
-                    $request->end_date
-                ])
+                ->whereDate('created_at', '>=', $request->start_date)
+                ->whereDate('created_at', '<=', $request->end_date)
                 ->get(),
         ]);
     }

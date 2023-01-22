@@ -85,7 +85,7 @@
         message: '',
         snackbarShow: false,
         date_range: null,
-        format: 'YYYY-MM-DD',
+        format: 'Y-M-D',
       }
     },
     mounted() {
