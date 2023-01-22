@@ -56,7 +56,7 @@
   import {json2excel, excel2json} from 'js2excel';
 
   export default {
-    name: "Inventory",
+    name: "Reports",
     components: {
       Snackbar,
       Category,

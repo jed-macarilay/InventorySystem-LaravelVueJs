@@ -28,6 +28,11 @@ Route::prefix('inventory')->group(function () {
     Route::get('edit/{inventory}', 'InventoryController@edit');
 });
 
+Route::prefix('roles')->group(function () {
+    Route::get('/', 'RoleController@index');
+    Route::get('create', 'RoleController@create');
+});
+
 Route::prefix('category')->group(function () {
     Route::get('/', 'CategoryController@index');
     Route::get('create', 'CategoryController@create');
@@ -101,4 +106,9 @@ Route::prefix('api')->group(function () {
     Route::get('reports', 'Api\ReportController@index');
 
     Route::get('download-delivery-receipt', 'Api\DownloadPdfController@download');
+
+    Route::prefix('roles')->group(function () {
+        Route::get('/', 'Api\RoleController@index');
+        Route::post('create', 'Api\RoleController@create');
+    });
 });

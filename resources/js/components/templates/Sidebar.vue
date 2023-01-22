@@ -65,6 +65,18 @@
                 <v-list-item
                     active-class="border"
                     class="mb-5"
+                    href="/roles"
+                >
+                    <v-tooltip right>
+                        <template #activator="{ on }">
+                            <v-icon v-on="on">fa fa-user</v-icon>
+                        </template>
+                        <span>Roles</span>
+                    </v-tooltip>
+                </v-list-item>
+                <v-list-item
+                    active-class="border"
+                    class="mb-5"
                     href="/reports"
                 >
                     <v-tooltip right>
@@ -153,10 +165,12 @@
               this.selectedItem = 2
             } else if (link === 'vehicle') {
               this.selectedItem = 3
-            } else if (link === 'reports') {
+            } else if (link === 'roles') {
               this.selectedItem = 4
-            } else if (link === 'settings') {
+            } else if (link === 'reports') {
               this.selectedItem = 5
+            } else if (link === 'settings') {
+              this.selectedItem = 6
             } else {
               this.selectedItem = 0
             }

@@ -36,14 +36,16 @@
                           ></v-text-field>
                         </div>
                         <div>
-                          <label for="">User Type</label>
+                          <label for="">User Role</label>
                           <v-select
                               v-model="user.user_type"
-                              placeholder="Please select User type"
+                              placeholder="Please select User Role"
                               outlined
                               dense
                               rounded
-                              :items="type"
+                              :items="roles"
+                              item-text="role"
+                              item-value="role"
                           ></v-select>
                         </div>
                         <div>
@@ -127,14 +129,12 @@
         passwordRule: [
           v => !!v || 'Password is required',
         ],
-        type: [
-          'Cashier',
-          'Driver',
-        ],
+        roles: [],
       }
     },
     mounted() {
       this.fetchUsers()
+      this.fetchRoles()
     },
     methods: {
       fetchUsers() {
@@ -147,6 +147,13 @@
               this.message = error.response.data.message
               this.isLoading = false
           })
+      },
+      fetchRoles() {
+        axios.get(`/api/roles`)
+          .then(response => {
+            this.roles = response.data.data
+          })
+          .catch(error => console.log(error.response.data.message))
       },
       addUser() {
         if (this.$refs.form.validate()) {

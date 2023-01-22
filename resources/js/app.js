@@ -56,6 +56,9 @@ Vue.component('notifications', require('./components/pages/Notification').defaul
 
 Vue.component('reports', require('./components/pages/Reports/Index').default);
 
+Vue.component('roles', require('./components/pages/Roles/Index').default);
+Vue.component('roles-create', require('./components/pages/Roles/Create').default);
+
 const app = new Vue({
     el: '#app',
     vuetify: new Vuetify(),

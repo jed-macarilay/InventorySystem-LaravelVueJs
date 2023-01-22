@@ -18,7 +18,7 @@
   import Snackbar from '../../templates/Snackbar.vue'
 
   export default {
-    name: "Inventory",
+    name: "Category",
     components: {
       Snackbar,
     },
